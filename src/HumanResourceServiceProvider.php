@@ -80,6 +80,11 @@ class HumanResourceServiceProvider extends AuthServiceProvider
     {
         Livewire::component('human_resource::dashboard', \Dainsys\HumanResource\Http\Livewire\Admin\Dashboard::class);
 
+        Livewire::component('human_resource::afp.table', \Dainsys\HumanResource\Http\Livewire\Afp\Table::class);
+        Livewire::component('human_resource::afp.index', \Dainsys\HumanResource\Http\Livewire\Afp\Index::class);
+        Livewire::component('human_resource::afp.detail', \Dainsys\HumanResource\Http\Livewire\Afp\Detail::class);
+        Livewire::component('human_resource::afp.form', \Dainsys\HumanResource\Http\Livewire\Afp\Form::class);
+
         Livewire::component('human_resource::citizenship.table', \Dainsys\HumanResource\Http\Livewire\Citizenship\Table::class);
         Livewire::component('human_resource::citizenship.index', \Dainsys\HumanResource\Http\Livewire\Citizenship\Index::class);
         Livewire::component('human_resource::citizenship.detail', \Dainsys\HumanResource\Http\Livewire\Citizenship\Detail::class);

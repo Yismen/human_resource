@@ -17,6 +17,7 @@ Route::middleware(['web'])->group(function () {
         )->group(function () {
             Route::get('dashboard', function () {})->name('dashboard.index');
 
+            Route::get('afps', \Dainsys\HumanResource\Http\Livewire\Afp\Index::class)->name('afps.index')->can('viewAny', \Dainsys\HumanResource\Models\Afp::class);
             Route::get('citizenships', \Dainsys\HumanResource\Http\Livewire\Citizenship\Index::class)->name('citizenships.index')->can('viewAny', \Dainsys\HumanResource\Models\Citizenship::class);
             Route::get('departments', \Dainsys\HumanResource\Http\Livewire\Department\Index::class)->name('departments.index')->can('viewAny', \Dainsys\HumanResource\Models\Department::class);
             Route::get('payment_types', \Dainsys\HumanResource\Http\Livewire\PaymentType\Index::class)->name('payment_types.index')->can('viewAny', \Dainsys\HumanResource\Models\PaymentType::class);
