@@ -18,6 +18,7 @@ Route::middleware(['web'])->group(function () {
         )->group(function () {
             Route::get('dashboard', function () {})->name('dashboard.index');
 
+            Route::get('projects', \Dainsys\HumanResource\Http\Livewire\Project\Index::class)->name('projects.index')->can('viewAny', Site::class);
             Route::get('sites', \Dainsys\HumanResource\Http\Livewire\Site\Index::class)->name('sites.index')->can('viewAny', Site::class);
         });
 });
