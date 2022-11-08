@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Dainsys\HumanResource\Models\Site;
 
 Route::middleware(['web'])->group(function () {
     // Guest Routes
@@ -18,7 +17,8 @@ Route::middleware(['web'])->group(function () {
         )->group(function () {
             Route::get('dashboard', function () {})->name('dashboard.index');
 
-            Route::get('projects', \Dainsys\HumanResource\Http\Livewire\Project\Index::class)->name('projects.index')->can('viewAny', Site::class);
-            Route::get('sites', \Dainsys\HumanResource\Http\Livewire\Site\Index::class)->name('sites.index')->can('viewAny', Site::class);
+            Route::get('projects', \Dainsys\HumanResource\Http\Livewire\Project\Index::class)->name('projects.index')->can('viewAny', \Dainsys\HumanResource\Models\Project::class);
+            Route::get('sites', \Dainsys\HumanResource\Http\Livewire\Site\Index::class)->name('sites.index')->can('viewAny', \Dainsys\HumanResource\Models\Site::class);
+            Route::get('departments', \Dainsys\HumanResource\Http\Livewire\Department\Index::class)->name('departments.index')->can('viewAny', \Dainsys\HumanResource\Models\Department::class);
         });
 });

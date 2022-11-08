@@ -3,11 +3,11 @@
 namespace Dainsys\HumanResource\Policies;
 
 use Illuminate\Foundation\Auth\User;
-use Dainsys\HumanResource\Models\Project;
+use Dainsys\HumanResource\Models\Department;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Dainsys\HumanResource\Policies\Traits\HasAdminCheck;
 
-class ProjectPolicy
+class DepartmentPolicy
 {
     use HasAdminCheck;
     use HandlesAuthorization;
@@ -27,10 +27,10 @@ class ProjectPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User                      $user
-     * @param  \App\Models\Project                   $site
+     * @param  \App\Models\Department                      $site
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Project $site)
+    public function view(User $user, Department $site)
     {
         return false;
     }
@@ -50,10 +50,10 @@ class ProjectPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User                      $user
-     * @param  \App\Models\Project                   $site
+     * @param  \App\Models\Department                      $site
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Project $site)
+    public function update(User $user, Department $site)
     {
         return false;
     }
@@ -62,10 +62,10 @@ class ProjectPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User                      $user
-     * @param  \App\Models\Project                   $site
+     * @param  \App\Models\Department                      $site
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Project $site)
+    public function delete(User $user, Department $site)
     {
         return false;
     }
@@ -74,10 +74,10 @@ class ProjectPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User                      $user
-     * @param  \App\Models\Project                   $site
+     * @param  \App\Models\Department                      $site
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Project $site)
+    public function restore(User $user, Department $site)
     {
         return false;
     }
@@ -86,10 +86,10 @@ class ProjectPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User                      $user
-     * @param  \App\Models\Project                   $site
+     * @param  \App\Models\Department                      $site
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Project $site)
+    public function forceDelete(User $user, Department $site)
     {
         return false;
     }

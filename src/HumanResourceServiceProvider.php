@@ -13,7 +13,9 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
 class HumanResourceServiceProvider extends AuthServiceProvider
 {
     protected $policies = [
-        \Dainsys\HumanResource\Models\Site::class => \Dainsys\HumanResource\Policies\SitePolicy::class
+        \Dainsys\HumanResource\Models\Department::class => \Dainsys\HumanResource\Policies\DepartmentPolicy::class,
+        \Dainsys\HumanResource\Models\Project::class => \Dainsys\HumanResource\Policies\ProjectPolicy::class,
+        \Dainsys\HumanResource\Models\Site::class => \Dainsys\HumanResource\Policies\SitePolicy::class,
     ];
 
     public function boot()
@@ -77,6 +79,11 @@ class HumanResourceServiceProvider extends AuthServiceProvider
     protected function bootLivewireComponents()
     {
         Livewire::component('human_resource::dashboard', \Dainsys\HumanResource\Http\Livewire\Admin\Dashboard::class);
+
+        Livewire::component('human_resource::department.table', \Dainsys\HumanResource\Http\Livewire\Department\Table::class);
+        Livewire::component('human_resource::department.index', \Dainsys\HumanResource\Http\Livewire\Department\Index::class);
+        Livewire::component('human_resource::department.detail', \Dainsys\HumanResource\Http\Livewire\Department\Detail::class);
+        Livewire::component('human_resource::department.form', \Dainsys\HumanResource\Http\Livewire\Department\Form::class);
 
         Livewire::component('human_resource::project.table', \Dainsys\HumanResource\Http\Livewire\Project\Table::class);
         Livewire::component('human_resource::project.index', \Dainsys\HumanResource\Http\Livewire\Project\Index::class);
