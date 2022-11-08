@@ -21,5 +21,6 @@ Route::middleware(['web'])->group(function () {
             Route::get('payment_types', \Dainsys\HumanResource\Http\Livewire\PaymentType\Index::class)->name('payment_types.index')->can('viewAny', \Dainsys\HumanResource\Models\PaymentType::class);
             Route::get('projects', \Dainsys\HumanResource\Http\Livewire\Project\Index::class)->name('projects.index')->can('viewAny', \Dainsys\HumanResource\Models\Project::class);
             Route::get('sites', \Dainsys\HumanResource\Http\Livewire\Site\Index::class)->name('sites.index')->can('viewAny', \Dainsys\HumanResource\Models\Site::class);
+            Route::get('supervisors', \Dainsys\HumanResource\Http\Livewire\Supervisor\Index::class)->name('supervisors.index')->can('viewAny', \Dainsys\HumanResource\Models\Supervisor::class);
         });
 });

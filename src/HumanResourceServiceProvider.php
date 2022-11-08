@@ -99,5 +99,10 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         Livewire::component('human_resource::site.index', \Dainsys\HumanResource\Http\Livewire\Site\Index::class);
         Livewire::component('human_resource::site.detail', \Dainsys\HumanResource\Http\Livewire\Site\Detail::class);
         Livewire::component('human_resource::site.form', \Dainsys\HumanResource\Http\Livewire\Site\Form::class);
+
+        Livewire::component('human_resource::supervisor.table', \Dainsys\HumanResource\Http\Livewire\Supervisor\Table::class);
+        Livewire::component('human_resource::supervisor.index', \Dainsys\HumanResource\Http\Livewire\Supervisor\Index::class);
+        Livewire::component('human_resource::supervisor.detail', \Dainsys\HumanResource\Http\Livewire\Supervisor\Detail::class);
+        Livewire::component('human_resource::supervisor.form', \Dainsys\HumanResource\Http\Livewire\Supervisor\Form::class);
     }
 }
