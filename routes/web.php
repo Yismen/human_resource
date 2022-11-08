@@ -26,6 +26,7 @@ Route::middleware(['web'])->group(function () {
             Route::get('projects', \Dainsys\HumanResource\Http\Livewire\Project\Index::class)->name('projects.index')->can('viewAny', \Dainsys\HumanResource\Models\Project::class);
             Route::get('sites', \Dainsys\HumanResource\Http\Livewire\Site\Index::class)->name('sites.index')->can('viewAny', \Dainsys\HumanResource\Models\Site::class);
             Route::get('termination_types', \Dainsys\HumanResource\Http\Livewire\TerminationType\Index::class)->name('termination_types.index')->can('viewAny', \Dainsys\HumanResource\Models\TerminationType::class);
+            Route::get('termination_reasons', \Dainsys\HumanResource\Http\Livewire\TerminationReason\Index::class)->name('termination_reasons.index')->can('viewAny', \Dainsys\HumanResource\Models\TerminationReason::class);
             Route::get('supervisors', \Dainsys\HumanResource\Http\Livewire\Supervisor\Index::class)->name('supervisors.index')->can('viewAny', \Dainsys\HumanResource\Models\Supervisor::class);
         });
 });
