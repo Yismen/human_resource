@@ -17,8 +17,9 @@ Route::middleware(['web'])->group(function () {
         )->group(function () {
             Route::get('dashboard', function () {})->name('dashboard.index');
 
+            Route::get('departments', \Dainsys\HumanResource\Http\Livewire\Department\Index::class)->name('departments.index')->can('viewAny', \Dainsys\HumanResource\Models\Department::class);
+            Route::get('payment_types', \Dainsys\HumanResource\Http\Livewire\PaymentType\Index::class)->name('payment_types.index')->can('viewAny', \Dainsys\HumanResource\Models\PaymentType::class);
             Route::get('projects', \Dainsys\HumanResource\Http\Livewire\Project\Index::class)->name('projects.index')->can('viewAny', \Dainsys\HumanResource\Models\Project::class);
             Route::get('sites', \Dainsys\HumanResource\Http\Livewire\Site\Index::class)->name('sites.index')->can('viewAny', \Dainsys\HumanResource\Models\Site::class);
-            Route::get('departments', \Dainsys\HumanResource\Http\Livewire\Department\Index::class)->name('departments.index')->can('viewAny', \Dainsys\HumanResource\Models\Department::class);
         });
 });

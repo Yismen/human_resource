@@ -90,6 +90,11 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         Livewire::component('human_resource::project.detail', \Dainsys\HumanResource\Http\Livewire\Project\Detail::class);
         Livewire::component('human_resource::project.form', \Dainsys\HumanResource\Http\Livewire\Project\Form::class);
 
+        Livewire::component('human_resource::payment_type.table', \Dainsys\HumanResource\Http\Livewire\PaymentType\Table::class);
+        Livewire::component('human_resource::payment_type.index', \Dainsys\HumanResource\Http\Livewire\PaymentType\Index::class);
+        Livewire::component('human_resource::payment_type.detail', \Dainsys\HumanResource\Http\Livewire\PaymentType\Detail::class);
+        Livewire::component('human_resource::payment_type.form', \Dainsys\HumanResource\Http\Livewire\PaymentType\Form::class);
+
         Livewire::component('human_resource::site.table', \Dainsys\HumanResource\Http\Livewire\Site\Table::class);
         Livewire::component('human_resource::site.index', \Dainsys\HumanResource\Http\Livewire\Site\Index::class);
         Livewire::component('human_resource::site.detail', \Dainsys\HumanResource\Http\Livewire\Site\Detail::class);
