@@ -12,7 +12,7 @@ class IndexTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function terminationtypes_index_route_requires_authentication()
+    public function termination_types_index_route_requires_authentication()
     {
         $response = $this->get(route('human_resource.admin.termination_types.index'));
 
@@ -20,17 +20,17 @@ class IndexTest extends TestCase
     }
 
     // /** @test */
-    // public function terminationtypes_index_route_requires_authorization()
+    // public function termination_types_index_route_requires_authorization()
     // {
     //     $this->withoutAuthorizedUser();
 
-    //     $response = $this->get(route('human_resource.admin.terminationtypes.index'));
+    //     $response = $this->get(route('human_resource.admin.termination_types.index'));
 
     //     $response->assertForbidden();
     // }
 
     /** @test */
-    public function terminationtypes_index_route_exists()
+    public function termination_types_index_route_exists()
     {
         $this->withAuthorizedUser();
 
@@ -40,7 +40,7 @@ class IndexTest extends TestCase
     }
 
     /** @test */
-    public function terminationtype_index_component_requires_authorization()
+    public function termination_type_index_component_requires_authorization()
     {
         $component = Livewire::test(Index::class);
 
@@ -48,7 +48,7 @@ class IndexTest extends TestCase
     }
 
     /** @test */
-    public function terminationtype_index_component_renders_properly()
+    public function termination_type_index_component_renders_properly()
     {
         $this->withAuthorizedUser();
         $component = Livewire::test(Index::class);

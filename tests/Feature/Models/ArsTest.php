@@ -11,7 +11,7 @@ class ArsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function arss_model_interacts_with_departments_table()
+    public function arss_model_interacts_with_db_table()
     {
         $data = Ars::factory()->make();
 

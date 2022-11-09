@@ -47,6 +47,9 @@ Route::middleware(['web'])->group(function () {
             Route::get('sites', \Dainsys\HumanResource\Http\Livewire\Site\Index::class)
                 ->name('sites.index')
                 ->can('viewAny', \Dainsys\HumanResource\Models\Site::class);
+            Route::get('suspension_types', \Dainsys\HumanResource\Http\Livewire\SuspensionType\Index::class)
+                ->name('suspension_types.index')
+                ->can('viewAny', \Dainsys\HumanResource\Models\SuspensionType::class);
             Route::get('termination_types', \Dainsys\HumanResource\Http\Livewire\TerminationType\Index::class)
                 ->name('termination_types.index')
                 ->can('viewAny', \Dainsys\HumanResource\Models\TerminationType::class);

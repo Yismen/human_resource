@@ -11,7 +11,7 @@ class AfpTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function afps_model_interacts_with_departments_table()
+    public function afps_model_interacts_with_db_table()
     {
         $data = Afp::factory()->make();
 

@@ -1,26 +1,26 @@
 <?php
 
-namespace Dainsys\HumanResource\Http\Livewire\TerminationType;
+namespace Dainsys\HumanResource\Http\Livewire\SuspensionType;
 
-use Dainsys\HumanResource\Models\TerminationType;
+use Dainsys\HumanResource\Models\SuspensionType;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Dainsys\HumanResource\Http\Livewire\AbstractDataTableComponent;
 
 class Table extends AbstractDataTableComponent
 {
-    protected string $module = 'TerminationType';
+    protected string $module = 'SuspensionType';
     protected $listeners = [
-        'termination_typeUpdated' => '$refresh'
+        'suspension_typeUpdated' => '$refresh'
     ];
 
     public function builder(): Builder
     {
-        return TerminationType::query()
+        return SuspensionType::query()
             ->select(['name', 'id'])
             // ->withCount('products')
             // ->withCount('sales')
-            // ->withCount('termination_typeType')
+            // ->withCount('suspension_typeType')
             ;
     }
 

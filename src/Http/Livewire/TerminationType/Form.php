@@ -19,16 +19,16 @@ class Form extends Component
     public bool $editing = false;
     public string $modal_event_name_form = 'showTerminationTypeFormModal';
 
-    public $terminationtype;
+    public $termination_type;
 
     protected function getRules()
     {
         return [
-            'terminationtype.name' => [
+            'termination_type.name' => [
                 'required',
-                Rule::unique(tableName('termination_types'), 'name')->ignore($this->terminationtype->id ?? 0)
+                Rule::unique(tableName('termination_types'), 'name')->ignore($this->termination_type->id ?? 0)
             ],
-            'terminationtype.description' => [
+            'termination_type.description' => [
                 'nullable'
             ]
         ];
@@ -43,8 +43,8 @@ class Form extends Component
 
     public function createTerminationType()
     {
-        $this->terminationtype = new TerminationType();
-        $this->authorize('create', $this->terminationtype);
+        $this->termination_type = new TerminationType();
+        $this->authorize('create', $this->termination_type);
         $this->editing = false;
 
         $this->resetValidation();
@@ -53,10 +53,10 @@ class Form extends Component
         $this->dispatchBrowserEvent($this->modal_event_name_form);
     }
 
-    public function updateTerminationType(TerminationType $terminationtype)
+    public function updateTerminationType(TerminationType $termination_type)
     {
-        $this->terminationtype = $terminationtype;
-        $this->authorize('update', $this->terminationtype);
+        $this->termination_type = $termination_type;
+        $this->authorize('update', $this->termination_type);
         $this->editing = true;
 
         $this->resetValidation();
@@ -72,21 +72,21 @@ class Form extends Component
 
         $this->editing = false;
 
-        $this->terminationtype->save();
+        $this->termination_type->save();
 
         $this->dispatchBrowserEvent('closeAllModals');
 
-        $this->emit('terminationtypeUpdated');
+        $this->emit('termination_typeUpdated');
 
         flashMessage('TerminationType created!', 'success');
     }
 
     public function update()
     {
-        $this->authorize('update', $this->terminationtype);
+        $this->authorize('update', $this->termination_type);
         $this->validate();
 
-        $this->terminationtype->save();
+        $this->termination_type->save();
 
         $this->dispatchBrowserEvent('closeAllModals');
 
@@ -94,6 +94,6 @@ class Form extends Component
 
         $this->editing = false;
 
-        $this->emit('terminationtypeUpdated');
+        $this->emit('termination_typeUpdated');
     }
 }

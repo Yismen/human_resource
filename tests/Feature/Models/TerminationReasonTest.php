@@ -11,7 +11,7 @@ class TerminationReasonTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function termination_reasons_model_interacts_with_departments_table()
+    public function termination_reasons_model_interacts_with_db_table()
     {
         $data = TerminationReason::factory()->make();
 

@@ -11,7 +11,7 @@ class CitizenshipTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function citizenships_model_interacts_with_departments_table()
+    public function citizenships_model_interacts_with_db_table()
     {
         $data = Citizenship::factory()->make();
 

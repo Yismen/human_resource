@@ -11,7 +11,7 @@ class BankTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function banks_model_interacts_with_departments_table()
+    public function banks_model_interacts_with_db_table()
     {
         $data = Bank::factory()->make();
 

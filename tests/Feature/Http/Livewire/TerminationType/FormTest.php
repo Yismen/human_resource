@@ -13,27 +13,27 @@ class FormTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function terminationtype_form_requires_authorization_to_create()
+    public function termination_type_form_requires_authorization_to_create()
     {
-        $terminationtype = TerminationType::factory()->create();
+        $termination_type = TerminationType::factory()->create();
         $component = Livewire::test(Form::class)
-            ->emit('createTerminationType', $terminationtype->id);
+            ->emit('createTerminationType', $termination_type->id);
 
         $component->assertForbidden();
     }
 
     /** @test */
-    public function terminationtype_form_requires_authorization_to_update()
+    public function termination_type_form_requires_authorization_to_update()
     {
-        $terminationtype = TerminationType::factory()->create();
+        $termination_type = TerminationType::factory()->create();
         $component = Livewire::test(Form::class)
-            ->emit('updateTerminationType', $terminationtype->id);
+            ->emit('updateTerminationType', $termination_type->id);
 
         $component->assertForbidden();
     }
 
     /** @test */
-    public function terminationtype_index_component_responds_to_wants_create_terminationtype_event()
+    public function termination_type_index_component_responds_to_wants_create_termination_type_event()
     {
         $this->withAuthorizedUser();
         $component = Livewire::test(Form::class)
@@ -45,7 +45,7 @@ class FormTest extends TestCase
     }
 
     /** @test */
-    public function terminationtype_index_component_responds_to_wants_edit_terminationtype_event()
+    public function termination_type_index_component_responds_to_wants_edit_termination_type_event()
     {
         $this->withAuthorizedUser();
         $component = Livewire::test(Form::class)
@@ -57,68 +57,68 @@ class FormTest extends TestCase
     }
 
     /** @test */
-    public function terminationtype_index_component_create_new_record()
+    public function termination_type_index_component_create_new_record()
     {
         $this->withAuthorizedUser();
         $data = ['name' => 'New TerminationType', 'description' => 'new description'];
         $component = Livewire::test(Form::class)
-            ->set('terminationtype', new TerminationType($data));
+            ->set('termination_type', new TerminationType($data));
 
         $component->call('store');
         $component->assertSet('editing', false);
         $component->assertDispatchedBrowserEvent('closeAllModals');
-        $component->assertEmitted('terminationtypeUpdated');
+        $component->assertEmitted('termination_typeUpdated');
 
         $this->assertDatabaseHas(tableName('termination_types'), $data);
     }
 
     /** @test */
-    public function terminationtype_index_component_update_record()
+    public function termination_type_index_component_update_record()
     {
         $this->withAuthorizedUser();
-        $terminationtype = TerminationType::factory()->create(['name' => 'New TerminationType', 'description' => 'New description']);
+        $termination_type = TerminationType::factory()->create(['name' => 'New TerminationType', 'description' => 'New description']);
         $component = Livewire::test(Form::class)
-            ->set('terminationtype', $terminationtype)
-            ->set('terminationtype.name', 'Updated TerminationType')
-            ->set('terminationtype.description', 'Updated description');
+            ->set('termination_type', $termination_type)
+            ->set('termination_type.name', 'Updated TerminationType')
+            ->set('termination_type.description', 'Updated description');
 
         $component->call('update');
 
         $component->assertSet('editing', false);
         $component->assertDispatchedBrowserEvent('closeAllModals');
-        $component->assertEmitted('terminationtypeUpdated');
+        $component->assertEmitted('termination_typeUpdated');
         $this->assertDatabaseHas(tableName('termination_types'), ['name' => 'Updated TerminationType', 'description' => 'Updated description']);
     }
 
     /** @test */
-    public function terminationtype_index_component_validates_required_fields()
+    public function termination_type_index_component_validates_required_fields()
     {
         $this->withAuthorizedUser();
         $data = ['name' => ''];
         $component = Livewire::test(Form::class)
-            ->set('terminationtype', new TerminationType($data));
+            ->set('termination_type', new TerminationType($data));
 
         $component->call('store');
-        $component->assertHasErrors(['terminationtype.name' => 'required']);
+        $component->assertHasErrors(['termination_type.name' => 'required']);
 
         $component->call('update');
-        $component->assertHasErrors(['terminationtype.name' => 'required']);
+        $component->assertHasErrors(['termination_type.name' => 'required']);
     }
 
     /** @test */
-    public function terminationtype_index_component_validates_unique_fields()
+    public function termination_type_index_component_validates_unique_fields()
     {
         $this->withAuthorizedUser();
         $data = ['name' => 'New Name'];
-        $terminationtype = TerminationType::factory()->create($data);
+        $termination_type = TerminationType::factory()->create($data);
 
         $component = Livewire::test(Form::class)
-            ->set('terminationtype.name', $terminationtype->name);
+            ->set('termination_type.name', $termination_type->name);
 
         $component->call('store');
-        $component->assertHasErrors(['terminationtype.name' => 'unique']);
+        $component->assertHasErrors(['termination_type.name' => 'unique']);
 
-        $component->set('terminationtype', $terminationtype)->call('update');
-        $component->assertHasNoErrors(['terminationtype.name' => 'unique']);
+        $component->set('termination_type', $termination_type)->call('update');
+        $component->assertHasNoErrors(['termination_type.name' => 'unique']);
     }
 }

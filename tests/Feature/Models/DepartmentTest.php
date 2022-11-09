@@ -11,7 +11,7 @@ class DepartmentTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function departments_model_interacts_with_departments_table()
+    public function departments_model_interacts_with_db_table()
     {
         $data = Department::factory()->make();
 

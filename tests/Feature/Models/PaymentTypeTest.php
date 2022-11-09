@@ -11,7 +11,7 @@ class PaymentTypeTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function payment_types_model_interacts_with_departments_table()
+    public function payment_types_model_interacts_with_db_table()
     {
         $data = PaymentType::factory()->make();
 

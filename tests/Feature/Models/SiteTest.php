@@ -11,7 +11,7 @@ class SiteTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function sites_model_interacts_with_departments_table()
+    public function sites_model_interacts_with_db_table()
     {
         $data = Site::factory()->make();
 

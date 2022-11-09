@@ -11,7 +11,7 @@ class ProjectTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function projects_model_interacts_with_departments_table()
+    public function projects_model_interacts_with_db_table()
     {
         $data = Project::factory()->make();
 

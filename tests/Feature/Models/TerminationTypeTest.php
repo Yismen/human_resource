@@ -11,7 +11,7 @@ class TerminationTypeTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function termination_types_model_interacts_with_departments_table()
+    public function termination_types_model_interacts_with_db_table()
     {
         $data = TerminationType::factory()->make();
 

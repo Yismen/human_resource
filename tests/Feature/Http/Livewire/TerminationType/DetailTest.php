@@ -13,17 +13,17 @@ class DetailTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function terminationtype_detail_requires_authorization()
+    public function termination_type_detail_requires_authorization()
     {
-        $terminationtype = TerminationType::factory()->create();
+        $termination_type = TerminationType::factory()->create();
         $component = Livewire::test(Detail::class)
-            ->emit('showTerminationType', $terminationtype->id);
+            ->emit('showTerminationType', $termination_type->id);
 
         $component->assertForbidden();
     }
 
     /** @test */
-    public function terminationtype_index_component_responds_to_wants_show_terminationtype_event()
+    public function termination_type_index_component_responds_to_wants_show_termination_type_event()
     {
         $this->withAuthorizedUser();
         $component = Livewire::test(Detail::class)
