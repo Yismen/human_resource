@@ -32,6 +32,9 @@ Route::middleware(['web'])->group(function () {
             Route::get('departments', \Dainsys\HumanResource\Http\Livewire\Department\Index::class)
                 ->name('departments.index')
                 ->can('viewAny', \Dainsys\HumanResource\Models\Department::class);
+            Route::get('employees', \Dainsys\HumanResource\Http\Livewire\Employee\Index::class)
+                ->name('employees.index')
+                ->can('viewAny', \Dainsys\HumanResource\Models\Employee::class);
             Route::get('payment_types', \Dainsys\HumanResource\Http\Livewire\PaymentType\Index::class)
                 ->name('payment_types.index')
                 ->can('viewAny', \Dainsys\HumanResource\Models\PaymentType::class);

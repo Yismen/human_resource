@@ -103,7 +103,12 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         Livewire::component('human_resource::department.table', \Dainsys\HumanResource\Http\Livewire\Department\Table::class);
         Livewire::component('human_resource::department.index', \Dainsys\HumanResource\Http\Livewire\Department\Index::class);
         Livewire::component('human_resource::department.detail', \Dainsys\HumanResource\Http\Livewire\Department\Detail::class);
-        Livewire::component('human_resource::department.form', \Dainsys\HumanResource\Http\Livewire\Department\Form::class);
+        Livewire::component('human_resource::department.form', \Dainsys\HumanResource\Http\Livewire\Department\Form::class);        
+
+        Livewire::component('human_resource::employee.table', \Dainsys\HumanResource\Http\Livewire\Employee\Table::class);
+        Livewire::component('human_resource::employee.index', \Dainsys\HumanResource\Http\Livewire\Employee\Index::class);
+        Livewire::component('human_resource::employee.detail', \Dainsys\HumanResource\Http\Livewire\Employee\Detail::class);
+        Livewire::component('human_resource::employee.form', \Dainsys\HumanResource\Http\Livewire\Employee\Form::class);
 
         Livewire::component('human_resource::project.table', \Dainsys\HumanResource\Http\Livewire\Project\Table::class);
         Livewire::component('human_resource::project.index', \Dainsys\HumanResource\Http\Livewire\Project\Index::class);
