@@ -14,11 +14,7 @@ class EmployeeStatusTest extends TestCase
         $this->assertEquals([
             'Active',
             'Inactive',
-            'Vacations',
-            'Medical Leave',
-            'Marriage',
-            'Child Birth',
-            'Family Death',
+            'Suspended',
         ], $enums->values());
     }
 
@@ -30,11 +26,7 @@ class EmployeeStatusTest extends TestCase
         $this->assertEquals([
             'Active' => 'Active',
             'Inactive' => 'Inactive',
-            'Vacations' => 'Vacations',
-            'Medical Leave' => 'Medical Leave',
-            'Marriage' => 'Marriage',
-            'Child Birth' => 'Child Birth',
-            'Family Death' => 'Family Death',
+            'Suspended' => 'Suspended',
         ], $enums->all());
     }
 }
