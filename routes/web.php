@@ -56,6 +56,9 @@ Route::middleware(['web'])->group(function () {
             Route::get('termination_reasons', \Dainsys\HumanResource\Http\Livewire\TerminationReason\Index::class)
                 ->name('termination_reasons.index')
                 ->can('viewAny', \Dainsys\HumanResource\Models\TerminationReason::class);
+            Route::get('terminations', \Dainsys\HumanResource\Http\Livewire\Termination\Index::class)
+                ->name('terminations.index')
+                ->can('viewAny', \Dainsys\HumanResource\Models\Termination::class);
             Route::get('supervisors', \Dainsys\HumanResource\Http\Livewire\Supervisor\Index::class)
                 ->name('supervisors.index')
                 ->can('viewAny', \Dainsys\HumanResource\Models\Supervisor::class);
