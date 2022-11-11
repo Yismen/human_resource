@@ -103,7 +103,7 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         Livewire::component('human_resource::department.table', \Dainsys\HumanResource\Http\Livewire\Department\Table::class);
         Livewire::component('human_resource::department.index', \Dainsys\HumanResource\Http\Livewire\Department\Index::class);
         Livewire::component('human_resource::department.detail', \Dainsys\HumanResource\Http\Livewire\Department\Detail::class);
-        Livewire::component('human_resource::department.form', \Dainsys\HumanResource\Http\Livewire\Department\Form::class);        
+        Livewire::component('human_resource::department.form', \Dainsys\HumanResource\Http\Livewire\Department\Form::class);
 
         Livewire::component('human_resource::employee.table', \Dainsys\HumanResource\Http\Livewire\Employee\Table::class);
         Livewire::component('human_resource::employee.index', \Dainsys\HumanResource\Http\Livewire\Employee\Index::class);
@@ -149,6 +149,11 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         Livewire::component('human_resource::termination_reason.index', \Dainsys\HumanResource\Http\Livewire\TerminationReason\Index::class);
         Livewire::component('human_resource::termination_reason.detail', \Dainsys\HumanResource\Http\Livewire\TerminationReason\Detail::class);
         Livewire::component('human_resource::termination_reason.form', \Dainsys\HumanResource\Http\Livewire\TerminationReason\Form::class);
+
+        Livewire::component('human_resource::suspension.table', \Dainsys\HumanResource\Http\Livewire\Suspension\Table::class);
+        Livewire::component('human_resource::suspension.index', \Dainsys\HumanResource\Http\Livewire\Suspension\Index::class);
+        Livewire::component('human_resource::suspension.detail', \Dainsys\HumanResource\Http\Livewire\Suspension\Detail::class);
+        Livewire::component('human_resource::suspension.form', \Dainsys\HumanResource\Http\Livewire\Suspension\Form::class);
 
         Livewire::component('human_resource::termination.table', \Dainsys\HumanResource\Http\Livewire\Termination\Table::class);
         Livewire::component('human_resource::termination.index', \Dainsys\HumanResource\Http\Livewire\Termination\Index::class);

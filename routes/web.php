@@ -62,5 +62,8 @@ Route::middleware(['web'])->group(function () {
             Route::get('supervisors', \Dainsys\HumanResource\Http\Livewire\Supervisor\Index::class)
                 ->name('supervisors.index')
                 ->can('viewAny', \Dainsys\HumanResource\Models\Supervisor::class);
+            Route::get('suspensions', \Dainsys\HumanResource\Http\Livewire\Suspension\Index::class)
+                ->name('suspensions.index')
+                ->can('viewAny', \Dainsys\HumanResource\Models\Suspension::class);
         });
 });
