@@ -13,7 +13,7 @@ class Index extends Component
     public function render()
     {
         $this->authorize('viewAny', new Site());
-        
+
         return view('human_resource::livewire.site.index', [
         ])
         ->layout('human_resource::layouts.app');
