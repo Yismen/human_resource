@@ -8,8 +8,6 @@ use Dainsys\HumanResource\Database\Factories\CitizenshipFactory;
 
 class Citizenship extends AbstractModel
 {
-    use HasInformation;
-    use HasImages;
 
     protected $fillable = ['name', 'description'];
 
