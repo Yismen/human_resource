@@ -11,16 +11,15 @@ class Table extends AbstractDataTableComponent
 {
     protected string $module = 'Site';
     protected $listeners = [
-        'siteUpdated' => '$refresh'
+        'siteUpdated' => '$refresh',
+        'informationUpdated' => '$refresh',
     ];
 
     public function builder(): Builder
     {
         return Site::query()
             ->select(['name', 'id'])
-            // ->withCount('products')
-            // ->withCount('sales')
-            // ->withCount('siteType')
+            ->with(['information'])
             ;
     }
 
@@ -30,6 +29,8 @@ class Table extends AbstractDataTableComponent
             Column::make('Name')
                 ->sortable()
                 ->searchable(),
+            Column::make('Phone')
+                ->label(fn ($row) => optional($row->information)->phone),
             Column::make('Actions', 'id')
                 ->view('human_resource::tables.actions'),
         ];
