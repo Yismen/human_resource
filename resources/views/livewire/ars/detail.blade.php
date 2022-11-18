@@ -1,4 +1,6 @@
 <div>
+    <livewire:human_resource::information.form />
+
     <x-human_resource::modal title="{{ __('Ars') }} - {{ $ars->name ?? '' }}" modal-name="ArsDetails"
         event-name="{{ $this->modal_event_name_detail }}">
 
@@ -14,6 +16,9 @@
                 </tr>
             </tbody>
         </table>
+
+        <x-human_resource::information.detail :information="$ars->information ?? ''" model-name='Ars'
+            :model-id="$ars->id ?? ''" />
 
         <x-slot name="footer">
             <button class="btn btn-warning btn-sm" wire:click='$emit("updateArs", {{ $ars->id ?? '' }})'>{{

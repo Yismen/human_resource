@@ -47,6 +47,10 @@ class HumanResourceServiceProvider extends AuthServiceProvider
             return new \Dainsys\HumanResource\Support\AuthorizedUsers();
         });
 
+        $this->app->singleton(\Dainsys\HumanResource\Contracts\InstanceFromNameContract::class, function ($app) {
+            return new \Dainsys\HumanResource\Services\Instances\FromModel('Dainsys\\HumanResource\\Models');
+        });
+
         $this->mergeConfigFrom(
             __DIR__ . '/../config/human_resource.php',
             'human_resource'
@@ -109,6 +113,11 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         Livewire::component('human_resource::employee.index', \Dainsys\HumanResource\Http\Livewire\Employee\Index::class);
         Livewire::component('human_resource::employee.detail', \Dainsys\HumanResource\Http\Livewire\Employee\Detail::class);
         Livewire::component('human_resource::employee.form', \Dainsys\HumanResource\Http\Livewire\Employee\Form::class);
+
+        Livewire::component('human_resource::information.table', \Dainsys\HumanResource\Http\Livewire\Information\Table::class);
+        Livewire::component('human_resource::information.index', \Dainsys\HumanResource\Http\Livewire\Information\Index::class);
+        Livewire::component('human_resource::information.detail', \Dainsys\HumanResource\Http\Livewire\Information\Detail::class);
+        Livewire::component('human_resource::information.form', \Dainsys\HumanResource\Http\Livewire\Information\Form::class);
 
         Livewire::component('human_resource::project.table', \Dainsys\HumanResource\Http\Livewire\Project\Table::class);
         Livewire::component('human_resource::project.index', \Dainsys\HumanResource\Http\Livewire\Project\Index::class);

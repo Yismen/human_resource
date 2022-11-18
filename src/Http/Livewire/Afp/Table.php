@@ -10,6 +10,7 @@ use Dainsys\HumanResource\Http\Livewire\AbstractDataTableComponent;
 class Table extends AbstractDataTableComponent
 {
     protected string $module = 'Afp';
+
     protected $listeners = [
         'afpUpdated' => '$refresh'
     ];
