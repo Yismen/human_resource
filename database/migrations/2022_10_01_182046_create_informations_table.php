@@ -15,15 +15,13 @@ class CreateInformationsTable extends Migration
     {
         Schema::create(tableName('informations'), function (Blueprint $table) {
             $table->id();
-            $table->string('identifier');
-            $table->string('address');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('url');
-            $table->string('socials');
-            $table->text('description');
-            $table->integer('informationable_id');
-            $table->string('informationable_type');
+            $table->string('phone', 50);
+            $table->string('email', 200)->nullable();
+            $table->string('photo_url', 2000)->nullable();
+            $table->text('address')->nullable();
+            $table->string('company_id', 200)->comment('Internal company id, like a punch id. Can also be the company tax id or any other unique identifier')->nullable();
+            $table->integer('informationable_id')->unsigned();
+            $table->string('informationable_type', 200);
             $table->timestamps();
         });
     }

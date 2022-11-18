@@ -11,7 +11,7 @@
 
         <x-human_resource::form :editing="$editing">
             <div class="p-3">
-                <x-human_resource::inputs.with-labels field="termination_reason.name">Name:
+                <x-human_resource::inputs.with-labels field="termination_reason.name">{{ __('Name') }}:
                 </x-human_resource::inputs.with-labels>
 
                 <x-human_resource::inputs.text-area field="termination_reason.description" :required="false">{{

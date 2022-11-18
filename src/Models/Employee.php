@@ -2,14 +2,12 @@
 
 namespace Dainsys\HumanResource\Models;
 
-use Dainsys\HumanResource\Models\Traits\HasImages;
 use Dainsys\HumanResource\Models\Traits\HasInformation;
 use Dainsys\HumanResource\Database\Factories\EmployeeFactory;
 
 class Employee extends AbstractModel
 {
     use HasInformation;
-    use HasImages;
 
     protected $fillable = ['first_name', 'second_firt_name', 'last_name', 'second_last_name', 'full_name', 'personal_id', 'hired_at', 'date_of_birth', 'cellphone', 'status', 'marriage', 'gender', 'kids'];
 
