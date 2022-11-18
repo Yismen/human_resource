@@ -31,6 +31,8 @@ class Table extends AbstractDataTableComponent
                 ->searchable(),
             Column::make('Phone')
                 ->label(fn ($row) => optional($row->information)->phone),
+            Column::make('Email')
+                ->label(fn ($row) => optional($row->information)->email),
             Column::make('Actions', 'id')
                 ->view('human_resource::tables.actions'),
         ];

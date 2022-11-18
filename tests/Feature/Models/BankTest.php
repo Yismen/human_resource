@@ -23,12 +23,12 @@ class BankTest extends TestCase
     }
 
     /** @test */
-    // public function banks_model_morph_one_information()
-    // {
-    //     $company = Bank::factory()->create();
+    public function banks_model_morph_one_information()
+    {
+        $bank = Bank::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $bank->information());
+    }
 
     // /** @test */
     // public function banks_model_morph_many_images()
