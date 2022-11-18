@@ -1,4 +1,6 @@
 <div>
+    <livewire:human_resource::information.form />
+
     <x-human_resource::modal title="{{ __('Afp') }} - {{ $afp->name ?? '' }}" modal-name="AfpDetails"
         event-name="{{ $this->modal_event_name_detail }}">
 
@@ -14,6 +16,9 @@
                 </tr>
             </tbody>
         </table>
+
+        <x-human_resource::information.detail :information="$afp->information ?? ''"
+            :model-name="optional($afp)->getMorphClass()" :model-id="$afp->id ?? ''" />
 
         <x-slot name="footer">
             <button class="btn btn-warning btn-sm" wire:click='$emit("updateAfp", {{ $afp->id ?? '' }})'>{{

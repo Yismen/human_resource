@@ -21,20 +21,4 @@ class ProjectTest extends TestCase
             'name', 'description'
         ]));
     }
-
-    /** @test */
-    // public function projects_model_morph_one_information()
-    // {
-    //     $company = Project::factory()->create();
-
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
-
-    // /** @test */
-    // public function projects_model_morph_many_images()
-    // {
-    //     $company = Project::factory()->create();
-
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
 }

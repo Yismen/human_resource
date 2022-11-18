@@ -56,7 +56,7 @@ class Form extends Component
         return view('human_resource::livewire.information.form');
     }
 
-    public function createInformation(string $modelName, int $modelId, InstanceFromNameContract $guesser)
+    public function createInformation($modelName, int $modelId, InstanceFromNameContract $guesser)
     {
         $model = $guesser->get($modelName);
         $this->authorize('create', $model);

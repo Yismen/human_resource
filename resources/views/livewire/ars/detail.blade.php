@@ -17,8 +17,8 @@
             </tbody>
         </table>
 
-        <x-human_resource::information.detail :information="$ars->information ?? ''" model-name='Ars'
-            :model-id="$ars->id ?? ''" />
+        <x-human_resource::information.detail :information="$ars->information ?? ''"
+            :model-name="optional($ars)->getMorphClass()" :model-id="$ars->id ?? ''" />
 
         <x-slot name="footer">
             <button class="btn btn-warning btn-sm" wire:click='$emit("updateArs", {{ $ars->id ?? '' }})'>{{

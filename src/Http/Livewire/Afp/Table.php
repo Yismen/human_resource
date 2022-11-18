@@ -12,16 +12,15 @@ class Table extends AbstractDataTableComponent
     protected string $module = 'Afp';
 
     protected $listeners = [
-        'afpUpdated' => '$refresh'
+        'afpUpdated' => '$refresh',
+        'informationUpdated' => '$refresh',
     ];
 
     public function builder(): Builder
     {
         return Afp::query()
             ->select(['name', 'id'])
-            // ->withCount('products')
-            // ->withCount('sales')
-            // ->withCount('afpType')
+            ->with(['information'])
             ;
     }
 
@@ -31,6 +30,8 @@ class Table extends AbstractDataTableComponent
             Column::make('Name')
                 ->sortable()
                 ->searchable(),
+            Column::make('Phone')
+                ->label(fn ($row) => optional($row->information)->phone),
             Column::make('Actions', 'id')
                 ->view('human_resource::tables.actions'),
         ];

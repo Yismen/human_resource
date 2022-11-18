@@ -1,6 +1,7 @@
 @props(['information', 'modelName', 'modelId'])
 <div>
     <h5 class="px-2">{{ __('Information') }}</h5>
+
     @if (isset($information) && $information )
     <table class="table table-striped table-inverse table-sm">
         <tbody class="thead-inverse">
@@ -34,7 +35,7 @@
     </div>
 
     <div class="btn btn-sm btn-primary mx-2"
-        wire:click='$emit("createInformation", "{{ $modelName }}", "{{ $modelId }}")'>
+        wire:click='$emit("createInformation", "{{ str($modelName ?? '')->afterLast("\\") }}", "{{ $modelId }}" )'>
         {{ __('Add') }} {{ __('Information') }}
     </div>
     @endif
