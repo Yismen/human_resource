@@ -6,7 +6,13 @@
 <div class="mb-3">
     <x-human_resource::inputs.label :field="$field" :required="$required" :label="$slot" />
 
-    <select class="form-control @error($field) is-invalid @enderror" wire:model='{{ $field }}' id="{{ $field }}">
+    <select wire:model='{{ $field }}' id="{{ $field }}" {{ $attributes->class([
+        'form-control',
+        'is-invalid' => $errors->has($field)
+        ])->merge([
+        'rows' => 5
+        ]) }}
+        >
         <option></option>
         @foreach ($options as $key => $value)
         <option value="{{ $key }}">{{ $value }}</option>

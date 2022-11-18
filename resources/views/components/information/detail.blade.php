@@ -1,0 +1,41 @@
+@props(['information', 'modelName', 'modelId'])
+<div>
+    <h5 class="px-2">{{ __('Information') }}</h5>
+    @if (isset($information) && $information )
+    <table class="table table-striped table-inverse table-sm">
+        <tbody class="thead-inverse">
+            <tr>
+                <th class="text-right">{{ __('Phone') }}:</th>
+                <td class="text-left">{{ $information->phone ?? '' }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">{{ __('Email') }}:</th>
+                <td class="text-left">{{ $information->email ?? '' }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">{{ __('Address') }}:</th>
+                <td class="text-left">{{ $information->address ?? '' }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">{{ __('Company Id') }}:</th>
+                <td class="text-left">{{ $information->company_id ?? '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="btn btn-sm btn-warning mx-2" wire:click='$emit("updateInformation", "{{ $information->id }}")'>{{
+        __('Edit')
+        }}
+        {{
+        __('Information') }}</div>
+    @else
+    <div class="alert alert-danger m-2" role="alert">
+        <strong>In information added!</strong>
+    </div>
+
+    <div class="btn btn-sm btn-primary mx-2"
+        wire:click='$emit("createInformation", "{{ $modelName }}", "{{ $modelId }}")'>
+        {{ __('Add') }} {{ __('Information') }}
+    </div>
+    @endif
+</div>

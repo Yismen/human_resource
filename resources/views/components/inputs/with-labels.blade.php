@@ -6,8 +6,14 @@
 <div class="mb-3">
     <x-human_resource::inputs.label :field="$field" :required="$required" :label="$slot" />
 
-    <input class="form-control @error($field) is-invalid @enderror" type="{{ $type }}" id="{{ $field }}"
-        aria-describedby="{{ $field }}Help" wire:model='{{ $field }}' {{ $attributes->merge([]) }}>
+    <input type="{{ $type }}" id="{{ $field }}" aria-describedby="{{ $field }}Help" wire:model='{{ $field }}' {{
+        $attributes->class([
+    'form-control',
+    'is-invalid' => $errors->has($field)
+    ])->merge([
+    'rows' => 5
+    ]) }}
+    >
 
     <x-human_resource::inputs.error :field="$field" />
 </div>
