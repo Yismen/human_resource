@@ -30,14 +30,14 @@ class Form extends Component
             'employee.first_name' => [
                 'required',
             ],
-            'employee.second_firt_name' => [
-                'required',
+            'employee.second_first_name' => [
+                'nullable',
             ],
             'employee.last_name' => [
                 'required',
             ],
             'employee.second_last_name' => [
-                'required',
+                'nullable',
             ],
             'employee.full_name' => [
                 'nullable',
@@ -45,7 +45,8 @@ class Form extends Component
             'employee.personal_id' => [
                 'required',
                 'min:10',
-                'max:11'
+                'max:11',
+                Rule::unique(Employee::class, 'personal_id')->ignore($this->employee->id ?? '')
             ],
             'employee.hired_at' => [
                 'required',
@@ -57,6 +58,7 @@ class Form extends Component
             ],
             'employee.cellphone' => [
                 'required',
+                Rule::unique(Employee::class, 'cellphone')->ignore($this->employee->id ?? ''),
             ],
             'employee.status' => [
                 'required',
@@ -77,19 +79,24 @@ class Form extends Component
         ];
     }
 
-    public function render()
+    public function render(MaritalStatus $maritals, Gender $genders)
     {
         return view('human_resource::livewire.employee.form', [
+            'maritals' => $maritals->all(),
+            'genders' => $genders->all(),
         ])
         ->layout('human_resource::layouts.app');
     }
 
     public function createEmployee()
     {
-        $this->employee = new Employee();
+        $this->employee = new Employee([
+            'status' => EmployeeStatus::ACTIVE,
+            'kids' => false
+        ]);
         $this->authorize('create', $this->employee);
         $this->editing = false;
-        
+
         $this->resetValidation();
 
         $this->dispatchBrowserEvent('closeAllModals');
@@ -139,4 +146,16 @@ class Form extends Component
 
         $this->emit('employeeUpdated');
     }
+
+    // public function updating()
+    // {
+    //     $this->employee->full_name = $this->employee ? trim(
+    //         join(' ', [
+    //             optional($this->employee)->first_name,
+    //             optional($this->employee)->second_first_name,
+    //             optional($this->employee)->last_name,
+    //             optional($this->employee)->second_last_name,
+    //         ])
+    //     ) : null;
+    // }
 }

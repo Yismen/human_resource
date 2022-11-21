@@ -27,7 +27,7 @@ class EmployeeFactory extends Factory
     {
         return [
             'first_name' => $this->faker->firstName(),
-            'second_firt_name' => $this->faker->firstName(),
+            'second_first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'second_last_name' => $this->faker->lastName(),
             'full_name' => $this->faker->name(),

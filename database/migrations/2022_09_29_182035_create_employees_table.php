@@ -19,14 +19,14 @@ class CreateEmployeesTable extends Migration
         Schema::create(tableName('employees'), function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
-            $table->string('second_firt_name');
+            $table->string('second_first_name')->nullable();
             $table->string('last_name');
-            $table->string('second_last_name');
+            $table->string('second_last_name')->nullable();
             $table->string('full_name')->nullable();
-            $table->string('personal_id', 11);
+            $table->string('personal_id', 11)->unique();
             $table->dateTime('hired_at');
             $table->date('date_of_birth');
-            $table->string('cellphone', 15);
+            $table->string('cellphone', 15)->unique();
             $table->enum('status', (new EmployeeStatus())->all());
             $table->enum('marriage', (new MaritalStatus())->all());
             $table->enum('gender', (new Gender())->all());

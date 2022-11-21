@@ -37,7 +37,7 @@ class HumanResourceServiceProvider extends AuthServiceProvider
 
         Gate::define('interact-with-admin', function (\Illuminate\Foundation\Auth\User $user) {
             return resolve(AuthorizedUsersContract::class)
-                ->has($user->email);
+            ->has($user->email);
         });
     }
 

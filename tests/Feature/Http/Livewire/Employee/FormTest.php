@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Feature\Http\Livewire\Employee;
 
 use Livewire\Livewire;
+use Illuminate\Support\Arr;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -69,7 +70,7 @@ class FormTest extends TestCase
         $component->assertDispatchedBrowserEvent('closeAllModals');
         $component->assertEmitted('employeeUpdated');
 
-        $this->assertDatabaseHas(tableName('employees'), $data);
+        $this->assertDatabaseHas(tableName('employees'), Arr::except($data, ['full_name']));
     }
 
     /** @test */

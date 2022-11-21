@@ -19,13 +19,13 @@ class EmployeeTest extends TestCase
 
         $this->assertDatabaseHas(tableName('employees'), $data->only([
             'first_name',
-            'second_firt_name',
+            'second_first_name',
             'last_name',
             'second_last_name',
             'personal_id',
-            'full_name',
-            'hired_at',
-            'date_of_birth',
+            // 'full_name',
+            // 'hired_at',
+            // 'date_of_birth',
             'cellphone',
             'status',
             'marriage',

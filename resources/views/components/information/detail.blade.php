@@ -1,5 +1,5 @@
 @props(['information', 'modelName', 'modelId'])
-<div>
+<div class="border-top pt-2">
     <h5 class="px-2">{{ __('Information') }}</h5>
 
     @if (isset($information) && $information )
