@@ -5,11 +5,13 @@ namespace Dainsys\HumanResource\Http\Livewire\Position;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 use Dainsys\HumanResource\Models\Position;
+use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Form extends Component
 {
     use AuthorizesRequests;
+    use WithRealTimeValidation;
 
     protected $listeners = [
         'createPosition',

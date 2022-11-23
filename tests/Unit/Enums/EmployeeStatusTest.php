@@ -3,30 +3,27 @@
 namespace Dainsys\HumanResourceTests\Unit\Enums;
 
 use PHPUnit\Framework\TestCase;
+use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
 
 class EmployeeStatusTest extends TestCase
 {
     /** @test */
     public function values_method_return_specific_values()
     {
-        $enums = new \Dainsys\HumanResource\Support\Enums\EmployeeStatus();
-
         $this->assertEquals([
-            'Active',
+            'Current',
             'Inactive',
             'Suspended',
-        ], $enums->values());
+        ], EmployeeStatus::values());
     }
 
     /** @test */
     public function all_method_return_associative_array()
     {
-        $enums = new \Dainsys\HumanResource\Support\Enums\EmployeeStatus();
-
         $this->assertEquals([
-            'Active' => 'Active',
+            'Current' => 'Current',
             'Inactive' => 'Inactive',
             'Suspended' => 'Suspended',
-        ], $enums->all());
+        ], EmployeeStatus::all());
     }
 }

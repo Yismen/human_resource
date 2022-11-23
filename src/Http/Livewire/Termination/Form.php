@@ -8,11 +8,13 @@ use Dainsys\HumanResource\Models\Employee;
 use Dainsys\HumanResource\Models\Termination;
 use Dainsys\HumanResource\Models\TerminationType;
 use Dainsys\HumanResource\Models\TerminationReason;
+use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Form extends Component
 {
     use AuthorizesRequests;
+    use WithRealTimeValidation;
 
     protected $listeners = [
         'createTermination',

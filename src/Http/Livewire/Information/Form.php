@@ -3,13 +3,19 @@
 namespace Dainsys\HumanResource\Http\Livewire\Information;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Dainsys\HumanResource\Models\Information;
+use Dainsys\HumanResource\Traits\WithPhotoUpload;
+use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Dainsys\HumanResource\Contracts\InstanceFromNameContract;
 
 class Form extends Component
 {
     use AuthorizesRequests;
+    use WithFileUploads;
+    use WithPhotoUpload;
+    use WithRealTimeValidation;
 
     protected $listeners = [
         'createInformation',
@@ -21,6 +27,7 @@ class Form extends Component
 
     public $information;
     public $model;
+    public $photo;
 
     protected function getRules()
     {
@@ -35,6 +42,11 @@ class Form extends Component
             ],
             'information.photo_url' => [
                 'nullable',
+            ],
+            'photo' => [
+                'nullable',
+                'image',
+                'max:1024'
             ],
             'information.address' => [
                 'nullable',
@@ -58,6 +70,7 @@ class Form extends Component
 
     public function createInformation($modelName, int $modelId, InstanceFromNameContract $guesser)
     {
+        $this->reset(['photo']);
         $model = $guesser->get($modelName);
         $this->authorize('create', $model);
 
@@ -73,6 +86,7 @@ class Form extends Component
 
     public function updateInformation(Information $information)
     {
+        $this->reset(['photo']);
         $this->information = $information;
         $this->authorize('update', $this->information);
         $this->editing = true;
@@ -89,7 +103,13 @@ class Form extends Component
         $this->validate();
 
         $this->editing = false;
-        $this->model->information()->create($this->information->toArray());
+        $data = array_merge(
+            $this->information->toArray(),
+            ['photo_url' => $this->updatePhoto($this->model, 'informations')]
+        );
+
+        $this->model->information()->create($data);
+        $this->reset(['photo']);
 
         $this->dispatchBrowserEvent('closeAllModals');
 
@@ -103,7 +123,14 @@ class Form extends Component
         $this->authorize('update', $this->information);
         $this->validate();
 
+        $model = (new $this->information->informationable_type())->find($this->information->informationable_id);
+
+        if ($this->photo) {
+            $this->information->photo_url = $this->updatePhoto($model, 'informations');
+        }
+
         $this->information->save();
+        $this->reset(['photo']);
 
         $this->dispatchBrowserEvent('closeAllModals');
 

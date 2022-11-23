@@ -35,9 +35,9 @@ class EmployeeFactory extends Factory
             'hired_at' => now(),
             'date_of_birth' => Carbon::parse(),
             'cellphone' => $this->faker->phoneNumber(),
-            'status' => array_rand((new EmployeeStatus())->all()),
-            'marriage' => array_rand((new MaritalStatus())->all()),
-            'gender' => array_rand((new Gender())->all()),
+            'status' => array_rand(EmployeeStatus::all()),
+            'marriage' => array_rand(MaritalStatus::all()),
+            'gender' => array_rand(Gender::all()),
             'kids' => $this->faker->randomElement([0, 1]),
         ];
     }

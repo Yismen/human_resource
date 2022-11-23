@@ -7,12 +7,13 @@ use Illuminate\Validation\Rule;
 use Dainsys\HumanResource\Models\Employee;
 use Dainsys\HumanResource\Models\Suspension;
 use Dainsys\HumanResource\Models\SuspensionType;
-use Dainsys\HumanResource\Models\SuspensionReason;
+use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Form extends Component
 {
     use AuthorizesRequests;
+    use WithRealTimeValidation;
 
     protected $listeners = [
         'createSuspension',

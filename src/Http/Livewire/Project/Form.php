@@ -5,11 +5,13 @@ namespace Dainsys\HumanResource\Http\Livewire\Project;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 use Dainsys\HumanResource\Models\Project;
+use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Form extends Component
 {
     use AuthorizesRequests;
+    use WithRealTimeValidation;
 
     protected $listeners = [
         'createProject',

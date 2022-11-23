@@ -5,11 +5,13 @@ namespace Dainsys\HumanResource\Http\Livewire\PaymentType;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 use Dainsys\HumanResource\Models\PaymentType;
+use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Form extends Component
 {
     use AuthorizesRequests;
+    use WithRealTimeValidation;
 
     protected $listeners = [
         'createPaymentType',

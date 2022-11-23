@@ -1,7 +1,14 @@
 <?php
 
+use Dainsys\HumanResource\Models\Afp;
+use Dainsys\HumanResource\Models\Ars;
+use Dainsys\HumanResource\Models\Site;
 use Illuminate\Support\Facades\Schema;
+use Dainsys\HumanResource\Models\Project;
 use Illuminate\Database\Schema\Blueprint;
+use Dainsys\HumanResource\Models\Position;
+use Dainsys\HumanResource\Models\Supervisor;
+use Dainsys\HumanResource\Models\Citizenship;
 use Illuminate\Database\Migrations\Migration;
 use Dainsys\HumanResource\Support\Enums\Gender;
 use Dainsys\HumanResource\Support\Enums\MaritalStatus;
@@ -27,10 +34,18 @@ class CreateEmployeesTable extends Migration
             $table->dateTime('hired_at');
             $table->date('date_of_birth');
             $table->string('cellphone', 15)->unique();
-            $table->enum('status', (new EmployeeStatus())->all());
-            $table->enum('marriage', (new MaritalStatus())->all());
-            $table->enum('gender', (new Gender())->all());
+            $table->enum('status', EmployeeStatus::all());
+            $table->enum('marriage', MaritalStatus::all());
+            $table->enum('gender', Gender::all());
             $table->boolean('kids')->default(false);
+            $table->foreignIdFor(Site::class)->nullable()->constrained();
+            $table->foreignIdFor(Project::class)->nullable()->constrained();
+            $table->foreignIdFor(Position::class)->nullable()->constrained();
+            $table->foreignIdFor(Supervisor::class)->nullable()->constrained();
+            $table->foreignIdFor(Citizenship::class)->nullable()->constrained();
+            $table->foreignIdFor(Afp::class)->nullable()->constrained();
+            $table->foreignIdFor(Ars::class)->nullable();
+            // $table->foreignIdFor(Ars::class)->nullable()->constrained();
             $table->timestamps();
         });
     }

@@ -10,14 +10,19 @@
 
         <x-human_resource::form :editing="$editing">
             <div class="p-3">
+                @if ($photo ?? null)
+                    <div class="d">Photo Preview:</div>
+                    <img src="{{ $photo->temporaryUrl() }}" height="125">
+                @endif
+                <x-human_resource::inputs.with-labels field="photo" type="file" :required="false">
+                    {{ __('Image') }}:
+                </x-human_resource::inputs.with-labels>
+
                 <x-human_resource::inputs.with-labels field="information.phone">
                     {{ __('Phone') }}:
                 </x-human_resource::inputs.with-labels>
                 <x-human_resource::inputs.with-labels field="information.email" :required="false">
                     {{ __('Email') }}:
-                </x-human_resource::inputs.with-labels>
-                <x-human_resource::inputs.with-labels field="information.photo_url" :required="false">
-                    {{ __('Image') }}:
                 </x-human_resource::inputs.with-labels>
                 <x-human_resource::inputs.with-labels field="information.company_id" :required="false">
                     {{ __('ID') }}:

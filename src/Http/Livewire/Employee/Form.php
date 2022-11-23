@@ -8,11 +8,13 @@ use Dainsys\HumanResource\Models\Employee;
 use Dainsys\HumanResource\Support\Enums\Gender;
 use Dainsys\HumanResource\Support\Enums\MaritalStatus;
 use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
+use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Form extends Component
 {
     use AuthorizesRequests;
+    use WithRealTimeValidation;
 
     protected $listeners = [
         'createEmployee',
@@ -62,15 +64,15 @@ class Form extends Component
             ],
             'employee.status' => [
                 'required',
-                Rule::in((new EmployeeStatus())->all()),
+                Rule::in(EmployeeStatus::values()),
             ],
             'employee.marriage' => [
                 'required',
-                Rule::in((new MaritalStatus())->all()),
+                Rule::in(MaritalStatus::values()),
             ],
             'employee.gender' => [
                 'required',
-                Rule::in((new Gender())->all()),
+                Rule::in(Gender::values()),
             ],
             'employee.kids' => [
                 'required',
@@ -79,11 +81,11 @@ class Form extends Component
         ];
     }
 
-    public function render(MaritalStatus $maritals, Gender $genders)
+    public function render()
     {
         return view('human_resource::livewire.employee.form', [
-            'maritals' => $maritals->all(),
-            'genders' => $genders->all(),
+            'maritals' => MaritalStatus::all(),
+            'genders' => Gender::all(),
         ])
         ->layout('human_resource::layouts.app');
     }
@@ -91,7 +93,7 @@ class Form extends Component
     public function createEmployee()
     {
         $this->employee = new Employee([
-            'status' => EmployeeStatus::ACTIVE,
+            'status' => EmployeeStatus::CURRENT,
             'kids' => false
         ]);
         $this->authorize('create', $this->employee);
@@ -147,15 +149,17 @@ class Form extends Component
         $this->emit('employeeUpdated');
     }
 
-    // public function updating()
-    // {
-    //     $this->employee->full_name = $this->employee ? trim(
-    //         join(' ', [
-    //             optional($this->employee)->first_name,
-    //             optional($this->employee)->second_first_name,
-    //             optional($this->employee)->last_name,
-    //             optional($this->employee)->second_last_name,
-    //         ])
-    //     ) : null;
-    // }
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+
+        $this->employee->full_name = $this->employee ? trim(
+            join(' ', array_filter([
+                optional($this->employee)->first_name,
+                optional($this->employee)->second_first_name,
+                optional($this->employee)->last_name,
+                optional($this->employee)->second_last_name,
+            ]))
+        ) : null;
+    }
 }

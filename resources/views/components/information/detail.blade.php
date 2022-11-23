@@ -6,6 +6,14 @@
     <table class="table table-striped table-inverse table-sm">
         <tbody class="thead-inverse">
             <tr>
+                <th class="text-right">{{ __('Photo') }}:</th>
+                <td class="text-left">
+                    <a href="{{ '/storage/' . $information->photo_url ?? '' }}" target="_blank" rel="noopener noreferrer">
+                        <img src="{{ '/storage/' . $information->photo_url ?? '' }}" height="120" width="120" class="img-thumbnail rounded-circle" alt="{{ $information->photo_url ?? '' }}">
+                    </a>
+                </td>
+            </tr>
+            <tr>
                 <th class="text-right">{{ __('Phone') }}:</th>
                 <td class="text-left">{{ $information->phone ?? '' }}</td>
             </tr>

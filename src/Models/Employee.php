@@ -13,12 +13,12 @@ class Employee extends AbstractModel
     {
         static::saving(function ($employee) {
             $employee->full_name = trim(
-                join(' ', [
+                join(' ', array_filter([
                     $employee->first_name,
                     $employee->second_first_name,
                     $employee->last_name,
                     $employee->second_last_name,
-                ])
+                ]))
             );
 
             $employee->saveQuietly();
