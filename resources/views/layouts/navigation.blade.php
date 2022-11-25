@@ -154,7 +154,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.employees.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('employees') }}</p>
+                            <p>{{ __('Employees') }}</p>
                         </a>
                     </li>
                     @endcan

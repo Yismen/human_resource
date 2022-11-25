@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <th class="text-right">{{ __('Age') }}:</th>
-                    <td class="text-left">{{ optional(optional($employee)->date_of_birth)->format('M-d-Y') }} - {{ optional(optional($employee)->date_of_birth)->age ?? '' }} {{ __('Yeemployee') }}</td>
+                    <td class="text-left">{{ optional(optional($employee)->date_of_birth)->format('M-d-Y') }} - {{ optional(optional($employee)->date_of_birth)->age ?? '' }} {{ __('Years') }}</td>
                 </tr>
                 <tr>
                     <th class="text-right">{{ __('Gender') }}:</th>
@@ -44,6 +44,41 @@
 
         <x-human_resource::information.detail :information="$employee->information ?? ''"
             :model-name="optional($employee)->getMorphClass()" :model-id="$employee->id ?? ''" />
+
+            
+
+        <table class="table table-striped table-inverse table-sm mt-2">
+            <tbody class="thead-inverse">                
+                <tr>
+                    <th class="text-right">{{ __('Site') }}:</th>
+                    <td class="text-left">{{ optional($employee->site ?? '')->name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right">{{ __('Project') }}:</th>
+                    <td class="text-left">{{ optional($employee->project ?? '')->name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right">{{ __('Position') }}:</th>
+                    <td class="text-left">{{ optional($employee->position ?? '')->name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right">{{ __('Citizenship') }}:</th>
+                    <td class="text-left">{{ optional($employee->citizenship ?? '')->name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right">{{ __('Supervisor') }}:</th>
+                    <td class="text-left">{{ optional($employee->supervisor ?? '')->name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right">{{ __('Afp') }}:</th>
+                    <td class="text-left">{{ optional($employee->afp ?? '')->name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right">{{ __('Ars') }}:</th>
+                    <td class="text-left">{{ optional($employee->ars ?? '')->name }}</td>
+                </tr>
+            </tbody>
+        </table>
 
         <x-slot name="footer">
             <button class="btn btn-warning btn-sm" wire:click='$emit("updateEmployee", {{ $employee->id ?? '' }})'>{{

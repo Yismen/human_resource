@@ -19,7 +19,13 @@ class EmployeesExport implements FromCollection, WithHeadings, WithMapping
 
     public function collection()
     {
-        return Employee::whereIn('id', $this->employees)->get();
+        return Employee::query()
+            ->whereIn('id', $this->employees)
+            ->with([
+                'site',
+                'project',
+            ])
+            ->get();
     }
 
     public function headings(): array
@@ -27,7 +33,7 @@ class EmployeesExport implements FromCollection, WithHeadings, WithMapping
         return [
             ['Employees List'],
             [],
-            ['Id', 'Full Name', 'Personal Id', 'Hire Date', 'Status', 'Marital', 'Gender', 'Has Kids'],
+            ['Id', 'Full Name', 'Personal Id', 'Hire Date', 'Status', 'Marital', 'Gender', 'Site', 'Project', 'Position', 'Department', 'Citizenship', 'Supervisor', 'Afp', 'Ars', 'B. Account', 'Bank', 'Has Kids'],
         ];
     }
 
@@ -41,17 +47,17 @@ class EmployeesExport implements FromCollection, WithHeadings, WithMapping
             $employee->status,
             $employee->marriage,
             $employee->gender,
+            optional($employee->site)->name,
+            optional($employee->project)->name,
+            optional($employee->position)->name,
+            optional($employee->department)->name,
+            optional($employee->citizenship)->name,
+            optional($employee->supervisor)->name,
+            optional($employee->afp)->name,
+            optional($employee->ars)->name,
+            optional($employee->bank_account)->name,
+            optional($employee->bank)->name,
             $employee->kids ? 'Yes' : 'No',
-            // optional($employee->site)->name,
-            // optional($employee->project)->name,
-            // optional($employee->position)->name,
-            // optional($employee->department)->name,
-            // optional($employee->supervisor)->name,
-            // optional($employee->citizenship)->name,
-            // optional($employee->ars)->name,
-            // optional($employee->afp)->name,
-            // optional($employee->bank_account)->name,
-            // optional($employee->bank)->name,
         ];
     }
 }

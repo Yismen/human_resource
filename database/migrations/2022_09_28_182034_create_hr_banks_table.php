@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArssTable extends Migration
+class CreateHrBanksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateArssTable extends Migration
      */
     public function up()
     {
-        Schema::create(tableName('arss'), function (Blueprint $table) {
+        Schema::create(tableName('banks'), function (Blueprint $table) {
             $table->id();
             $table->string('name', 500);
             $table->text('description')->nullable();
@@ -28,6 +28,6 @@ class CreateArssTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(tableName('arss'));
+        Schema::dropIfExists(tableName('banks'));
     }
 }

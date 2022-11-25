@@ -13,7 +13,7 @@ return [
         'api' => 'api',
         'web' => 'auth',
     ],
-    'db_prefix' => '',
+    'db_prefix' => 'hr_',
     'routes_prefix' => [
         'guest' => '',
         'admin' => 'admin'

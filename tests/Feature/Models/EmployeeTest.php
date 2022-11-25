@@ -31,22 +31,85 @@ class EmployeeTest extends TestCase
             'marriage',
             'gender',
             'kids',
+            'site_id',
+            'project_id',
+            'position_id',
+            'citizenship_id',
+            'supervisor_id',
+            'afp_id',
+            'ars_id',
         ]));
     }
 
     /** @test */
-    // public function employees_model_morph_one_information()
-    // {
-    //     $company = Employee::factory()->create();
+    public function employees_model_morph_one_information()
+    {
+        $employee = Employee::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $employee->information());
+    }
 
-    // /** @test */
-    // public function employees_model_morph_many_images()
-    // {
-    //     $company = Employee::factory()->create();
+    /** @test */
+    public function employees_model_belongs_to_site()
+    {
+        $employee = Employee::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->site());
+    }
+
+    /** @test */
+    public function employees_model_belongs_to_project()
+    {
+        $employee = Employee::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->project());
+    }
+
+    /** @test */
+    public function employees_model_belongs_to_position()
+    {
+        $employee = Employee::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->position());
+    }
+
+    /** @test */
+    public function employees_model_belongs_to_department()
+    {
+        $employee = Employee::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->department());
+    }
+
+    /** @test */
+    public function employees_model_belongs_to_citizenship()
+    {
+        $employee = Employee::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->citizenship());
+    }
+
+    /** @test */
+    public function employees_model_belongs_to_supervisor()
+    {
+        $employee = Employee::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->supervisor());
+    }
+
+    /** @test */
+    public function employees_model_belongs_to_afp()
+    {
+        $employee = Employee::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->afp());
+    }
+
+    /** @test */
+    public function employees_model_belongs_to_ars()
+    {
+        $employee = Employee::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->ars());
+    }
 }

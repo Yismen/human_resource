@@ -3,7 +3,14 @@
 namespace Dainsys\HumanResource\Database\Factories;
 
 use Carbon\Carbon;
+use Dainsys\HumanResource\Models\Afp;
+use Dainsys\HumanResource\Models\Ars;
+use Dainsys\HumanResource\Models\Site;
+use Dainsys\HumanResource\Models\Project;
 use Dainsys\HumanResource\Models\Employee;
+use Dainsys\HumanResource\Models\Position;
+use Dainsys\HumanResource\Models\Supervisor;
+use Dainsys\HumanResource\Models\Citizenship;
 use Dainsys\HumanResource\Support\Enums\Gender;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Dainsys\HumanResource\Support\Enums\MaritalStatus;
@@ -39,6 +46,13 @@ class EmployeeFactory extends Factory
             'marriage' => array_rand(MaritalStatus::all()),
             'gender' => array_rand(Gender::all()),
             'kids' => $this->faker->randomElement([0, 1]),
+            'site_id' => Site::factory(),
+            'project_id' => Project::factory(),
+            'position_id' => Position::factory(),
+            'citizenship_id' => Citizenship::factory(),
+            'supervisor_id' => Supervisor::factory(),
+            'afp_id' => Afp::factory(),
+            'ars_id' => Ars::factory(),
         ];
     }
 }

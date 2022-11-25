@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTerminationReasonsTable extends Migration
+class CreateHrSupervisorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTerminationReasonsTable extends Migration
      */
     public function up()
     {
-        Schema::create(tableName('termination_reasons'), function (Blueprint $table) {
+        Schema::create(tableName('supervisors'), function (Blueprint $table) {
             $table->id();
             $table->string('name', 500);
             $table->text('description')->nullable();
@@ -28,6 +28,6 @@ class CreateTerminationReasonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(tableName('termination_reasons'));
+        Schema::dropIfExists(tableName('supervisors'));
     }
 }

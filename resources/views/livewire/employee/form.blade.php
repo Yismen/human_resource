@@ -1,12 +1,11 @@
 <div>
     @php
-
     $title = $editing ? join(" ", [ __('Edit'), __('Employee'), $employee->full_name]) : join(" ", [__('Create'),
     __('New'), __('Employee') ])
     @endphp
 
 
-    <x-human_resource::modal modal-name="EmployeeForm" title="{{ $title }}"
+    <x-human_resource::modal modal-name="EmployeeForm" title="{{ $title }}" title-class="{{ $titleClass }}"
     event-name="{{ $this->modal_event_name_form }}" :backdrop="false" class="modal-lg">
 
         <x-human_resource::form :editing="$editing">
@@ -68,6 +67,32 @@
 
                 <div class="row">
                     <div class="col-sm-6">
+                        <x-human_resource::inputs.select field="employee.site_id" :options="$sites">{{
+                            __('Site') }}:
+                        </x-human_resource::inputs.select>
+                    </div>
+                    <div class="col-sm-6">
+                        <x-human_resource::inputs.select field="employee.project_id" :options="$projects">{{
+                            __('Project') }}:
+                        </x-human_resource::inputs.select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <x-human_resource::inputs.select field="employee.position_id" :options="$positions">{{
+                            __('Position') }}:
+                        </x-human_resource::inputs.select>
+                    </div>
+                    <div class="col-sm-6">
+                        <x-human_resource::inputs.select field="employee.citizenship_id" :options="$citizenships">{{
+                            __('Citizenship') }}:
+                        </x-human_resource::inputs.select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
                         <x-human_resource::inputs.select field="employee.gender" :options="$genders">{{
                             __('Gender') }}:
                         </x-human_resource::inputs.select>
@@ -81,17 +106,51 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <x-human_resource::inputs.switch field="employee.kids">{{
+                        <x-human_resource::inputs.select :required="false" field="employee.supervisor_id" :options="$supervisors">{{
+                            __('Supervisor') }}:
+                        </x-human_resource::inputs.select>
+                    </div>
+                    <div class="col-sm-6">
+                        <x-human_resource::inputs.select :required="false" field="employee.afp_id" :options="$afps">{{
+                            __('Afp') }}:
+                        </x-human_resource::inputs.select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <x-human_resource::inputs.select :required="false" field="employee.ars_id" :options="$arss">{{
+                            __('Ars') }}:
+                        </x-human_resource::inputs.select>
+                    </div>
+                    <div class="col-sm-6">
+                        <x-human_resource::inputs.switch :required="false" field="employee.kids">{{
                             __('Has Kids') }}?:
                         </x-human_resource::inputs.switch>
                     </div>
-                    {{-- <div class="col-sm-6">
-                        <x-human_resource::inputs.with-labels field="employee.status" disabled="disabled">
-                            {{ __('Status') }}:
-                        </x-human_resource::inputs.with-labels>
-                    </div> --}}
                 </div>
             </div>
         </x-human_resource::form>
+
+        <div class="border-top p-2">
+            @switch($employee->status ?? '')
+                @case(\Dainsys\HumanResource\Support\Enums\EmployeeStatus::CURRENT)
+                    <button class="btn btn-danger">Inactivate</button>
+                    <button class="btn btn-warning">Report Suspension</button>
+                    
+                    @break
+                @case(\Dainsys\HumanResource\Support\Enums\EmployeeStatus::INACTIVE)
+                    <button class="btn btn-success">Reactivate</button>
+                    
+                    @break
+                
+                @case(\Dainsys\HumanResource\Support\Enums\EmployeeStatus::SUSPENDED)
+                    <button class="btn btn-danger">Inactivate</button>
+                
+                    @break
+                @default
+                    
+            @endswitch
+        </div>
     </x-human_resource::modal>
 </div>

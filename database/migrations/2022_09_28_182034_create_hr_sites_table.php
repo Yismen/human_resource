@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAfpsTable extends Migration
+class CreateHrSitesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAfpsTable extends Migration
      */
     public function up()
     {
-        Schema::create(tableName('afps'), function (Blueprint $table) {
+        Schema::create(tableName('sites'), function (Blueprint $table) {
             $table->id();
             $table->string('name', 500);
             $table->text('description')->nullable();
@@ -28,6 +28,6 @@ class CreateAfpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(tableName('afps'));
+        Schema::dropIfExists(tableName('sites'));
     }
 }

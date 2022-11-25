@@ -14,7 +14,7 @@ use Dainsys\HumanResource\Support\Enums\Gender;
 use Dainsys\HumanResource\Support\Enums\MaritalStatus;
 use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
 
-class CreateEmployeesTable extends Migration
+class CreateHrEmployeesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -38,13 +38,13 @@ class CreateEmployeesTable extends Migration
             $table->enum('marriage', MaritalStatus::all());
             $table->enum('gender', Gender::all());
             $table->boolean('kids')->default(false);
-            $table->foreignIdFor(Site::class)->nullable()->constrained();
-            $table->foreignIdFor(Project::class)->nullable()->constrained();
-            $table->foreignIdFor(Position::class)->nullable()->constrained();
-            $table->foreignIdFor(Supervisor::class)->nullable()->constrained();
-            $table->foreignIdFor(Citizenship::class)->nullable()->constrained();
-            $table->foreignIdFor(Afp::class)->nullable()->constrained();
-            $table->foreignIdFor(Ars::class)->nullable();
+            $table->foreignIdFor(Site::class)->constrained(tableName('sites'));
+            $table->foreignIdFor(Project::class)->constrained(tableName('projects'));
+            $table->foreignIdFor(Position::class)->constrained(tableName('positions'));
+            $table->foreignIdFor(Citizenship::class)->constrained(tableName('citizenships'));
+            $table->foreignIdFor(Supervisor::class)->nullable()->constrained(tableName('supervisors'));
+            $table->foreignIdFor(Afp::class)->nullable()->constrained(tableName('afps'));
+            $table->foreignIdFor(Ars::class)->nullable()->constrained(tableName('arss'));
             // $table->foreignIdFor(Ars::class)->nullable()->constrained();
             $table->timestamps();
         });

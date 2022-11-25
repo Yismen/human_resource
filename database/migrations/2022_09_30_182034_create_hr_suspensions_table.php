@@ -5,9 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Dainsys\HumanResource\Models\Employee;
 use Illuminate\Database\Migrations\Migration;
 use Dainsys\HumanResource\Models\SuspensionType;
-use Dainsys\HumanResource\Models\TerminationReason;
 
-class CreateSuspensionsTable extends Migration
+class CreateHrSuspensionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,8 +17,8 @@ class CreateSuspensionsTable extends Migration
     {
         Schema::create(tableName('suspensions'), function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Employee::class)->constrained();
-            $table->foreignIdFor(SuspensionType::class)->constrained();
+            $table->foreignIdFor(Employee::class)->constrained(tableName('employees'));
+            $table->foreignIdFor(SuspensionType::class)->constrained(tableName('suspension_types'));
             $table->date('starts_at');
             $table->date('ends_at');
             $table->text('comments')->nullable();

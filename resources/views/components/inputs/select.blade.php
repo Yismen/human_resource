@@ -10,7 +10,6 @@
         'form-control',
         'is-invalid' => $errors->has($field)
         ])->merge([
-        'rows' => 5
         ]) }}
         >
         <option></option>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSuspensionTypesTable extends Migration
+class CreateHrDepartmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSuspensionTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create(tableName('suspension_types'), function (Blueprint $table) {
+        Schema::create(tableName('departments'), function (Blueprint $table) {
             $table->id();
             $table->string('name', 500);
             $table->text('description')->nullable();
@@ -28,6 +28,6 @@ class CreateSuspensionTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(tableName('suspension_types'));
+        Schema::dropIfExists(tableName('departments'));
     }
 }

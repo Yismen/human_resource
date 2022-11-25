@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 use Dainsys\HumanResource\Models\TerminationType;
 use Dainsys\HumanResource\Models\TerminationReason;
 
-class CreateTerminationsTable extends Migration
+class CreateHrTerminationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,10 +18,10 @@ class CreateTerminationsTable extends Migration
     {
         Schema::create(tableName('terminations'), function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Employee::class)->constrained();
             $table->date('date');
-            $table->foreignIdFor(TerminationType::class)->constrained();
-            $table->foreignIdFor(TerminationReason::class)->constrained();
+            $table->foreignIdFor(Employee::class)->constrained(tableName('employees'));
+            $table->foreignIdFor(TerminationType::class)->constrained(tableName('termination_types'));
+            $table->foreignIdFor(TerminationReason::class)->constrained(tableName('termination_reasons'));
             $table->boolean('rehireable')->default(true);
             $table->text('comments')->nullable();
             $table->timestamps();
