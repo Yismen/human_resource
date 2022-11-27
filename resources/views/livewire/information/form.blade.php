@@ -13,8 +13,10 @@
                 @if ($photo ?? null)
                     <div class="d">Photo Preview:</div>
                     <img src="{{ $photo->temporaryUrl() }}" height="125">
+                @elseif($information && $information->photo_url)
+                    <img src="{{ "/storage/".$information->photo_url }}" class="img-bordered img-circle" height="200">
                 @endif
-                <x-human_resource::inputs.with-labels field="photo" type="file" :required="false">
+                <x-human_resource::inputs.with-labels field="photo" type="file" :required="false" class="filedrop">
                     {{ __('Image') }}:
                 </x-human_resource::inputs.with-labels>
 

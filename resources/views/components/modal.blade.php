@@ -38,7 +38,14 @@
 <script>
     document.addEventListener('{{ $eventName }}', (event) => {
         let element = $('#' + '{{ $modalName }}');
+
         element.modal('show');
+
+        element.on('shown.bs.modal', function (event) {
+            let firstInput = $(element).find('input[type!=hidden]:first').first();
+            
+            firstInput.focus();
+        });
     })
     document.addEventListener('closeAllModals', (event) => {
         let element = $('#' + '{{ $modalName }}');

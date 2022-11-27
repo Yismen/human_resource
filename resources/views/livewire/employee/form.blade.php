@@ -132,25 +132,27 @@
             </div>
         </x-human_resource::form>
 
-        <div class="border-top p-2">
-            @switch($employee->status ?? '')
-                @case(\Dainsys\HumanResource\Support\Enums\EmployeeStatus::CURRENT)
-                    <button class="btn btn-danger">Inactivate</button>
-                    <button class="btn btn-warning">Report Suspension</button>
+        @if ($editing)
+            <div class="border-top d-flex justify-content-end flex-column p-2" style="gap: 3px;">
+                @switch($employee->status ?? '')
+                    @case(\Dainsys\HumanResource\Support\Enums\EmployeeStatus::CURRENT)
+                        <livewire:human_resource::employee.terminate :employee="$employee" />
+                        <livewire:human_resource::employee.suspend :employee="$employee" />
+                        
+                        @break
+                    @case(\Dainsys\HumanResource\Support\Enums\EmployeeStatus::INACTIVE)
+                        <livewire:human_resource::employee.reactivate :employee="$employee" />
+                        
+                        @break                    
+                    @case(\Dainsys\HumanResource\Support\Enums\EmployeeStatus::SUSPENDED)
+                        <livewire:human_resource::employee.terminate :employee="$employee" />
+                        <livewire:human_resource::employee.suspend :employee="$employee" />
                     
-                    @break
-                @case(\Dainsys\HumanResource\Support\Enums\EmployeeStatus::INACTIVE)
-                    <button class="btn btn-success">Reactivate</button>
-                    
-                    @break
-                
-                @case(\Dainsys\HumanResource\Support\Enums\EmployeeStatus::SUSPENDED)
-                    <button class="btn btn-danger">Inactivate</button>
-                
-                    @break
-                @default
-                    
-            @endswitch
-        </div>
+                        @break
+                    @default
+                        
+                @endswitch
+            </div>
+        @endif
     </x-human_resource::modal>
 </div>

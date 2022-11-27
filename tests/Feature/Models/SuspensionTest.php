@@ -18,23 +18,23 @@ class SuspensionTest extends TestCase
         Suspension::create($data->toArray());
 
         $this->assertDatabaseHas(tableName('suspensions'), $data->only([
-            'employee_id', 'suspension_type_id', 'starts_at', 'ends_at', 'comments'
+            'employee_id', 'suspension_type_id', 'comments'
         ]));
     }
 
     /** @test */
-    // public function suspensions_model_morph_one_information()
-    // {
-    //     $company = Suspension::factory()->create();
+    public function suspensions_model_belongs_to_employee()
+    {
+        $suspension = Suspension::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $suspension->employee());
+    }
 
-    // /** @test */
-    // public function suspensions_model_morph_many_images()
-    // {
-    //     $company = Suspension::factory()->create();
+    /** @test */
+    public function suspensions_model_belongs_to_suspensionType()
+    {
+        $suspension = Suspension::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $suspension->suspensionType());
+    }
 }

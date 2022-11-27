@@ -15,7 +15,7 @@ class CreateHrTerminationTypesTable extends Migration
     {
         Schema::create(tableName('termination_types'), function (Blueprint $table) {
             $table->id();
-            $table->string('name', 500);
+            $table->string('name', 500)->unique();
             $table->text('description')->nullable();
             $table->timestamps();
         });

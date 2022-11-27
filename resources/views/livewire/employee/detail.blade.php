@@ -2,7 +2,7 @@
     <livewire:human_resource::information.form />
 
     <x-human_resource::modal title="{{ __('Employee') }} - {{ $employee->full_name ?? '' }}" modal-name="EmployeeDetails"
-        event-name="{{ $this->modal_event_name_detail }}">
+        event-name="{{ $this->modal_event_name_detail }}" title-class="{{ $titleClass }}">
 
         <table class="table table-striped table-inverse table-sm">
             <tbody class="thead-inverse">
@@ -54,12 +54,20 @@
                     <td class="text-left">{{ optional($employee->site ?? '')->name }}</td>
                 </tr>
                 <tr>
+                    <th class="text-right">{{ __('Department') }}:</th>
+                    <td class="text-left">{{ optional($employee->position->department ?? '')->name }}</td>
+                </tr>
+                <tr>
                     <th class="text-right">{{ __('Project') }}:</th>
                     <td class="text-left">{{ optional($employee->project ?? '')->name }}</td>
                 </tr>
                 <tr>
                     <th class="text-right">{{ __('Position') }}:</th>
                     <td class="text-left">{{ optional($employee->position ?? '')->name }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right">{{ __('Salary') }}:</th>
+                    <td class="text-left">${{ optional($employee->position ?? '')->salary }}</td>
                 </tr>
                 <tr>
                     <th class="text-right">{{ __('Citizenship') }}:</th>

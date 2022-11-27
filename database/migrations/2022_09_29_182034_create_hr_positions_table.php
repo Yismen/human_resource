@@ -17,7 +17,7 @@ class CreateHrPositionsTable extends Migration
     {
         Schema::create(tableName('positions'), function (Blueprint $table) {
             $table->id();
-            $table->string('name', 500);
+            $table->string('name', 500)->unique();
             $table->foreignIdFor(Department::class)->constrained(tableName('departments'));
             $table->foreignIdFor(PaymentType::class)->constrained(tableName('payment_types'));
             $table->integer('salary')->unsigned();

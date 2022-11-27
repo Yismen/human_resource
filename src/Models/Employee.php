@@ -8,7 +8,9 @@ use Dainsys\HumanResource\Models\Traits\BelongsToSite;
 use Dainsys\HumanResource\Models\Traits\HasInformation;
 use Dainsys\HumanResource\Models\Traits\BelongsToProject;
 use Dainsys\HumanResource\Models\Traits\BelongsToPosition;
+use Dainsys\HumanResource\Models\Traits\HasManySuspensions;
 use Dainsys\HumanResource\Models\Traits\BelongsToSupervisor;
+use Dainsys\HumanResource\Models\Traits\HasManyTerminations;
 use Dainsys\HumanResource\Database\Factories\EmployeeFactory;
 use Dainsys\HumanResource\Models\Traits\BelongsToCitizenship;
 use Dainsys\HumanResource\Models\Traits\BelongsToDepartmentThruPosition;
@@ -24,6 +26,8 @@ class Employee extends AbstractModel
     use BelongsToAfp;
     use BelongsToArs;
     use BelongsToDepartmentThruPosition;
+    use HasManyTerminations;
+    use HasManySuspensions;
 
     public static function booted()
     {

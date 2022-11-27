@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Tests\Feature\Models;
 
 use Dainsys\HumanResource\Tests\TestCase;
+use Dainsys\HumanResource\Models\Employee;
 use Dainsys\HumanResource\Models\Position;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -27,18 +28,26 @@ class PositionTest extends TestCase
     }
 
     /** @test */
-    // public function positions_model_morph_one_information()
-    // {
-    //     $company = Position::factory()->create();
+    public function positions_model_has_many_employees()
+    {
+        $position = Position::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $position->employees());
+    }
 
-    // /** @test */
-    // public function positions_model_morph_many_images()
-    // {
-    //     $company = Position::factory()->create();
+    /** @test */
+    public function positions_model_belongs_to_department()
+    {
+        $position = Position::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $position->department());
+    }
+
+    /** @test */
+    public function positions_model_belongs_to_paymentType()
+    {
+        $position = Position::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $position->paymentType());
+    }
 }

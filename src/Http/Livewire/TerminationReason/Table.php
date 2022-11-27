@@ -2,9 +2,9 @@
 
 namespace Dainsys\HumanResource\Http\Livewire\TerminationReason;
 
-use Dainsys\HumanResource\Models\TerminationReason;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use Dainsys\HumanResource\Models\TerminationReason;
 use Dainsys\HumanResource\Http\Livewire\AbstractDataTableComponent;
 
 class Table extends AbstractDataTableComponent
@@ -18,7 +18,7 @@ class Table extends AbstractDataTableComponent
     {
         return TerminationReason::query()
             ->select(['name', 'id'])
-            // ->withCount('products')
+            ->withCount('terminations')
             // ->withCount('sales')
             // ->withCount('termination_reasonType')
             ;
@@ -30,6 +30,11 @@ class Table extends AbstractDataTableComponent
             Column::make('Name')
                 ->sortable()
                 ->searchable(),
+            Column::make('Terminations', 'id')
+                ->format(fn ($value, $row) => view('human_resource::tables.badge')->with([
+                    'value' => $row->terminations_count,
+                    'type' => 'danger'
+                ])),
             Column::make('Actions', 'id')
                 ->view('human_resource::tables.actions'),
         ];

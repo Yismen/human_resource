@@ -1,5 +1,5 @@
 @props(['information', 'modelName', 'modelId'])
-<div class="border-top pt-2">
+<div class="border-top bg-gradient-info py-2">
     <h5 class="px-2">{{ __('Information') }}</h5>
 
     @if (isset($information) && $information )
@@ -32,7 +32,7 @@
         </tbody>
     </table>
 
-    <div class="btn btn-sm btn-warning mx-2" wire:click='$emit("updateInformation", "{{ $information->id }}")'>{{
+    <div class="btn btn-sm btn-dark mx-2" wire:click='$emit("updateInformation", "{{ $information->id }}")'>{{
         __('Edit')
         }}
         {{

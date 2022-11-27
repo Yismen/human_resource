@@ -23,18 +23,26 @@ class TerminationTest extends TestCase
     }
 
     /** @test */
-    // public function terminations_model_morph_one_information()
-    // {
-    //     $company = Termination::factory()->create();
+    public function terminations_model_belongs_to_employee()
+    {
+        $termination = Termination::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $termination->employee());
+    }
 
-    // /** @test */
-    // public function terminations_model_morph_many_images()
-    // {
-    //     $company = Termination::factory()->create();
+    /** @test */
+    public function terminations_model_belongs_to_terminationType()
+    {
+        $termination = Termination::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $termination->terminationType());
+    }
+
+    /** @test */
+    public function terminations_model_belongs_to_terminationReason()
+    {
+        $termination = Termination::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $termination->terminationReason());
+    }
 }

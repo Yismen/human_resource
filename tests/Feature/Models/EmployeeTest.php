@@ -112,4 +112,20 @@ class EmployeeTest extends TestCase
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->ars());
     }
+
+    /** @test */
+    public function employees_model_has_many_terminations()
+    {
+        $employee = Employee::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $employee->terminations());
+    }
+
+    /** @test */
+    public function employees_model_has_many_suspensions()
+    {
+        $employee = Employee::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $employee->suspensions());
+    }
 }

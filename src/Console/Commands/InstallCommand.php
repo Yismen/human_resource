@@ -3,7 +3,6 @@
 namespace Dainsys\HumanResource\Console\Commands;
 
 use Illuminate\Console\Command;
-use Dainsys\HumanResource\Models\Site;
 
 class InstallCommand extends Command
 {
@@ -38,14 +37,9 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        // $name = $this->ask('Please enter company name');
-        // $super_user_email = $this->ask('Please enter super user email address');
-
-        // if (Site::count() > 0) {
-        //     throw new \Exception('Only one company allowed! Visit company profile and update. ', 419);
-        // }
-
-        // Site::create(compact('name', 'super_user_email'));
+        // Init terminations type
+        // Init termination reasons
+        // Init suspention types
 
         return 0;
     }

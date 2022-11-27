@@ -49,4 +49,9 @@ class Information extends AbstractModel
     {
         return $this->belongsTo(Site::class, 'informationable');
     }
+
+    public function supervisor(): BelongsTo
+    {
+        return $this->belongsTo(Supervisor::class, 'informationable');
+    }
 }

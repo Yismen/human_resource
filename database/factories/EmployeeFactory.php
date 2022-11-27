@@ -55,4 +55,31 @@ class EmployeeFactory extends Factory
             'ars_id' => Ars::factory(),
         ];
     }
+
+    public function current(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => EmployeeStatus::CURRENT,
+            ];
+        });
+    }
+
+    public function inactive(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => EmployeeStatus::INACTIVE,
+            ];
+        });
+    }
+
+    public function suspended(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => EmployeeStatus::SUSPENDED,
+            ];
+        });
+    }
 }

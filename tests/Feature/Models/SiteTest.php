@@ -31,10 +31,10 @@ class SiteTest extends TestCase
     }
 
     /** @test */
-    // public function sites_model_has_many_employees()
-    // {
-    //     $site = Site::factory()->create();
+    public function sites_model_has_many_employees()
+    {
+        $site = Site::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $site->employees());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $site->employees());
+    }
 }

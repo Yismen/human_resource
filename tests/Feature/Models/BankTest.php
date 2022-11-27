@@ -30,11 +30,11 @@ class BankTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $bank->information());
     }
 
-    // /** @test */
-    // public function banks_model_morph_many_images()
+    /** @test */
+    // public function banks_model_has_many_employees()
     // {
-    //     $company = Bank::factory()->create();
+    //     $bank = Bank::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
+    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $bank->employees());
     // }
 }

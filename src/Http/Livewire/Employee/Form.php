@@ -24,11 +24,13 @@ use Dainsys\HumanResource\Support\Enums\MaritalStatus;
 use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
 use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Dainsys\HumanResource\Traits\HasEmployeeContextualClass;
 
 class Form extends Component
 {
     use AuthorizesRequests;
     use WithRealTimeValidation;
+    use HasEmployeeContextualClass;
 
     protected $listeners = [
         'createEmployee',
@@ -211,24 +213,5 @@ class Form extends Component
                 Rule::exists(Ars::class, 'id'),
             ],
         ];
-    }
-
-    protected function titleClass(): string
-    {
-        switch ($this->employee->status ?? '') {
-            case EmployeeStatus::CURRENT:
-                return 'text-success';
-                break;
-            case EmployeeStatus::INACTIVE:
-                return 'text-danger';
-                break;
-            case EmployeeStatus::SUSPENDED:
-                return 'text-warning';
-                break;
-
-            default:
-                return '';
-                break;
-        }
     }
 }

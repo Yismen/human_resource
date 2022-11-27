@@ -103,15 +103,6 @@
                     </li>
                     @endcan
 
-                    @can('viewAny', \Dainsys\HumanResource\Models\Position::class)
-                    <li class="nav-item">
-                        <a href="{{ route('human_resource.admin.positions.index') }}" target="_top" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Positions') }}</p>
-                        </a>
-                    </li>
-                    @endcan
-
                     @can('viewAny', \Dainsys\HumanResource\Models\Site::class)
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.sites.index') }}" target="_top" class="nav-link">

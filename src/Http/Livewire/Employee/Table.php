@@ -10,7 +10,6 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use Dainsys\HumanResource\Exports\EmployeesExport;
 use Dainsys\HumanResource\Support\Enums\MaritalStatus;
 use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
-use Rappasoft\LaravelLivewireTables\Views\Columns\ImageColumn;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Dainsys\HumanResource\Http\Livewire\AbstractDataTableComponent;
 
@@ -31,16 +30,8 @@ class Table extends AbstractDataTableComponent
     public function columns(): array
     {
         return [
-            ImageColumn::make('Photo', 'photo_url')
-                ->location(
-                    fn ($row) => '/storage/' . optional($row->information)->photo_url
-                )
-                ->attributes(fn ($row) => [
-                    'class' => 'img-thumbnail rounded-circle',
-                    'alt' => $row->first_name,
-                    'height' => 45,
-                    'width' => 45,
-                ]),
+            Column::make('Photo', 'id')
+                ->view('human_resource::tables.thumbnail'),
             Column::make('Full Name')
                 ->sortable()
                 ->searchable(),

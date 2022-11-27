@@ -21,4 +21,12 @@ class ProjectTest extends TestCase
             'name', 'description'
         ]));
     }
+
+    /** @test */
+    public function projects_model_has_many_employees()
+    {
+        $project = Project::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $project->employees());
+    }
 }

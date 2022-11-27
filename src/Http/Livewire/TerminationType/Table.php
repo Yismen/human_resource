@@ -2,8 +2,8 @@
 
 namespace Dainsys\HumanResource\Http\Livewire\TerminationType;
 
-use Dainsys\HumanResource\Models\TerminationType;
 use Illuminate\Database\Eloquent\Builder;
+use Dainsys\HumanResource\Models\TerminationType;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Dainsys\HumanResource\Http\Livewire\AbstractDataTableComponent;
 
@@ -18,7 +18,7 @@ class Table extends AbstractDataTableComponent
     {
         return TerminationType::query()
             ->select(['name', 'id'])
-            // ->withCount('products')
+            ->withCount('terminations')
             // ->withCount('sales')
             // ->withCount('termination_typeType')
             ;
@@ -30,6 +30,8 @@ class Table extends AbstractDataTableComponent
             Column::make('Name')
                 ->sortable()
                 ->searchable(),
+            Column::make('Terminations', 'id')
+                ->format(fn ($value, $row) => view('human_resource::tables.badge')->withValue($row->terminations_count)),
             Column::make('Actions', 'id')
                 ->view('human_resource::tables.actions'),
         ];

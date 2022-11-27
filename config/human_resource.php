@@ -18,5 +18,13 @@ return [
         'guest' => '',
         'admin' => 'admin'
     ],
+    'seeds' => [
+        'termination_types' => [],
+        'termination_reasons' => [],
+        'suspension_types' => [],
+        'citizenships' => [],
+        'departments' => [],
+        'payment_types' => [],
+    ],
     'layout' => env('LAYOUT_VIEW', 'human_resource::layouts.app')
 ];
