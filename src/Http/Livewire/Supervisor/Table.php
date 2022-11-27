@@ -29,7 +29,7 @@ class Table extends AbstractDataTableComponent
     {
         return [
             Column::make('Photo', 'id')
-                ->view('human_resource::tables.image'),
+                ->view('human_resource::tables.thumbnail'),
             Column::make('Name')
                 ->sortable()
                 ->searchable(),
