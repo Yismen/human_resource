@@ -2,6 +2,8 @@
 
 namespace Dainsys\HumanResource\Models;
 
+use Dainsys\HumanResource\Events\EmployeeSaved;
+use Dainsys\HumanResource\Events\EmployeeCreated;
 use Dainsys\HumanResource\Models\Traits\BelongsToAfp;
 use Dainsys\HumanResource\Models\Traits\BelongsToArs;
 use Dainsys\HumanResource\Models\Traits\BelongsToSite;
@@ -29,23 +31,10 @@ class Employee extends AbstractModel
     use HasManyTerminations;
     use HasManySuspensions;
 
-    public static function booted()
-    {
-        parent::booted();
-
-        static::saving(function ($employee) {
-            $employee->full_name = trim(
-                join(' ', array_filter([
-                    $employee->first_name,
-                    $employee->second_first_name,
-                    $employee->last_name,
-                    $employee->second_last_name,
-                ]))
-            );
-
-            $employee->saveQuietly();
-        });
-    }
+    protected $dispatchesEvents = [
+        'saved' => EmployeeSaved::class,
+        'created' => EmployeeCreated::class
+    ];
 
     protected $casts = [
         'date_of_birth' => 'datetime:Y-m-d',
@@ -57,5 +46,19 @@ class Employee extends AbstractModel
     protected static function newFactory(): EmployeeFactory
     {
         return EmployeeFactory::new();
+    }
+
+    public function updateFullName()
+    {
+        $name = trim(
+            join(' ', array_filter([
+                $this->first_name,
+                $this->second_first_name,
+                $this->last_name,
+                $this->second_last_name,
+            ]))
+        );
+
+        $this->updateQuietly(['full_name' => $name]);
     }
 }

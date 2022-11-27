@@ -2,9 +2,11 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Models;
 
+use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Suspension;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Dainsys\HumanResource\Events\SuspensionCreated;
 
 class SuspensionTest extends TestCase
 {
@@ -20,6 +22,15 @@ class SuspensionTest extends TestCase
         $this->assertDatabaseHas(tableName('suspensions'), $data->only([
             'employee_id', 'suspension_type_id', 'comments'
         ]));
+    }
+
+    /** @test */
+    public function suspension_model_fires_event_when_created()
+    {
+        Event::fake();
+        $suspension = Suspension::factory()->create();
+
+        Event::assertDispatched(SuspensionCreated::class);
     }
 
     /** @test */

@@ -2,6 +2,7 @@
 
 namespace Dainsys\HumanResource\Models;
 
+use Dainsys\HumanResource\Events\SuspensionCreated;
 use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
 use Dainsys\HumanResource\Models\Traits\BelongsToEmployee;
 use Dainsys\HumanResource\Database\Factories\SuspensionFactory;
@@ -19,18 +20,13 @@ class Suspension extends AbstractModel
         'ends_at' => 'date:Y-m-d',
     ];
 
+    protected $dispatchesEvents = [
+        'created' => SuspensionCreated::class
+    ];
+
     protected static function newFactory(): SuspensionFactory
     {
         return SuspensionFactory::new();
-    }
-
-    protected static function booted()
-    {
-        parent::booted();
-
-        static::saved(function ($suspension) {
-            $suspension->changeEmployeeStatus();
-        });
     }
 
     public function changeEmployeeStatus()

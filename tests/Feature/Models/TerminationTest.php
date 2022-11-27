@@ -2,9 +2,11 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Models;
 
+use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Termination;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Dainsys\HumanResource\Events\TerminationCreated;
 
 class TerminationTest extends TestCase
 {
@@ -20,6 +22,15 @@ class TerminationTest extends TestCase
         $this->assertDatabaseHas(tableName('terminations'), $data->only([
             'employee_id', 'date', 'termination_type_id', 'termination_reason_id', 'comments', 'rehireable'
         ]));
+    }
+
+    /** @test */
+    public function termination_model_fires_event_when_created()
+    {
+        Event::fake();
+        $termination = Termination::factory()->create();
+
+        Event::assertDispatched(TerminationCreated::class);
     }
 
     /** @test */

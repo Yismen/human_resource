@@ -5,8 +5,15 @@ namespace Dainsys\HumanResource;
 use Livewire\Livewire;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Console\Scheduling\Schedule;
+use Dainsys\HumanResource\Events\EmployeeSaved;
+use Dainsys\HumanResource\Events\SuspensionCreated;
+use Dainsys\HumanResource\Listeners\UpdateFullName;
+use Dainsys\HumanResource\Events\TerminationCreated;
+use Dainsys\HumanResource\Listeners\SuspendEmployee;
+use Dainsys\HumanResource\Listeners\TerminateEmployee;
 use Dainsys\HumanResource\Console\Commands\InstallCommand;
 use Dainsys\HumanResource\Contracts\AuthorizedUsersContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
@@ -22,11 +29,11 @@ class HumanResourceServiceProvider extends AuthServiceProvider
 
     public function boot()
     {
-        $this->registerPolicies();
-
         Model::preventLazyLoading(true);
         Paginator::useBootstrap();
 
+        $this->registerPolicies();
+        $this->registerEvents();
         $this->bootPublishableAssets();
         $this->bootLoads();
         $this->bootLivewireComponents();
@@ -90,6 +97,15 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
             $schedule->command(UpdateEmployeeSuspensions::class)->dailyAt('03:00');
         });
+    }
+
+    protected function registerEvents()
+    {
+        Event::listen(EmployeeSaved::class, UpdateFullName::class);
+
+        Event::listen(TerminationCreated::class, TerminateEmployee::class);
+
+        Event::listen(SuspensionCreated::class, SuspendEmployee::class);
     }
 
     protected function bootLivewireComponents()

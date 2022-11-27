@@ -2,7 +2,7 @@
 
 namespace Dainsys\HumanResource\Models;
 
-use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
+use Dainsys\HumanResource\Events\TerminationCreated;
 use Dainsys\HumanResource\Models\Traits\BelongsToEmployee;
 use Dainsys\HumanResource\Database\Factories\TerminationFactory;
 use Dainsys\HumanResource\Models\Traits\BelongsToTerminationType;
@@ -16,16 +16,9 @@ class Termination extends AbstractModel
 
     protected $fillable = ['employee_id', 'date', 'termination_type_id', 'termination_reason_id', 'comments', 'rehireable'];
 
-    protected static function booted()
-    {
-        parent::booted();
-
-        static::created(function ($termination) {
-            $termination->employee->status = EmployeeStatus::INACTIVE;
-
-            $termination->employee->saveQuietly();
-        });
-    }
+    protected $dispatchesEvents = [
+        'created' => TerminationCreated::class
+    ];
 
     protected static function newFactory(): TerminationFactory
     {

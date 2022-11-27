@@ -2,8 +2,10 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Models;
 
+use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Employee;
+use Dainsys\HumanResource\Events\EmployeeCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class EmployeeTest extends TestCase
@@ -39,6 +41,32 @@ class EmployeeTest extends TestCase
             'afp_id',
             'ars_id',
         ]));
+    }
+
+    /** @test */
+    public function employee_model_update_full_name_when_saved()
+    {
+        $employee = Employee::factory()->create();
+
+        $name = trim(
+            join(' ', array_filter([
+                $employee->first_name,
+                $employee->second_first_name,
+                $employee->last_name,
+                $employee->second_last_name,
+            ]))
+        );
+
+        $this->assertDatabaseHas(tableName('employees'), ['full_name' => $name]);
+    }
+
+    /** @test */
+    public function employee_model_fires_event_when_created()
+    {
+        Event::fake();
+        $employee = Employee::factory()->create();
+
+        Event::assertDispatched(EmployeeCreated::class);
     }
 
     /** @test */
