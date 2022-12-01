@@ -6,7 +6,7 @@ use Illuminate\Queue\SerializesModels;
 use Dainsys\HumanResource\Models\Employee;
 use Illuminate\Foundation\Events\Dispatchable;
 
-class EmployeeCreated
+class EmployeeReactivated
 {
     use Dispatchable;
     use SerializesModels;
@@ -15,9 +15,6 @@ class EmployeeCreated
 
     public function __construct(Employee $employee)
     {
-        $this->employee = $employee->load([
-            'site',
-            'project',
-        ]);
+        $this->employee = $employee;
     }
 }

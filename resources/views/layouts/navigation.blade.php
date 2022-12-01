@@ -30,33 +30,6 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview" style="display: none;">
-                    @can('viewAny', \Dainsys\HumanResource\Models\Afp::class)
-                    <li class="nav-item">
-                        <a href="{{ route('human_resource.admin.afps.index') }}" target="_top" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Afps') }}</p>
-                        </a>
-                    </li>
-                    @endcan
-
-                    @can('viewAny', \Dainsys\HumanResource\Models\Ars::class)
-                    <li class="nav-item">
-                        <a href="{{ route('human_resource.admin.arss.index') }}" target="_top" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Arss') }}</p>
-                        </a>
-                    </li>
-                    @endcan
-
-                    @can('viewAny', \Dainsys\HumanResource\Models\Bank::class)
-                    <li class="nav-item">
-                        <a href="{{ route('human_resource.admin.banks.index') }}" target="_top" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Banks') }}</p>
-                        </a>
-                    </li>
-                    @endcan
-
                     @can('viewAny', \Dainsys\HumanResource\Models\Citizenship::class)
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.citizenships.index') }}" target="_top" class="nav-link">
@@ -112,11 +85,11 @@
                     </li>
                     @endcan
 
-                    @can('viewAny', \Dainsys\HumanResource\Models\Supervisor::class)
+                    @can('viewAny', \Dainsys\HumanResource\Models\Employee::class)
                     <li class="nav-item">
-                        <a href="{{ route('human_resource.admin.supervisors.index') }}" target="_top" class="nav-link">
+                        <a href="{{ route('human_resource.admin.employees.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Supervisors') }}</p>
+                            <p>{{ __('Employees') }}</p>
                         </a>
                     </li>
                     @endcan
@@ -141,15 +114,69 @@
                     </li>
                     @endcan
 
-                    @can('viewAny', \Dainsys\HumanResource\Models\Employee::class)
+                    @can('viewAny', \Dainsys\HumanResource\Models\Termination::class)
                     <li class="nav-item">
-                        <a href="{{ route('human_resource.admin.employees.index') }}" target="_top" class="nav-link">
+                        <a href="{{ route('human_resource.admin.terminations.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Employees') }}</p>
+                            <p>{{ __('Termination') }}</p>
                         </a>
                     </li>
                     @endcan
 
+                    @can('viewAny', \Dainsys\HumanResource\Models\SuspensionType::class)
+                    <li class="nav-item">
+                        <a href="{{ route('human_resource.admin.suspension_types.index') }}" target="_top"
+                            class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>{{ __('Suspension Type') }}</p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('viewAny', \Dainsys\HumanResource\Models\Suspension::class)
+                    <li class="nav-item">
+                        <a href="{{ route('human_resource.admin.suspensions.index') }}" target="_top" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>{{ __('Suspension') }}</p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('viewAny', \Dainsys\HumanResource\Models\Supervisor::class)
+                    <li class="nav-item">
+                        <a href="{{ route('human_resource.admin.supervisors.index') }}" target="_top" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>{{ __('Supervisors') }}</p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('viewAny', \Dainsys\HumanResource\Models\Afp::class)
+                    <li class="nav-item">
+                        <a href="{{ route('human_resource.admin.afps.index') }}" target="_top" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>{{ __('Afps') }}</p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('viewAny', \Dainsys\HumanResource\Models\Ars::class)
+                    <li class="nav-item">
+                        <a href="{{ route('human_resource.admin.arss.index') }}" target="_top" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>{{ __('Arss') }}</p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('viewAny', \Dainsys\HumanResource\Models\Bank::class)
+                    <li class="nav-item">
+                        <a href="{{ route('human_resource.admin.banks.index') }}" target="_top" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>{{ __('Banks') }}</p>
+                        </a>
+                    </li>
+                    @endcan
                 </ul>
             </li>
         </ul>

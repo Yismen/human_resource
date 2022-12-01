@@ -15,8 +15,8 @@ return [
     ],
     'db_prefix' => 'hr_',
     'routes_prefix' => [
-        'guest' => '',
-        'admin' => 'admin'
+        'guest' => 'hr',
+        'admin' => 'hr/admin'
     ],
     'seeds' => [
         'termination_types' => [],

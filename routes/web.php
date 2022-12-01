@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['web'])->group(function () {
     // Guest Routes
     Route::as('human_resource.')
-    ->prefix('human_resource')
+    ->prefix(config('human_resource.routes_prefix.guest'))
     ->group(function () {
         Route::get('about', \Dainsys\HumanResource\Http\Controllers\AboutController::class)->name('about');
     });

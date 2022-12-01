@@ -1,6 +1,6 @@
 {
     "name": "dainsys/human_resource",
-    "description": "Surve package for Dainsys",
+    "description": "Human Resource package for Dainsys",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -17,7 +17,8 @@
         "rappasoft/laravel-livewire-tables": "^2.8",
         "cviebrock/eloquent-sluggable": "^8.0",
         "php-flasher/flasher-laravel": "^1.7",
-        "maatwebsite/excel": "^3.1|4.0"
+        "maatwebsite/excel": "^3.1|4.0",
+        "dainsys/report": "^1.0"
     },
     "require-dev": {
         "orchestra/testbench": "6.x-dev",

@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Feature\Http\Livewire\Termination;
 
 use Livewire\Livewire;
+use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Termination;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,7 +16,7 @@ class FormTest extends TestCase
     /** @test */
     public function termination_form_requires_authorization_to_create()
     {
-        $termination = Termination::factory()->create();
+        $termination = Termination::factory()->createQuietly();
         $component = Livewire::test(Form::class)
             ->emit('createTermination', $termination->id);
 
@@ -25,7 +26,7 @@ class FormTest extends TestCase
     /** @test */
     public function termination_form_requires_authorization_to_update()
     {
-        $termination = Termination::factory()->create();
+        $termination = Termination::factory()->createQuietly();
         $component = Livewire::test(Form::class)
             ->emit('updateTermination', $termination->id);
 
@@ -59,6 +60,7 @@ class FormTest extends TestCase
     /** @test */
     public function termination_index_component_create_new_record()
     {
+        Event::fake();
         $this->withAuthorizedUser();
         $data = Termination::factory()->make()->toArray();
         $component = Livewire::test(Form::class)
@@ -76,7 +78,7 @@ class FormTest extends TestCase
     public function termination_index_component_update_record()
     {
         $this->withAuthorizedUser();
-        $termination = Termination::factory()->create();
+        $termination = Termination::factory()->createQuietly();
         $component = Livewire::test(Form::class)
             ->set('termination', $termination)
             ->set('termination.date', now()->subDay())

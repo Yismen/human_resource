@@ -2,6 +2,9 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Console\Commands;
 
+use Dainsys\Report\Models\Mailable;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Employee;
 use Dainsys\HumanResource\Models\Suspension;
@@ -9,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
 use Dainsys\HumanResource\Console\Commands\UpdateEmployeeSuspensions;
 
-class UpdateEmployeeSuspensiosnTest extends TestCase
+class UpdateEmployeeSuspensionsTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -23,8 +26,9 @@ class UpdateEmployeeSuspensiosnTest extends TestCase
     /** @test */
     public function current_employees_are_suspended()
     {
-        $current = Employee::factory()->create();
-        Suspension::factory()->create([
+
+        $current = Employee::factory()->createQuietly();
+        Suspension::factory()->createQuietly([
             'employee_id' => $current->id,
             'starts_at' => now()->subDay(),
             'ends_at' => now()->addDay(),
@@ -42,7 +46,7 @@ class UpdateEmployeeSuspensiosnTest extends TestCase
     /** @test */
     public function inactive_employees_are_not_suspended()
     {
-        $current = Employee::factory()->inactive()->create();
+        $current = Employee::factory()->inactive()->createQuietly();
         Suspension::factory()->create([
             'employee_id' => $current->id,
             'starts_at' => now()->subDay(),
@@ -61,7 +65,7 @@ class UpdateEmployeeSuspensiosnTest extends TestCase
     /** @test */
     public function inactive_employees_should_not_be_suspended()
     {
-        $inactive = Employee::factory()->inactive()->create();
+        $inactive = Employee::factory()->inactive()->createQuietly();
 
         Suspension::factory()->create([
             'employee_id' => $inactive->id,
@@ -80,7 +84,7 @@ class UpdateEmployeeSuspensiosnTest extends TestCase
     /** @test */
     public function employee_is_not_suspended_if_starts_at_is_before_now()
     {
-        $current = Employee::factory()->create();
+        $current = Employee::factory()->createQuietly();
         Suspension::factory()->create([
             'employee_id' => $current->id,
             'starts_at' => now()->addDay(),
@@ -99,7 +103,7 @@ class UpdateEmployeeSuspensiosnTest extends TestCase
     /** @test */
     public function employee_is_not_suspended_if_ends_at_is_after_now()
     {
-        $current = Employee::factory()->create();
+        $current = Employee::factory()->createQuietly();
         Suspension::factory()->create([
             'employee_id' => $current->id,
             'starts_at' => now()->subDay(),
@@ -118,7 +122,7 @@ class UpdateEmployeeSuspensiosnTest extends TestCase
     /** @test */
     public function suspended_employees_are_activated_if_today_is_prior_to_starts_at()
     {
-        $current = Employee::factory()->suspended()->create();
+        $current = Employee::factory()->suspended()->createQuietly();
         Suspension::factory()->create([
             'employee_id' => $current->id,
             'starts_at' => now()->addDay(),
@@ -137,7 +141,7 @@ class UpdateEmployeeSuspensiosnTest extends TestCase
     /** @test */
     public function suspended_employees_are_activated_if_today_is_after_ends_at()
     {
-        $current = Employee::factory()->suspended()->create();
+        $current = Employee::factory()->suspended()->createQuietly();
         Suspension::factory()->create([
             'employee_id' => $current->id,
             'starts_at' => now()->subDay(),

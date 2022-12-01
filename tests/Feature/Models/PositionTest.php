@@ -22,7 +22,7 @@ class PositionTest extends TestCase
             'name',
             'department_id',
             'payment_type_id',
-            'salary',
+            // 'salary',
             'description',
         ]));
     }

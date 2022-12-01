@@ -2,11 +2,13 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Models;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Termination;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dainsys\HumanResource\Events\TerminationCreated;
+use Dainsys\HumanResource\Mail\TerminationCreated as MailTerminationCreated;
 
 class TerminationTest extends TestCase
 {
@@ -31,6 +33,15 @@ class TerminationTest extends TestCase
         $termination = Termination::factory()->create();
 
         Event::assertDispatched(TerminationCreated::class);
+    }
+
+    /** @test */
+    public function email_is_sent_when_termination_is_created()
+    {
+        Mail::fake();
+        Termination::factory()->create();
+
+        Mail::assertSent(MailTerminationCreated::class);
     }
 
     /** @test */

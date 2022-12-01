@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Feature\Http\Livewire\Suspension;
 
 use Livewire\Livewire;
+use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Suspension;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,7 +16,7 @@ class FormTest extends TestCase
     /** @test */
     public function suspension_form_requires_authorization_to_create()
     {
-        $suspension = Suspension::factory()->create();
+        $suspension = Suspension::factory()->createQuietly();
         $component = Livewire::test(Form::class)
             ->emit('createSuspension', $suspension->id);
 
@@ -25,7 +26,7 @@ class FormTest extends TestCase
     /** @test */
     public function suspension_form_requires_authorization_to_update()
     {
-        $suspension = Suspension::factory()->create();
+        $suspension = Suspension::factory()->createQuietly();
         $component = Livewire::test(Form::class)
             ->emit('updateSuspension', $suspension->id);
 
@@ -59,6 +60,7 @@ class FormTest extends TestCase
     /** @test */
     public function suspension_index_component_create_new_record()
     {
+        Event::fake();
         $this->withAuthorizedUser();
         $data = Suspension::factory()->make()->toArray();
         $component = Livewire::test(Form::class)
@@ -76,7 +78,7 @@ class FormTest extends TestCase
     public function suspension_index_component_update_record()
     {
         $this->withAuthorizedUser();
-        $suspension = Suspension::factory()->create();
+        $suspension = Suspension::factory()->createQuietly();
         $component = Livewire::test(Form::class)
             ->set('suspension', $suspension)
             ->set('suspension.starts_at', now()->subDay())

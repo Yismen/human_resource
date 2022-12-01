@@ -3,8 +3,8 @@
 namespace Dainsys\HumanResource\Feature\Http\Livewire\Suspension;
 
 use Livewire\Livewire;
-use Dainsys\HumanResource\Models\Suspension;
 use Dainsys\HumanResource\Tests\TestCase;
+use Dainsys\HumanResource\Models\Suspension;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dainsys\HumanResource\Http\Livewire\Suspension\Detail;
 
@@ -15,7 +15,7 @@ class DetailTest extends TestCase
     /** @test */
     public function suspension_detail_requires_authorization()
     {
-        $suspension = Suspension::factory()->create();
+        $suspension = Suspension::factory()->createQuietly();
         $component = Livewire::test(Detail::class)
             ->emit('showSuspension', $suspension->id);
 

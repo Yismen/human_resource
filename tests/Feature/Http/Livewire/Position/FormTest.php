@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Feature\Http\Livewire\Position;
 
 use Livewire\Livewire;
+use Illuminate\Support\Arr;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Position;
 use Dainsys\HumanResource\Models\Department;
@@ -70,7 +71,7 @@ class FormTest extends TestCase
         $component->assertDispatchedBrowserEvent('closeAllModals');
         $component->assertEmitted('positionUpdated');
 
-        $this->assertDatabaseHas(tableName('positions'), $data);
+        $this->assertDatabaseHas(tableName('positions'), Arr::except($data, ['salary']));
     }
 
     /** @test */

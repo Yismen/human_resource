@@ -3,14 +3,22 @@
 namespace Dainsys\HumanResource\Feature\Http\Livewire\Employee;
 
 use Livewire\Livewire;
-use Dainsys\HumanResource\Models\Employee;
+use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
+use Dainsys\HumanResource\Models\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dainsys\HumanResource\Http\Livewire\Employee\Detail;
 
 class DetailTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        
+        Event::fake();
+    }
 
     /** @test */
     public function employee_detail_requires_authorization()

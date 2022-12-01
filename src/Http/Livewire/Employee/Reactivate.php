@@ -5,6 +5,7 @@ namespace Dainsys\HumanResource\Http\Livewire\Employee;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 use Dainsys\HumanResource\Models\Employee;
+use Dainsys\HumanResource\Events\EmployeeReactivated;
 use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
 use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -57,6 +58,8 @@ class Reactivate extends Component
             'hired_at' => $this->reactivation['hired_at'],
             'status' => EmployeeStatus::CURRENT,
         ]);
+
+        event(new EmployeeReactivated($this->employee));
 
         $this->emit('employeeUpdated');
 

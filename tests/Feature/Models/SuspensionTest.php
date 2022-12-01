@@ -2,11 +2,13 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Models;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Suspension;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dainsys\HumanResource\Events\SuspensionCreated;
+use Dainsys\HumanResource\Mail\SuspensionCreated as MailSuspensionCreated;
 
 class SuspensionTest extends TestCase
 {
@@ -31,6 +33,15 @@ class SuspensionTest extends TestCase
         $suspension = Suspension::factory()->create();
 
         Event::assertDispatched(SuspensionCreated::class);
+    }
+
+    /** @test */
+    public function email_is_sent_when_suspension_is_created()
+    {
+        Mail::fake();
+        Suspension::factory()->create();
+
+        Mail::assertSent(MailSuspensionCreated::class);
     }
 
     /** @test */

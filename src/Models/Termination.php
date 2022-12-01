@@ -20,6 +20,10 @@ class Termination extends AbstractModel
         'created' => TerminationCreated::class
     ];
 
+    protected $casts = [
+        'date' => 'date:Y-m-d'
+    ];
+
     protected static function newFactory(): TerminationFactory
     {
         return TerminationFactory::new();

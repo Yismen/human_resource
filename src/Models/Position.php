@@ -19,4 +19,14 @@ class Position extends AbstractModel
     {
         return PositionFactory::new();
     }
+
+    public function setSalaryAttribute($salary)
+    {
+        $this->attributes['salary'] = floor($salary * 100);
+    }
+
+    public function getSalaryAttribute($salary)
+    {
+        return $salary / 100;
+    }
 }

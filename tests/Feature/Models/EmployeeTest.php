@@ -2,11 +2,13 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Models;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Employee;
 use Dainsys\HumanResource\Events\EmployeeCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Dainsys\HumanResource\Mail\EmployeeCreated as MailEmployeeCreated;
 
 class EmployeeTest extends TestCase
 {
@@ -15,6 +17,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employee_model_interacts_with_employees_table()
     {
+        Event::fake();
         $data = Employee::factory()->make();
 
         Employee::create($data->toArray());
@@ -67,6 +70,15 @@ class EmployeeTest extends TestCase
         $employee = Employee::factory()->create();
 
         Event::assertDispatched(EmployeeCreated::class);
+    }
+
+    /** @test */
+    public function email_is_sent_when_employee_is_created()
+    {
+        Mail::fake();
+        Employee::factory()->create();
+
+        Mail::assertSent(MailEmployeeCreated::class);
     }
 
     /** @test */

@@ -10,6 +10,9 @@ use Dainsys\HumanResource\Http\Livewire\AbstractDataTableComponent;
 class Table extends AbstractDataTableComponent
 {
     protected string $module = 'Project';
+    protected $listeners = [
+        'projectUpdated' => '$refresh'
+    ];
 
     public function builder(): Builder
     {
