@@ -11,15 +11,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Console\Scheduling\Schedule;
 use Dainsys\HumanResource\Events\EmployeeSaved;
 use Dainsys\HumanResource\Events\EmployeeCreated;
-use Dainsys\HumanResource\Events\SuspensionCreated;
+use Dainsys\HumanResource\Events\SuspensionUpdated;
 use Dainsys\HumanResource\Listeners\UpdateFullName;
 use Dainsys\HumanResource\Events\TerminationCreated;
 use Dainsys\HumanResource\Listeners\SuspendEmployee;
 use Dainsys\HumanResource\Events\EmployeeReactivated;
 use Dainsys\HumanResource\Listeners\TerminateEmployee;
-use Dainsys\HumanResource\Console\Commands\InstallCommand;
 use Dainsys\HumanResource\Contracts\AuthorizedUsersContract;
 use Dainsys\HumanResource\Listeners\SendEmployeeCreatedEmail;
+use Dainsys\HumanResource\Console\Commands\EmployeesSuspended;
 use Dainsys\HumanResource\Listeners\SendEmployeeSuspendedEmail;
 use Dainsys\HumanResource\Listeners\SendEmployeeTerminatedEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
@@ -47,8 +47,9 @@ class HumanResourceServiceProvider extends AuthServiceProvider
 
         if ($this->app->runningInConsole() && !app()->isProduction()) {
             $this->commands([
-                InstallCommand::class,
-                UpdateEmployeeSuspensions::class,
+                \Dainsys\HumanResource\Console\Commands\InstallCommand::class,
+                \Dainsys\HumanResource\Console\Commands\UpdateEmployeeSuspensions::class,
+                \Dainsys\HumanResource\Console\Commands\EmployeesSuspended::class,
             ]);
         }
 
@@ -105,6 +106,7 @@ class HumanResourceServiceProvider extends AuthServiceProvider
     {
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
             $schedule->command(UpdateEmployeeSuspensions::class)->dailyAt('03:00');
+            $schedule->command(EmployeesSuspended::class)->dailyAt('03:05');
         });
     }
 
@@ -118,8 +120,8 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         Event::listen(TerminationCreated::class, TerminateEmployee::class);
         Event::listen(TerminationCreated::class, SendEmployeeTerminatedEmail::class);
 
-        Event::listen(SuspensionCreated::class, SuspendEmployee::class);
-        Event::listen(SuspensionCreated::class, SendEmployeeSuspendedEmail::class);
+        Event::listen(SuspensionUpdated::class, SuspendEmployee::class);
+        Event::listen(SuspensionUpdated::class, SendEmployeeSuspendedEmail::class);
     }
 
     protected function bootLivewireComponents()

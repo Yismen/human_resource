@@ -3,9 +3,9 @@
 namespace Dainsys\HumanResource\Console\Commands;
 
 use Illuminate\Console\Command;
-use Dainsys\HumanResource\Models\Employee;
-use Dainsys\HumanResource\Models\Suspension;
 use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
+use Dainsys\HumanResource\Services\EmployeesNeedingSuspension;
+use Dainsys\HumanResource\Services\EmployeesNeedingRemoveSuspension;
 
 class UpdateEmployeeSuspensions extends Command
 {
@@ -40,15 +40,25 @@ class UpdateEmployeeSuspensions extends Command
      */
     public function handle()
     {
-        $suspensions = Suspension::query()
-            ->with(['employee'])
-            ->whereHas('employee', function($query) {
-                $query->where('status', '<>', EmployeeStatus::INACTIVE);
-            })
-            ->get()
-            ->each->changeEmployeeStatus();
+        $shouldSuspend = EmployeesNeedingSuspension::list();
+        $shouldActivate = EmployeesNeedingRemoveSuspension::list();
 
+        $shouldSuspendCount = $shouldSuspend->count();
+        $shouldActivateCount = $shouldActivate->count();
 
+        if ($shouldSuspendCount) {
+            $shouldSuspend->each->updateQuietly(['status' => EmployeeStatus::SUSPENDED]);
+            $this->info("{$shouldSuspendCount} employees suspended!");
+        }
+
+        if ($shouldActivateCount) {
+            $shouldActivate->each->updateQuietly(['status' => EmployeeStatus::CURRENT]);
+            $this->info("{$shouldActivateCount} suspended employees activated!");
+        }
+
+        if ($shouldActivateCount === 0 && $shouldActivateCount === 0) {
+            $this->warn('No status change needed for employees!');
+        }
 
         return 0;
     }

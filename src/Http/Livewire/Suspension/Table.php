@@ -35,11 +35,11 @@ class Table extends AbstractDataTableComponent
                 ->sortable()
                 ->searchable(),
             Column::make('Ends At')
-                ->format(fn ($value, $row) => $row->starts_at->format('Y-m-d'))
+                ->format(fn ($value, $row) => $row->ends_at->format('Y-m-d'))
                 ->sortable()
                 ->searchable(),
             Column::make('Duration', 'ends_at')
-                ->format(fn ($value, $row) => $row->starts_at->diffInDays($row->ends_at) . ' days'),
+                ->format(fn ($value, $row) => $row->duration),
             Column::make('Type', 'suspension_type_id')
                 ->format(fn ($value, $row) => $row->suspensionType->name),
             Column::make('Employee', 'employee_id')

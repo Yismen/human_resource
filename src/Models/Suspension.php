@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Models;
 
 use Dainsys\HumanResource\Events\SuspensionCreated;
+use Dainsys\HumanResource\Events\SuspensionUpdated;
 use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
 use Dainsys\HumanResource\Models\Traits\BelongsToEmployee;
 use Dainsys\HumanResource\Database\Factories\SuspensionFactory;
@@ -21,63 +22,82 @@ class Suspension extends AbstractModel
     ];
 
     protected $dispatchesEvents = [
-        'created' => SuspensionCreated::class
+        'saved' => SuspensionUpdated::class,
     ];
+
+    public function getDurationAttribute()
+    {
+        return $this->starts_at ? $this->starts_at->diffInDays($this->ends_at) + 1 . ' days' : null;
+    }
 
     protected static function newFactory(): SuspensionFactory
     {
         return SuspensionFactory::new();
     }
 
-    public function changeEmployeeStatus()
+    public function scopeActive($query)
     {
-        if ($this->shouldSuspend()) {
-            $this->employee->update([
-                'status' => EmployeeStatus::SUSPENDED,
-            ]);
-        }
-        if ($this->shouldRemoveSuspension()) {
-            $this->employee->update([
-                'status' => EmployeeStatus::CURRENT,
-            ]);
-        }
+        $query->where(function ($query) {
+            $query
+                ->whereDate('starts_at', '<=', now()->format('Y-m-d'))
+                ->whereDate('ends_at', '>=', now()->format('Y-m-d'))
+                ;
+        });
     }
 
-    protected function shouldSuspend(): bool
-    {
-        $date = now();
+    // public function changeEmployeeStatus()
+    // {
+    //     // dd($this->employee->toArray(), $this->toArray());
+    //     if ($this->shouldSuspend()) {
+    //         dd('suspend', $this->employee->toArray(), $this->toArray());
+    //         $this->employee->update([
+    //             'status' => EmployeeStatus::SUSPENDED,
+    //         ]);
+    //     }
+    //     if ($this->shouldRemoveSuspension()) {
+    //         dd('unsuspend', $this->employee->toArray(), $this->toArray());
+    //         $this->employee->update([
+    //             'status' => EmployeeStatus::CURRENT,
+    //         ]);
+    //     }
+    // }
 
-        if ($this->employee->status === EmployeeStatus::INACTIVE) {
-            return false;
-        }
+    // protected function shouldSuspend(): bool
+    // {
+    //     $date = now();
 
-        if ($date < $this->starts_at) {
-            return false;
-        }
+    //     if ($this->employee->status === EmployeeStatus::INACTIVE) {
+    //         dd('aqui');
+    //         return false;
+    //     }
 
-        if ($date > $this->ends_at) {
-            return false;
-        }
+    //     if ($date < $this->starts_at) {
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     if ($date > $this->ends_at) {
+    //         return false;
+    //     }
 
-    protected function shouldRemoveSuspension(): bool
-    {
-        $date = now();
+    //     return true;
+    // }
 
-        if ($this->employee->status !== EmployeeStatus::SUSPENDED) {
-            return false;
-        }
+    // protected function shouldRemoveSuspension(): bool
+    // {
+    //     $date = now();
 
-        if ($date < $this->starts_at) {
-            return true;
-        }
+    //     if ($this->employee->status !== EmployeeStatus::SUSPENDED) {
+    //         return false;
+    //     }
 
-        if ($date > $this->ends_at) {
-            return true;
-        }
+    //     if ($date < $this->starts_at) {
+    //         return true;
+    //     }
 
-        return false;
-    }
+    //     if ($date > $this->ends_at) {
+    //         return true;
+    //     }
+
+    //     return false;
+    // }
 }

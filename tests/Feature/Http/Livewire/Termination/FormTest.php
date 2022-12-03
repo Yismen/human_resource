@@ -89,14 +89,14 @@ class FormTest extends TestCase
         $component->assertSet('editing', false);
         $component->assertDispatchedBrowserEvent('closeAllModals');
         $component->assertEmitted('terminationUpdated');
-        $this->assertDatabaseHas(tableName('terminations'), ['date' => now()->subDay(), 'comments' => 'Updated description']);
+        $this->assertDatabaseHas(tableName('terminations'), ['date' => now()->subDay()->format('Y-m-d'), 'comments' => 'Updated description']);
     }
 
     /** @test */
     public function termination_index_component_validates_required_fields()
     {
         $this->withAuthorizedUser();
-        $data = ['date' => ''];
+        $data = ['date' => null];
         $component = Livewire::test(Form::class)
             ->set('termination', new Termination($data));
 

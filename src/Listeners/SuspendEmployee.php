@@ -2,12 +2,18 @@
 
 namespace Dainsys\HumanResource\Listeners;
 
-use Dainsys\HumanResource\Events\SuspensionCreated;
+use Dainsys\HumanResource\Events\SuspensionUpdated;
 
 class SuspendEmployee
 {
-    public function handle(SuspensionCreated $event)
+    public function handle(SuspensionUpdated $event)
     {
-        $event->suspension->changeEmployeeStatus();
+        $employee = $event->suspension->employee;
+        if ($employee->shouldBeSuspended()) {
+            $employee->suspend();
+        }
+        if ($employee->shouldNotBeSuspended()) {
+            $employee->unsuspend();
+        }
     }
 }

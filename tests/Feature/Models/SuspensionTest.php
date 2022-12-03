@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Suspension;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Dainsys\HumanResource\Events\SuspensionCreated;
-use Dainsys\HumanResource\Mail\SuspensionCreated as MailSuspensionCreated;
+use Dainsys\HumanResource\Events\SuspensionUpdated;
+use Dainsys\HumanResource\Mail\SuspensionUpdated as MailSuspensionUpdated;
 
 class SuspensionTest extends TestCase
 {
@@ -32,7 +32,7 @@ class SuspensionTest extends TestCase
         Event::fake();
         $suspension = Suspension::factory()->create();
 
-        Event::assertDispatched(SuspensionCreated::class);
+        Event::assertDispatched(SuspensionUpdated::class);
     }
 
     /** @test */
@@ -41,7 +41,7 @@ class SuspensionTest extends TestCase
         Mail::fake();
         Suspension::factory()->create();
 
-        Mail::assertSent(MailSuspensionCreated::class);
+        Mail::assertSent(MailSuspensionUpdated::class);
     }
 
     /** @test */

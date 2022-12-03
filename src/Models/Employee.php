@@ -8,6 +8,7 @@ use Dainsys\HumanResource\Models\Traits\BelongsToAfp;
 use Dainsys\HumanResource\Models\Traits\BelongsToArs;
 use Dainsys\HumanResource\Models\Traits\BelongsToSite;
 use Dainsys\HumanResource\Models\Traits\HasInformation;
+use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
 use Dainsys\HumanResource\Models\Traits\BelongsToProject;
 use Dainsys\HumanResource\Models\Traits\BelongsToPosition;
 use Dainsys\HumanResource\Models\Traits\HasManySuspensions;
@@ -60,5 +61,70 @@ class Employee extends AbstractModel
         );
 
         $this->updateQuietly(['full_name' => $name]);
+    }
+
+    public function scopeCurrent($query)
+    {
+        $query->where('status', EmployeeStatus::CURRENT);
+    }
+
+    public function scopeSuspended($query)
+    {
+        $query->where('status', EmployeeStatus::SUSPENDED);
+    }
+
+    public function scopeInactive($query)
+    {
+        $query->where('status', EmployeeStatus::INACTIVE);
+    }
+
+    public function scopeHasActiveSuspension($query)
+    {
+        $query->with('suspensions')
+            ->where('status', '<>', EmployeeStatus::INACTIVE)
+            ->where(function ($query) {
+                $query->whereHas('suspensions', function ($suspensions) {
+                    $suspensions->active();
+                });
+            })
+            ;
+    }
+
+    public function scopeMissingActiveSuspension($query)
+    {
+        $query->with('suspensions')
+            ->where(function ($query) {
+                $query->whereDoesntHave('suspensions', function ($suspensions) {
+                    $suspensions->active();
+                });
+            });
+    }
+
+    public function shouldBeSuspended(): bool
+    {
+        if ($this->status === EmployeeStatus::INACTIVE) {
+            return false;
+        }
+
+        return $this->suspensions()->active()->count() > 0;
+    }
+
+    public function shouldNotBeSuspended(): bool
+    {
+        if ($this->status === EmployeeStatus::INACTIVE) {
+            return false;
+        }
+
+        return $this->suspensions()->active()->count() === 0;
+    }
+
+    public function suspend()
+    {
+        $this->updateQuietly(['status' => EmployeeStatus::SUSPENDED]);
+    }
+
+    public function unSuspend()
+    {
+        $this->updateQuietly(['status' => EmployeeStatus::CURRENT]);
     }
 }

@@ -8,7 +8,9 @@ use Dainsys\HumanResource\Models\Employee;
 use Dainsys\HumanResource\Models\Suspension;
 use Dainsys\HumanResource\Models\SuspensionType;
 use Dainsys\HumanResource\Traits\WithRealTimeValidation;
+use Dainsys\HumanResource\Services\SuspensionTypeService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Dainsys\HumanResource\Services\EmployeesNotInactiveService;
 
 class Form extends Component
 {
@@ -25,34 +27,11 @@ class Form extends Component
 
     public $suspension;
 
-    protected function getRules()
-    {
-        return [
-            'suspension.employee_id' => [
-                'required',
-                Rule::exists(Employee::class, 'id')
-            ],
-            'suspension.suspension_type_id' => [
-                'required',
-                Rule::exists(SuspensionType::class, 'id'),
-            ],
-            'suspension.starts_at' => [
-                'required',
-                'date',
-            ],
-            'suspension.ends_at' => [
-                'required',
-                'date',
-            ],
-            'suspension.comments' => [
-                'nullable',
-            ],
-        ];
-    }
-
     public function render()
     {
         return view('human_resource::livewire.suspension.form', [
+            'employees' => EmployeesNotInactiveService::list(),
+            'suspension_types' => SuspensionTypeService::list()
         ])
         ->layout('human_resource::layouts.app');
     }
@@ -111,5 +90,30 @@ class Form extends Component
         $this->editing = false;
 
         $this->emit('suspensionUpdated');
+    }
+
+    protected function getRules()
+    {
+        return [
+            'suspension.employee_id' => [
+                'required',
+                Rule::exists(Employee::class, 'id')
+            ],
+            'suspension.suspension_type_id' => [
+                'required',
+                Rule::exists(SuspensionType::class, 'id'),
+            ],
+            'suspension.starts_at' => [
+                'required',
+                'date',
+            ],
+            'suspension.ends_at' => [
+                'required',
+                'date',
+            ],
+            'suspension.comments' => [
+                'nullable',
+            ],
+        ];
     }
 }

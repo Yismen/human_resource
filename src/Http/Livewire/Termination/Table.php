@@ -9,6 +9,7 @@ use Dainsys\HumanResource\Services\EmployeeService;
 use Dainsys\HumanResource\Services\TerminationTypeService;
 use Dainsys\HumanResource\Services\TerminationReasonService;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Dainsys\HumanResource\Http\Livewire\AbstractDataTableComponent;
 
 class Table extends AbstractDataTableComponent
@@ -42,6 +43,7 @@ class Table extends AbstractDataTableComponent
                 ->format(fn ($value, $row) => $row->terminationType->name),
             Column::make('Reason', 'termination_reason_id')
                 ->format(fn ($value, $row) => $row->terminationReason->name),
+            BooleanColumn::make('Rehireable'),
             Column::make('Actions', 'id')
                 ->view('human_resource::tables.actions'),
         ];
@@ -64,6 +66,15 @@ class Table extends AbstractDataTableComponent
                 ->options(['' => 'All'] + EmployeeService::list()->all())
                 ->filter(function (Builder $builder, string $value) {
                     $builder->where('employee_id', $value);
+                }),
+            SelectFilter::make('Rehireable')
+                ->options([
+                    '' => 'All',
+                    1 => 'Yes',
+                    0 => 'No',
+                ])
+                ->filter(function (Builder $builder, bool $value) {
+                    $builder->where('rehireable', $value);
                 }),
         ];
     }

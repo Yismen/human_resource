@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Dainsys\HumanResource\Models\Suspension;
 
-class SuspensionCreated extends Mailable
+class SuspensionUpdated extends Mailable
 {
     use Queueable;
     use SerializesModels;
@@ -24,6 +24,6 @@ class SuspensionCreated extends Mailable
     {
         return $this
             ->to(Report::recipients($this))
-            ->markdown('human_resource::mail.suspension-created');
+            ->markdown('human_resource::mail.suspension-updated');
     }
 }

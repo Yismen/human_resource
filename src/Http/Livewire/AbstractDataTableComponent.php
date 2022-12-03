@@ -10,7 +10,7 @@ abstract class AbstractDataTableComponent extends DataTableComponent
 {
     public function configure(): void
     {
-        $records = $this->builder()->getModel()->count();
+        $records = $this->builder()->count();
 
         $this->withDefaultSorting();
 

@@ -6,7 +6,7 @@ use Illuminate\Queue\SerializesModels;
 use Dainsys\HumanResource\Models\Suspension;
 use Illuminate\Foundation\Events\Dispatchable;
 
-class SuspensionCreated
+class SuspensionUpdated
 {
     use Dispatchable;
     use SerializesModels;

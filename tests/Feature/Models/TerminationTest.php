@@ -22,7 +22,7 @@ class TerminationTest extends TestCase
         Termination::create($data->toArray());
 
         $this->assertDatabaseHas(tableName('terminations'), $data->only([
-            'employee_id', 'date', 'termination_type_id', 'termination_reason_id', 'comments', 'rehireable'
+            'employee_id', 'termination_type_id', 'termination_reason_id', 'comments', 'rehireable'
         ]));
     }
 

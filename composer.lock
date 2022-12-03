@@ -1917,12 +1917,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "6244541cdd0b323af59bbccfee857c6bd1cde88c"
+                "reference": "889546413c97de2d05063b8cb7b193c2531ea211"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/6244541cdd0b323af59bbccfee857c6bd1cde88c",
-                "reference": "6244541cdd0b323af59bbccfee857c6bd1cde88c",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/889546413c97de2d05063b8cb7b193c2531ea211",
+                "reference": "889546413c97de2d05063b8cb7b193c2531ea211",
                 "shasum": ""
             },
             "require": {
@@ -1933,7 +1933,7 @@
                 "symfony/translation": "^3.4 || ^4.0 || ^5.0 || ^6.0"
             },
             "require-dev": {
-                "doctrine/dbal": "^2.0 || ^3.0",
+                "doctrine/dbal": "^2.0 || ^3.1.4",
                 "doctrine/orm": "^2.7",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "kylekatarnls/multi-tester": "^2.0",
@@ -2012,7 +2012,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-07T09:00:40+00:00"
+            "time": "2022-11-26T17:36:00+00:00"
         },
         {
             "name": "nette/schema",
@@ -7096,12 +7096,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a4246d5352b16c87547505d1af713cf348e3646f"
+                "reference": "c5d354261e4dac18b0c0ec0f60d47857567cb344"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a4246d5352b16c87547505d1af713cf348e3646f",
-                "reference": "a4246d5352b16c87547505d1af713cf348e3646f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c5d354261e4dac18b0c0ec0f60d47857567cb344",
+                "reference": "c5d354261e4dac18b0c0ec0f60d47857567cb344",
                 "shasum": ""
             },
             "require": {
@@ -7190,7 +7190,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-30T19:34:14+00:00"
+            "time": "2022-12-02T10:48:04+00:00"
         },
         {
             "name": "pimple/pimple",

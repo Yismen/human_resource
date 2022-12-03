@@ -41,7 +41,7 @@ class Table extends AbstractDataTableComponent
             Column::make('Hired At')
                 ->searchable()
                 ->sortable()
-            ->format(fn ($value, $row, Column $column) => $value->format('Y-m-d')),
+                ->format(fn ($value, $row, Column $column) => $value->format('Y-m-d')),
             Column::make('Cellphone')
                 ->searchable()
                 ->sortable(),
