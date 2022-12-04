@@ -47,7 +47,7 @@ class UpdateEmployeeSuspensionsTest extends TestCase
     public function inactive_employees_are_not_suspended()
     {
         $current = Employee::factory()->inactive()->createQuietly();
-        Suspension::factory()->create([
+        Suspension::factory()->createQuietly([
             'employee_id' => $current->id,
             'starts_at' => now()->subDay(),
             'ends_at' => now()->addDay(),
@@ -67,7 +67,7 @@ class UpdateEmployeeSuspensionsTest extends TestCase
     {
         $inactive = Employee::factory()->inactive()->createQuietly();
 
-        Suspension::factory()->create([
+        Suspension::factory()->createQuietly([
             'employee_id' => $inactive->id,
             'starts_at' => now()->subDay(),
             'ends_at' => now()->addDay(),
@@ -85,7 +85,7 @@ class UpdateEmployeeSuspensionsTest extends TestCase
     public function employee_is_not_suspended_if_starts_at_is_before_now()
     {
         $current = Employee::factory()->createQuietly();
-        Suspension::factory()->create([
+        Suspension::factory()->createQuietly([
             'employee_id' => $current->id,
             'starts_at' => now()->addDay(),
             'ends_at' => now()->addDay(),
@@ -104,7 +104,7 @@ class UpdateEmployeeSuspensionsTest extends TestCase
     public function employee_is_not_suspended_if_ends_at_is_after_now()
     {
         $current = Employee::factory()->createQuietly();
-        Suspension::factory()->create([
+        Suspension::factory()->createQuietly([
             'employee_id' => $current->id,
             'starts_at' => now()->subDay(),
             'ends_at' => now()->subDay(),
@@ -123,7 +123,7 @@ class UpdateEmployeeSuspensionsTest extends TestCase
     public function suspended_employees_are_activated_if_today_is_prior_to_starts_at()
     {
         $current = Employee::factory()->suspended()->createQuietly();
-        Suspension::factory()->create([
+        Suspension::factory()->createQuietly([
             'employee_id' => $current->id,
             'starts_at' => now()->addDay(),
             'ends_at' => now()->addDay(),
@@ -142,7 +142,7 @@ class UpdateEmployeeSuspensionsTest extends TestCase
     public function suspended_employees_are_activated_if_today_is_after_ends_at()
     {
         $current = Employee::factory()->suspended()->createQuietly();
-        Suspension::factory()->create([
+        Suspension::factory()->createQuietly([
             'employee_id' => $current->id,
             'starts_at' => now()->subDay(),
             'ends_at' => now()->subDay(),

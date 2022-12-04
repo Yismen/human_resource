@@ -49,6 +49,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employee_model_update_full_name_when_saved()
     {
+        Mail::fake();
         $employee = Employee::factory()->create();
 
         $name = trim(
@@ -66,6 +67,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employee_model_fires_event_when_created()
     {
+        Mail::fake();
         Event::fake();
         $employee = Employee::factory()->create();
 
@@ -84,7 +86,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_morph_one_information()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $employee->information());
     }
@@ -92,7 +94,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_belongs_to_site()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->site());
     }
@@ -100,7 +102,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_belongs_to_project()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->project());
     }
@@ -108,7 +110,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_belongs_to_position()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->position());
     }
@@ -116,7 +118,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_belongs_to_department()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->department());
     }
@@ -124,7 +126,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_belongs_to_citizenship()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->citizenship());
     }
@@ -132,7 +134,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_belongs_to_supervisor()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->supervisor());
     }
@@ -140,7 +142,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_belongs_to_afp()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->afp());
     }
@@ -148,7 +150,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_belongs_to_ars()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $employee->ars());
     }
@@ -156,7 +158,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_has_many_terminations()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $employee->terminations());
     }
@@ -164,7 +166,7 @@ class EmployeeTest extends TestCase
     /** @test */
     public function employees_model_has_many_suspensions()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $employee->suspensions());
     }

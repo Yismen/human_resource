@@ -15,6 +15,7 @@ use Dainsys\HumanResource\Events\SuspensionUpdated;
 use Dainsys\HumanResource\Listeners\UpdateFullName;
 use Dainsys\HumanResource\Events\TerminationCreated;
 use Dainsys\HumanResource\Listeners\SuspendEmployee;
+use Dainsys\HumanResource\Console\Commands\Birthdays;
 use Dainsys\HumanResource\Events\EmployeeReactivated;
 use Dainsys\HumanResource\Listeners\TerminateEmployee;
 use Dainsys\HumanResource\Contracts\AuthorizedUsersContract;
@@ -50,6 +51,7 @@ class HumanResourceServiceProvider extends AuthServiceProvider
                 \Dainsys\HumanResource\Console\Commands\InstallCommand::class,
                 \Dainsys\HumanResource\Console\Commands\UpdateEmployeeSuspensions::class,
                 \Dainsys\HumanResource\Console\Commands\EmployeesSuspended::class,
+                \Dainsys\HumanResource\Console\Commands\Birthdays::class,
             ]);
         }
 
@@ -107,6 +109,10 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
             $schedule->command(UpdateEmployeeSuspensions::class)->dailyAt('03:00');
             $schedule->command(EmployeesSuspended::class)->dailyAt('03:05');
+            $schedule->command(Birthdays::class, ['today'])->dailyAt('04:00');
+            $schedule->command(Birthdays::class, ['this_month'])->monthlyOn(1, '04:01');
+            $schedule->command(Birthdays::class, ['last_month'])->monthlyOn(1, '04:05');
+            $schedule->command(Birthdays::class, ['next_month'])->monthlyOn(25, '04:10');
         });
     }
 

@@ -17,6 +17,7 @@ class SuspensionTest extends TestCase
     /** @test */
     public function suspensions_model_interacts_with_db_table()
     {
+        Mail::fake();
         $data = Suspension::factory()->make();
 
         Suspension::create($data->toArray());
@@ -29,6 +30,7 @@ class SuspensionTest extends TestCase
     /** @test */
     public function suspension_model_fires_event_when_created()
     {
+        Mail::fake();
         Event::fake();
         $suspension = Suspension::factory()->create();
 
@@ -47,6 +49,7 @@ class SuspensionTest extends TestCase
     /** @test */
     public function suspensions_model_belongs_to_employee()
     {
+        Mail::fake();
         $suspension = Suspension::factory()->create();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $suspension->employee());
@@ -55,6 +58,7 @@ class SuspensionTest extends TestCase
     /** @test */
     public function suspensions_model_belongs_to_suspensionType()
     {
+        Mail::fake();
         $suspension = Suspension::factory()->create();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $suspension->suspensionType());

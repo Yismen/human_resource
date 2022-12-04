@@ -78,6 +78,11 @@ class Employee extends AbstractModel
         $query->where('status', EmployeeStatus::INACTIVE);
     }
 
+    public function scopeNotInactive($query)
+    {
+        $query->where('status', '<>', EmployeeStatus::INACTIVE);
+    }
+
     public function scopeHasActiveSuspension($query)
     {
         $query->with('suspensions')

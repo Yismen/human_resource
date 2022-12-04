@@ -17,6 +17,7 @@ class TerminationTest extends TestCase
     /** @test */
     public function terminations_model_interacts_with_db_table()
     {
+        Mail::fake();
         $data = Termination::factory()->make();
 
         Termination::create($data->toArray());
@@ -29,6 +30,7 @@ class TerminationTest extends TestCase
     /** @test */
     public function termination_model_fires_event_when_created()
     {
+        Mail::fake();
         Event::fake();
         $termination = Termination::factory()->create();
 
@@ -47,6 +49,7 @@ class TerminationTest extends TestCase
     /** @test */
     public function terminations_model_belongs_to_employee()
     {
+        Mail::fake();
         $termination = Termination::factory()->create();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $termination->employee());
@@ -55,6 +58,7 @@ class TerminationTest extends TestCase
     /** @test */
     public function terminations_model_belongs_to_terminationType()
     {
+        Mail::fake();
         $termination = Termination::factory()->create();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $termination->terminationType());
@@ -63,6 +67,7 @@ class TerminationTest extends TestCase
     /** @test */
     public function terminations_model_belongs_to_terminationReason()
     {
+        Mail::fake();
         $termination = Termination::factory()->create();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $termination->terminationReason());
