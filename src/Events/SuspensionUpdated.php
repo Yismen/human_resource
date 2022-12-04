@@ -15,6 +15,9 @@ class SuspensionUpdated
 
     public function __construct(Suspension $suspension)
     {
-        $this->suspension = $suspension->load(['employee', 'suspensionType']);
+        $this->suspension = $suspension->load([
+            'employee' => fn ($q) => $q->with(['site', 'project', 'position']),
+            'suspensionType'
+        ]);
     }
 }
