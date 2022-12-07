@@ -6,7 +6,13 @@
 <div class="mb-3">
     <x-human_resource::inputs.label :field="$field" :required="$required" :label="$slot" />
 
-    <select wire:model='{{ $field }}' id="{{ $field }}" {{ $attributes->class([
+    <select @if ($attributes->has("multiple"))
+        wire:model.debounce.500ms='{{ $field }}'
+        @else
+        wire:model='{{ $field }}'
+        @endif
+        id="{{ $field }}"
+        {{ $attributes->class([
         'form-control',
         'is-invalid' => $errors->has($field)
         ])->merge([
