@@ -79,9 +79,17 @@ input:checked+.slider::before {
     background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0)) !important;
 }
 
+.dropping:hover {
+    cursor: crosshair;
+}
+
 .filedrop {
     position: relative;
     height: 5rem;
+}
+
+.filedrop:hover {
+    cursor: pointer;
 }
 
 .filedrop::after {
