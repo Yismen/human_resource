@@ -2,6 +2,7 @@
 
 namespace Dainsys\HumanResource\Services;
 
+use Carbon\Carbon;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -11,10 +12,14 @@ use Dainsys\HumanResource\Models\Employee;
 class BirthdaysService
 {
     protected string $type;
+    protected Carbon $date;
     protected array $types = [
         'today',
         'yesterday',
         'tomorrow',
+        'this_week',
+        'next_week',
+        'last_week',
         'this_month',
         'next_month',
         'last_month',
@@ -22,22 +27,14 @@ class BirthdaysService
 
     public function handle(string $type = 'today'): Collection
     {
-        $this->type = $type;
-
         if (!in_array($type, $this->types)) {
             throw new InvalidArgumentException('Invalid argument passed. options are ' . join(', ', $this->types));
         }
 
-        $birthdays = $this->query()
-                ->with(['site', 'project', 'position.department', 'supervisor'])
-                ->when(
-                    config('database.default') === 'sqlite',
-                    fn ($q) => $q->orderByRaw('strftime("%m%d"), date_of_birth'),
-                    fn ($q) => $q
-                        ->orderByRaw('MONTH(date_of_birth)', 'ASC')
-                        ->orderByRaw('DAY(date_of_birth)', 'ASC')
-                )
-                ->get();
+        $this->type = $type;
+        $this->date = now();
+
+        $birthdays = $this->$type()->get();
 
         return $birthdays->map(function ($employee) {
             return [
@@ -56,53 +53,76 @@ class BirthdaysService
         });
     }
 
+    protected function today()
+    {
+        return $this->query()
+            ->whereMonth('date_of_birth', $this->date->month)->whereDay('date_of_birth', $this->date->day);
+    }
+
+    protected function yesterday()
+    {
+        return $this->query()
+            ->whereMonth('date_of_birth', $this->date->copy()->subDay()->month)->whereDay('date_of_birth', $this->date->copy()->subDay()->day);
+    }
+
+    protected function tomorrow()
+    {
+        return $this->query()
+            ->whereMonth('date_of_birth', $this->date->copy()->addDay()->month)->whereDay('date_of_birth', $this->date->copy()->addDay()->day);
+    }
+
+    protected function this_month()
+    {
+        return $this->query()
+            ->whereMonth(
+                'date_of_birth',
+                $this->date->month
+            )->where(
+                fn ($q) => $q
+                    ->whereDay('date_of_birth', '>=', $this->date->copy()->startOfMonth()->day)
+                    ->orWhereDay('date_of_birth', '<=', $this->date->copy()->endOfMonth()->day)
+            );
+    }
+
+    protected function last_month()
+    {
+        return $this->query()
+            ->whereMonth(
+                'date_of_birth',
+                $this->date->copy()->subMonth()->month
+            )->where(
+                fn ($q) => $q
+                    ->whereDay('date_of_birth', '>=', $this->date->copy()->subMonth()->startOfMonth()->day)
+                    ->orWhereDay('date_of_birth', '<=', $this->date->copy()->subMonth()->endOfMonth()->day)
+            );
+    }
+
+    protected function next_month()
+    {
+        return $this->query()
+            ->whereMonth(
+                'date_of_birth',
+                $this->date->copy()->addMonth()->month
+            )->where(
+                fn ($q) => $q
+                    ->whereDay('date_of_birth', '>=', $this->date->copy()->addMonth()->startOfMonth()->day)
+                    ->orWhereDay('date_of_birth', '<=', $this->date->copy()->addMonth()->endOfMonth()->day)
+            );
+    }
+
     protected function query(): Builder
     {
         $date = now();
 
         return Employee::query()
-        ->when(
-            $this->type === 'today',
-            fn ($q) => $q->whereMonth('date_of_birth', $date->month)->whereDay('date_of_birth', $date->day)
-        )
-        ->when(
-            $this->type === 'yesterday',
-            fn ($q) => $q->whereMonth('date_of_birth', $date->copy()->subDay()->month)->whereDay('date_of_birth', $date->copy()->subDay()->day)
-        )
-        ->when(
-            $this->type === 'tomorrow',
-            fn ($q) => $q->whereMonth('date_of_birth', $date->copy()->addDay()->month)->whereDay('date_of_birth', $date->copy()->addDay()->day)
-        )
-        ->when(
-            $this->type === 'this_month',
-            fn ($q) => $q->whereMonth(
-                'date_of_birth',
-                $date->month
-            )->where(
-                fn ($q) => $q->whereDay('date_of_birth', '>=', $date->copy()->startOfMonth()->day)
-                ->orWhereDay('date_of_birth', '<=', $date->copy()->endOfMonth()->day)
+            ->with(['site', 'project', 'position.department', 'supervisor'])
+            ->when(
+                config('database.default') === 'sqlite',
+                fn ($q) => $q->orderByRaw('strftime("%m%d"), date_of_birth'),
+                fn ($q) => $q
+                    ->orderByRaw('MONTH(date_of_birth)', 'ASC')
+                    ->orderByRaw('DAY(date_of_birth)', 'ASC')
             )
-        )
-        ->when(
-            $this->type === 'last_month',
-            fn ($q) => $q->whereMonth(
-                'date_of_birth',
-                $date->copy()->subMonth()->month
-            )->where(
-                fn ($q) => $q->whereDay('date_of_birth', '>=', $date->copy()->subMonth()->startOfMonth()->day)
-                ->orWhereDay('date_of_birth', '<=', $date->copy()->subMonth()->endOfMonth()->day)
-            )
-        )
-        ->when(
-            $this->type === 'next_month',
-            fn ($q) => $q->whereMonth(
-                'date_of_birth',
-                $date->copy()->addMonth()->month
-            )->where(
-                fn ($q) => $q->whereDay('date_of_birth', '>=', $date->copy()->addMonth()->startOfMonth()->day)
-                ->orWhereDay('date_of_birth', '<=', $date->copy()->addMonth()->endOfMonth()->day)
-            )
-        )
-        ->notInactive();
+            ->notInactive();
     }
 }
