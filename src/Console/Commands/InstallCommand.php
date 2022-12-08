@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Console\Commands;
 
 use Illuminate\Console\Command;
+use Asantibanez\LivewireCharts\Console\InstallCommand as ConsoleInstallCommand;
 
 class InstallCommand extends Command
 {
@@ -37,9 +38,22 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        // Init terminations type
-        // Init termination reasons
-        // Init suspention types
+        $this->call(ConsoleInstallCommand::class);
+        $this->call('vendor:publish', ['--tag' => 'human_resource:assets', '--force' => true]);
+
+        if ($this->confirm('Would you like to publish the configuration file?')) {
+            $this->call('vendor:publish', ['--tag' => 'human_resource:config']);
+        }
+
+        if ($this->confirm('Would you like to publish the translation file?')) {
+            $this->call('vendor:publish', ['--tag' => 'human_resource:translations']);
+        }
+
+        if ($this->confirm('Would you like to publish the view files?')) {
+            $this->call('vendor:publish', ['--tag' => 'human_resource:views']);
+        }
+
+        $this->info('All done!');
 
         return 0;
     }

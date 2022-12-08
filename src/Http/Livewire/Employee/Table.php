@@ -5,9 +5,13 @@ namespace Dainsys\HumanResource\Http\Livewire\Employee;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Database\Eloquent\Builder;
 use Dainsys\HumanResource\Models\Employee;
+use Dainsys\HumanResource\Services\SiteService;
 use Dainsys\HumanResource\Support\Enums\Gender;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Dainsys\HumanResource\Exports\EmployeesExport;
+use Dainsys\HumanResource\Services\ProjectService;
+use Dainsys\HumanResource\Services\PositionService;
+use Dainsys\HumanResource\Services\CitizenshipService;
 use Dainsys\HumanResource\Support\Enums\MaritalStatus;
 use Dainsys\HumanResource\Support\Enums\EmployeeStatus;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
@@ -67,6 +71,34 @@ class Table extends AbstractDataTableComponent
                 ->filter(function (Builder $builder, string $value) {
                     $builder->where('status', $value);
                 }),
+            SelectFilter::make('Site')
+                ->options(['' => 'All'] + SiteService::list()->toArray())
+                ->filter(
+                    function (Builder $builder, int $site) {
+                        $builder->where('site_id', $site);
+                    }
+                ),
+            SelectFilter::make('Project')
+                ->options(['' => 'All'] + ProjectService::list()->toArray())
+                ->filter(
+                    function (Builder $builder, int $project) {
+                        $builder->where('project_id', $project);
+                    }
+                ),
+            SelectFilter::make('Position')
+                ->options(['' => 'All'] + PositionService::list()->toArray())
+                ->filter(
+                    function (Builder $builder, int $position) {
+                        $builder->where('position_id', $position);
+                    }
+                ),
+            SelectFilter::make('Citizenship')
+                ->options(['' => 'All'] + CitizenshipService::list()->toArray())
+                ->filter(
+                    function (Builder $builder, int $citizenship) {
+                        $builder->where('citizenship_id', $citizenship);
+                    }
+                ),
             SelectFilter::make('Gender')
                 ->options(array_merge(['' => 'All'], Gender::all()))
                 ->filter(function (Builder $builder, string $value) {

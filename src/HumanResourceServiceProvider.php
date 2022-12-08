@@ -132,7 +132,11 @@ class HumanResourceServiceProvider extends AuthServiceProvider
 
     protected function bootLivewireComponents()
     {
-        Livewire::component('human_resource::dashboard', \Dainsys\HumanResource\Http\Livewire\Admin\Dashboard::class);
+        Livewire::component('human_resource::dashboard', \Dainsys\HumanResource\Http\Livewire\Dashboard::class);
+
+        Livewire::component('human_resource::charts.pie', \Dainsys\HumanResource\Http\Livewire\Charts\Pie::class);
+        Livewire::component('human_resource::charts.line', \Dainsys\HumanResource\Http\Livewire\Charts\Line::class);
+        Livewire::component('human_resource::charts.column', \Dainsys\HumanResource\Http\Livewire\Charts\Column::class);
 
         Livewire::component('human_resource::afp.table', \Dainsys\HumanResource\Http\Livewire\Afp\Table::class);
         Livewire::component('human_resource::afp.index', \Dainsys\HumanResource\Http\Livewire\Afp\Index::class);

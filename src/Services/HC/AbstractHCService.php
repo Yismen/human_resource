@@ -50,6 +50,11 @@ abstract class AbstractHCService implements HCContract
         );
     }
 
+    public function query(): Builder
+    {
+        return  self::builder();
+    }
+
     protected function builder(): Builder
     {
         return $this->model()

@@ -15,7 +15,7 @@ Route::middleware(['web'])->group(function () {
         ->middleware(
             preg_split('/[,|]+/', config('human_resource.midlewares.web'), -1, PREG_SPLIT_NO_EMPTY)
         )->group(function () {
-            Route::get('dashboard', function () {})->name('dashboard.index');
+            Route::get('dashboard', \Dainsys\HumanResource\Http\Livewire\Dashboard::class)->name('dashboard.index');
 
             Route::get('afps', \Dainsys\HumanResource\Http\Livewire\Afp\Index::class)
                 ->name('afps.index')

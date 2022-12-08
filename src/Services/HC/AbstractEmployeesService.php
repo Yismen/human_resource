@@ -2,6 +2,7 @@
 
 namespace Dainsys\HumanResource\Services\HC;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Dainsys\HumanResource\Models\Employee;
 use Illuminate\Database\Eloquent\Collection;
@@ -29,9 +30,9 @@ abstract class AbstractEmployeesService implements HCContract
         $this->value = $value;
 
         return $this->builder()
-            ->addSelect([$this->field])
+            ->addSelect(DB::raw("{$this->field} as name"))
             ->groupBy($this->field)
-            ->selectRaw('count(*) as count')
+            ->selectRaw('count(*) as employees_count')
             ->get();
     }
 
