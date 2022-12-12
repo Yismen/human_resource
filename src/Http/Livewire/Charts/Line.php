@@ -11,13 +11,13 @@ class Line extends BaseChart
         return new LineChartModel();
     }
 
-    public function constructChart()
+    public function build()
     {
         $this->chart
             ->withOnPointClickEvent($this->eventName);
 
-        foreach ($this->data as $index => $project) {
-            $this->chart->addPoint($project->name, $project->employees_count, $this->colorIndex($index));
+        foreach ($this->keys as $index => $key) {
+            $this->chart->addPoint($key, $this->values[$index], $this->colorIndex($index));
         }
     }
 }

@@ -1,3 +1,3 @@
-<div style="min-height: 8rem;">
+<x-human_resource::chart-holder type="primary" :height="$height">
     <livewire:livewire-column-chart key="{{ $chart->reactiveKey() }}" :column-chart-model="$chart" />
-</div>
+</x-human_resource::chart-holder>

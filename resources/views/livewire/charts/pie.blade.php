@@ -1,3 +1,3 @@
-<div style="min-height: 8rem;">
+<x-human_resource::chart-holder type="primary" :height="$height">
     <livewire:livewire-pie-chart key="{{ $chart->reactiveKey() }}" :pie-chart-model="$chart" />
-</div>
+</x-human_resource::chart-holder>

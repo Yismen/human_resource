@@ -8,5 +8,5 @@ interface ChartContract
 
     public function chartInstance();
 
-    public function constructChart();
+    public function build();
 }

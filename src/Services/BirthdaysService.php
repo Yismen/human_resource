@@ -47,6 +47,7 @@ class BirthdaysService
                 'position' => $employee->position->name,
                 'department' => $employee->position->department->name,
                 'supervisor' => optional($employee->supervisor)->name,
+                'photo' => optional($employee->information)->photo_url,
             ];
         });
         return Cache::rememberForever("birdays_{$type}", function () {
@@ -115,7 +116,7 @@ class BirthdaysService
         $date = now();
 
         return Employee::query()
-            ->with(['site', 'project', 'position.department', 'supervisor'])
+            ->with(['site', 'project', 'position.department', 'supervisor', 'information'])
             ->when(
                 config('database.default') === 'sqlite',
                 fn ($q) => $q->orderByRaw('strftime("%m%d"), date_of_birth'),

@@ -4,7 +4,7 @@ namespace Dainsys\HumanResource\Http\Livewire\Charts;
 
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 
-class Column extends BaseChart
+class MultiColumn extends BaseChart
 {
     public function chartInstance()
     {
@@ -15,9 +15,13 @@ class Column extends BaseChart
     {
         $this->chart
             ->setOpacity($this->opacity())
+            ->multiColumn()
             ->withOnColumnClickEventName($this->eventName);
 
         foreach ($this->keys as $index => $key) {
+            $values = $this->values[$index];
+            // dd($key, $this->values, $values);
+            // dd($values);
             $this->chart->addColumn($key, $this->values[$index], $this->colorIndex($index));
         }
     }

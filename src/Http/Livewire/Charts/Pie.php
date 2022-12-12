@@ -11,14 +11,14 @@ class Pie extends BaseChart
         return new PieChartModel();
     }
 
-    public function constructChart()
+    public function build()
     {
         $this->chart
             ->setOpacity($this->opacity())
             ->withOnSliceClickEvent($this->eventName);
 
-        foreach ($this->data as $index => $project) {
-            $this->chart->addSlice($project->name, $project->employees_count, $this->colorIndex($index));
+        foreach ($this->keys as $index => $key) {
+            $this->chart->addSlice($key, $this->values[$index], $this->colorIndex($index));
         }
     }
 }

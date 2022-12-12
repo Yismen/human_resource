@@ -7,20 +7,21 @@ use Illuminate\Support\Arr;
 
 abstract class BaseChart extends Component implements ChartContract
 {
-    public $data;
     public string $title = '';
     public string $eventName = 'itemClicked';
     public bool $withDataLabels = true;
     public bool $withLegend = false;
     public bool $withGrid = false;
+    public bool $withRandomColors = false;
+    public string $chart_type;
+    public array $keys = [];
+    public array $values = [];
+    public string $height = '8rem;';
     protected $chart;
     protected array $colors;
-    public string $chart_type;
 
-    public function mount($data)
+    public function mount()
     {
-        $this->data = $data;
-
         $this->chart = $this->chartInstance();
 
         $this->colors = $this->colors();
@@ -37,7 +38,7 @@ abstract class BaseChart extends Component implements ChartContract
 
     protected function createChart()
     {
-        $this->constructChart();
+        $this->build();
 
         if (strlen($this->title) > 0) {
             $this->chart->setTitle($this->title);
@@ -64,7 +65,11 @@ abstract class BaseChart extends Component implements ChartContract
 
     protected function colorIndex(int $index)
     {
-        return array_key_exists($index, $this->colors) ? $this->colors[$index] : Arr::random($this->colors);
+        if ($this->withRandomColors) {
+            return Arr::random($this->colors);
+        }
+
+        return  array_key_exists($index, $this->colors) ? $this->colors[$index] : Arr::random($this->colors);
     }
 
     protected function colors(): array
