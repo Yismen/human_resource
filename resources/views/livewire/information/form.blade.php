@@ -10,14 +10,29 @@
 
         <x-human_resource::form :editing="$editing">
             <div class="p-3">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <x-human_resource::inputs.with-labels field="photo" type="file" :required="false"
+                            class="filedrop">
+                            {{ __('Image') }}:
+                        </x-human_resource::inputs.with-labels>
+                    </div>
+                    <div class="col-sm-4">
+                        @if ($photo ?? null)
+                        <div class="d">New Photo Preview:</div>
+                        <img src="{{ $photo->temporaryUrl() }}" height="125">
+                        @elseif($information && $information->photo_url)
+                        <img src="{{ " /storage/".$information->photo_url }}" class="img-bordered img-circle"
+                        height="200">
+                        @endif
+                    </div>
+                </div>
+
                 <x-human_resource::inputs.with-labels field="information.phone">
                     {{ __('Phone') }}:
                 </x-human_resource::inputs.with-labels>
                 <x-human_resource::inputs.with-labels field="information.email" :required="false">
                     {{ __('Email') }}:
-                </x-human_resource::inputs.with-labels>
-                <x-human_resource::inputs.with-labels field="information.photo_url" :required="false">
-                    {{ __('Image') }}:
                 </x-human_resource::inputs.with-labels>
                 <x-human_resource::inputs.with-labels field="information.company_id" :required="false">
                     {{ __('ID') }}:
@@ -28,4 +43,47 @@
             </div>
         </x-human_resource::form>
     </x-human_resource::modal>
+
+    @push('styles')
+    <style>
+        .filedrop:hover {
+            cursor: pointer;
+        }
+
+        .dropping:hover {
+            cursor: crosshair;
+        }
+    </style>
+    @endpush
+    @push('scripts')
+
+    <script>
+        class Draggable {
+            constructor(element) {
+                this.element = element
+
+                this.element.addEventListener('dragenter', () => this.dragStart());
+                this.element.addEventListener('dragleave', () => this.dragEnd());
+                this.element.addEventListener('drope', () => this.dropped());
+            }
+
+             dragStart() {
+                this.element.classList.add("dropping");
+            }
+
+             dropped() {
+                this.element.classList.remove("dropping");
+
+            }
+
+             dragEnd() {
+                this.element.classList.remove("dropping");
+
+            }
+        }
+
+        new Draggable(document.querySelector(".filedrop"));
+        
+    </script>
+    @endpush
 </div>

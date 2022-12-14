@@ -31,6 +31,7 @@ class TestCase extends OrchestraTestCase
             \Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider::class,
             \Cviebrock\EloquentSluggable\ServiceProvider::class,
             \Flasher\Laravel\FlasherServiceProvider::class,
+            \Dainsys\Report\ReportServiceProvider::class,
             \Dainsys\HumanResource\HumanResourceServiceProvider::class,
         ];
     }

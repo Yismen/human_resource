@@ -12,25 +12,34 @@ class Table extends AbstractDataTableComponent
     protected string $module = 'Afp';
 
     protected $listeners = [
-        'afpUpdated' => '$refresh'
+        'afpUpdated' => '$refresh',
+        'informationUpdated' => '$refresh',
     ];
 
     public function builder(): Builder
     {
         return Afp::query()
-            ->select(['name', 'id'])
-            // ->withCount('products')
-            // ->withCount('sales')
-            // ->withCount('afpType')
+            ->with(['information'])
+            ->withCount([
+                'employees',
+            ])
             ;
     }
 
     public function columns(): array
     {
         return [
+            Column::make('Photo', 'id')
+                ->view('human_resource::tables.thumbnail'),
             Column::make('Name')
                 ->sortable()
                 ->searchable(),
+            Column::make('Phone')
+                ->label(fn ($row) => optional($row->information)->phone),
+            Column::make('Email')
+                ->label(fn ($row) => optional($row->information)->email),
+            Column::make('Employees', 'id')
+                ->format(fn ($value, $row) => view('human_resource::tables.badge')->with(['value' => $row->employees_count])),
             Column::make('Actions', 'id')
                 ->view('human_resource::tables.actions'),
         ];

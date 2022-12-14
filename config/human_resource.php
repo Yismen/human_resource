@@ -13,10 +13,18 @@ return [
         'api' => 'api',
         'web' => 'auth',
     ],
-    'db_prefix' => '',
+    'db_prefix' => 'hr_',
     'routes_prefix' => [
-        'guest' => '',
-        'admin' => 'admin'
+        'guest' => 'hr',
+        'admin' => 'hr/admin'
+    ],
+    'seeds' => [
+        'termination_types' => [],
+        'termination_reasons' => [],
+        'suspension_types' => [],
+        'citizenships' => [],
+        'departments' => [],
+        'payment_types' => [],
     ],
     'layout' => env('LAYOUT_VIEW', 'human_resource::layouts.app')
 ];

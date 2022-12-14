@@ -23,18 +23,10 @@ class PaymentTypeTest extends TestCase
     }
 
     /** @test */
-    // public function payment_types_model_morph_one_information()
-    // {
-    //     $company = PaymentType::factory()->create();
+    public function payment_types_model_has_many_positions()
+    {
+        $payment_type = PaymentType::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
-
-    // /** @test */
-    // public function payment_types_model_morph_many_images()
-    // {
-    //     $company = PaymentType::factory()->create();
-
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $payment_type->positions());
+    }
 }

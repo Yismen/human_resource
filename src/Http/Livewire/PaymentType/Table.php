@@ -2,8 +2,8 @@
 
 namespace Dainsys\HumanResource\Http\Livewire\PaymentType;
 
-use Dainsys\HumanResource\Models\PaymentType;
 use Illuminate\Database\Eloquent\Builder;
+use Dainsys\HumanResource\Models\PaymentType;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Dainsys\HumanResource\Http\Livewire\AbstractDataTableComponent;
 
@@ -17,10 +17,9 @@ class Table extends AbstractDataTableComponent
     public function builder(): Builder
     {
         return PaymentType::query()
-            ->select(['name', 'id'])
-            // ->withCount('products')
-            // ->withCount('sales')
-            // ->withCount('payment_typeType')
+            ->withCount([
+                'positions'
+            ])
             ;
     }
 
@@ -30,6 +29,8 @@ class Table extends AbstractDataTableComponent
             Column::make('Name')
                 ->sortable()
                 ->searchable(),
+            Column::make('Employees', 'id')
+                ->format(fn ($value, $row) => view('human_resource::tables.badge')->with(['value' => $row->positions_count])),
             Column::make('Actions', 'id')
                 ->view('human_resource::tables.actions'),
         ];

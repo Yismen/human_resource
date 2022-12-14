@@ -23,18 +23,18 @@ class DepartmentTest extends TestCase
     }
 
     /** @test */
-    // public function departments_model_morph_one_information()
-    // {
-    //     $company = Department::factory()->create();
+    public function departments_model_has_many_positions()
+    {
+        $department = Department::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $department->positions());
+    }
 
-    // /** @test */
-    // public function departments_model_morph_many_images()
-    // {
-    //     $company = Department::factory()->create();
+    /** @test */
+    public function departments_model_has_many_employees()
+    {
+        $department = Department::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasManyThrough::class, $department->employees());
+    }
 }

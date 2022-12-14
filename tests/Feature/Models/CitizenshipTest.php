@@ -23,18 +23,10 @@ class CitizenshipTest extends TestCase
     }
 
     /** @test */
-    // public function citizenships_model_morph_one_information()
-    // {
-    //     $company = Citizenship::factory()->create();
+    public function citizenships_model_has_many_employees()
+    {
+        $citizenship = Citizenship::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
-
-    // /** @test */
-    // public function citizenships_model_morph_many_images()
-    // {
-    //     $company = Citizenship::factory()->create();
-
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $citizenship->employees());
+    }
 }

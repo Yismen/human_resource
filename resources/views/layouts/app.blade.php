@@ -119,6 +119,7 @@
     <script src="{{ mix('js/app.js', 'vendor/dainsys/human_resource') }}"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     @livewireScripts
+    @livewireChartsScripts
     @stack('scripts')
     <script>
         // $("[name='dark-mode-switch']").bootstrapSwitch();

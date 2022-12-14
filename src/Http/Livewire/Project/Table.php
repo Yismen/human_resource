@@ -10,14 +10,16 @@ use Dainsys\HumanResource\Http\Livewire\AbstractDataTableComponent;
 class Table extends AbstractDataTableComponent
 {
     protected string $module = 'Project';
+    protected $listeners = [
+        'projectUpdated' => '$refresh'
+    ];
 
     public function builder(): Builder
     {
         return Project::query()
-            ->select(['name', 'id'])
-            // ->withCount('products')
-            // ->withCount('sales')
-            // ->withCount('projectType')
+            ->withCount([
+                'employees'
+            ])
             ;
     }
 
@@ -27,6 +29,8 @@ class Table extends AbstractDataTableComponent
             Column::make('Name')
                 ->sortable()
                 ->searchable(),
+            Column::make('Employees', 'id')
+                ->format(fn ($value, $row) => view('human_resource::tables.badge')->with(['value' => $row->employees_count])),
             Column::make('Actions', 'id')
                 ->view('human_resource::tables.actions'),
         ];

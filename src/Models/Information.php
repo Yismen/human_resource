@@ -4,13 +4,10 @@ namespace Dainsys\HumanResource\Models;
 
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Dainsys\HumanResource\Models\Traits\HasInformation;
 use Dainsys\HumanResource\Database\Factories\InformationFactory;
 
 class Information extends AbstractModel
 {
-    use HasInformation;
-
     protected $fillable = ['phone', 'email', 'photo_url', 'address', 'company_id', 'informationable_id', 'informationable_type'];
 
     protected static function newFactory(): InformationFactory
@@ -51,5 +48,10 @@ class Information extends AbstractModel
     public function site(): BelongsTo
     {
         return $this->belongsTo(Site::class, 'informationable');
+    }
+
+    public function supervisor(): BelongsTo
+    {
+        return $this->belongsTo(Supervisor::class, 'informationable');
     }
 }

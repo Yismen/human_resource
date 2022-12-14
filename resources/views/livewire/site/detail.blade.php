@@ -1,4 +1,6 @@
 <div>
+    <livewire:human_resource::information.form />
+
     <x-human_resource::modal title="{{ __('Site') }} - {{ $site->name ?? '' }}" modal-name="SiteDetails"
         event-name="{{ $this->modal_event_name_detail }}">
 
@@ -14,6 +16,9 @@
                 </tr>
             </tbody>
         </table>
+
+        <x-human_resource::information.detail :information="$site->information ?? ''"
+            :model-name="optional($site)->getMorphClass()" :model-id="$site->id ?? ''" />
 
         <x-slot name="footer">
             <button class="btn btn-warning btn-sm" wire:click='$emit("updateSite", {{ $site->id ?? '' }})'>{{

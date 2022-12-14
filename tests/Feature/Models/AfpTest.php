@@ -23,18 +23,18 @@ class AfpTest extends TestCase
     }
 
     /** @test */
-    // public function afps_model_morph_one_information()
-    // {
-    //     $company = Afp::factory()->create();
+    public function afps_model_morph_one_information()
+    {
+        $afp = Afp::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $afp->information());
+    }
 
-    // /** @test */
-    // public function afps_model_morph_many_images()
-    // {
-    //     $company = Afp::factory()->create();
+    /** @test */
+    public function afps_model_has_many_employees()
+    {
+        $afp = Afp::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $afp->employees());
+    }
 }

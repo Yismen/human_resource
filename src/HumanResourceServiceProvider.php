@@ -3,12 +3,29 @@
 namespace Dainsys\HumanResource;
 
 use Livewire\Livewire;
+use Dainsys\Report\Report;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Database\Eloquent\Model;
-use Dainsys\HumanResource\Console\Commands\InstallCommand;
+use Illuminate\Console\Scheduling\Schedule;
+use Dainsys\HumanResource\Events\EmployeeSaved;
+use Dainsys\HumanResource\Events\EmployeeCreated;
+use Dainsys\HumanResource\Events\SuspensionUpdated;
+use Dainsys\HumanResource\Listeners\UpdateFullName;
+use Dainsys\HumanResource\Events\TerminationCreated;
+use Dainsys\HumanResource\Listeners\SuspendEmployee;
+use Dainsys\HumanResource\Console\Commands\Birthdays;
+use Dainsys\HumanResource\Events\EmployeeReactivated;
+use Dainsys\HumanResource\Listeners\TerminateEmployee;
 use Dainsys\HumanResource\Contracts\AuthorizedUsersContract;
+use Dainsys\HumanResource\Listeners\SendEmployeeCreatedEmail;
+use Dainsys\HumanResource\Console\Commands\EmployeesSuspended;
+use Dainsys\HumanResource\Listeners\SendEmployeeSuspendedEmail;
+use Dainsys\HumanResource\Listeners\SendEmployeeTerminatedEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
+use Dainsys\HumanResource\Listeners\SendEmployeeReactivatedEmail;
+use Dainsys\HumanResource\Console\Commands\UpdateEmployeeSuspensions;
 
 class HumanResourceServiceProvider extends AuthServiceProvider
 {
@@ -20,25 +37,32 @@ class HumanResourceServiceProvider extends AuthServiceProvider
 
     public function boot()
     {
-        $this->registerPolicies();
-
         Model::preventLazyLoading(true);
         Paginator::useBootstrap();
 
+        $this->registerPolicies();
+        $this->registerEvents();
         $this->bootPublishableAssets();
         $this->bootLoads();
         $this->bootLivewireComponents();
 
         if ($this->app->runningInConsole() && !app()->isProduction()) {
             $this->commands([
-                InstallCommand::class
+                \Dainsys\HumanResource\Console\Commands\InstallCommand::class,
+                \Dainsys\HumanResource\Console\Commands\UpdateEmployeeSuspensions::class,
+                \Dainsys\HumanResource\Console\Commands\EmployeesSuspended::class,
+                \Dainsys\HumanResource\Console\Commands\Birthdays::class,
             ]);
         }
 
+        $this->registerSchedulledCommands();
+
         Gate::define('interact-with-admin', function (\Illuminate\Foundation\Auth\User $user) {
             return resolve(AuthorizedUsersContract::class)
-                ->has($user->email);
+            ->has($user->email);
         });
+
+        Report::bind(__DIR__ . './Mail');
     }
 
     public function register()
@@ -80,9 +104,41 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
+    protected function registerSchedulledCommands()
+    {
+        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+            $schedule->command(UpdateEmployeeSuspensions::class)->dailyAt('03:00');
+            $schedule->command(EmployeesSuspended::class)->dailyAt('03:05');
+            $schedule->command(Birthdays::class, ['today'])->dailyAt('04:00');
+            $schedule->command(Birthdays::class, ['this_month'])->monthlyOn(1, '04:01');
+            $schedule->command(Birthdays::class, ['last_month'])->monthlyOn(1, '04:05');
+            $schedule->command(Birthdays::class, ['next_month'])->monthlyOn(25, '04:10');
+        });
+    }
+
+    protected function registerEvents()
+    {
+        Event::listen(EmployeeSaved::class, UpdateFullName::class);
+        Event::listen(EmployeeCreated::class, SendEmployeeCreatedEmail::class);
+
+        Event::listen(EmployeeReactivated::class, SendEmployeeReactivatedEmail::class);
+
+        Event::listen(TerminationCreated::class, TerminateEmployee::class);
+        Event::listen(TerminationCreated::class, SendEmployeeTerminatedEmail::class);
+
+        Event::listen(SuspensionUpdated::class, SuspendEmployee::class);
+        Event::listen(SuspensionUpdated::class, SendEmployeeSuspendedEmail::class);
+    }
+
     protected function bootLivewireComponents()
     {
-        Livewire::component('human_resource::dashboard', \Dainsys\HumanResource\Http\Livewire\Admin\Dashboard::class);
+        Livewire::component('human_resource::dashboard', \Dainsys\HumanResource\Http\Livewire\Dashboard::class);
+
+        Livewire::component('human_resource::charts.pie', \Dainsys\HumanResource\Http\Livewire\Charts\Pie::class);
+        Livewire::component('human_resource::charts.line', \Dainsys\HumanResource\Http\Livewire\Charts\Line::class);
+        Livewire::component('human_resource::charts.column', \Dainsys\HumanResource\Http\Livewire\Charts\Column::class);
+        Livewire::component('human_resource::charts.multicolumn', \Dainsys\HumanResource\Http\Livewire\Charts\MultiColumn::class);
+        Livewire::component('human_resource::charts.multiline', \Dainsys\HumanResource\Http\Livewire\Charts\MultiLine::class);
 
         Livewire::component('human_resource::afp.table', \Dainsys\HumanResource\Http\Livewire\Afp\Table::class);
         Livewire::component('human_resource::afp.index', \Dainsys\HumanResource\Http\Livewire\Afp\Index::class);
@@ -113,6 +169,9 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         Livewire::component('human_resource::employee.index', \Dainsys\HumanResource\Http\Livewire\Employee\Index::class);
         Livewire::component('human_resource::employee.detail', \Dainsys\HumanResource\Http\Livewire\Employee\Detail::class);
         Livewire::component('human_resource::employee.form', \Dainsys\HumanResource\Http\Livewire\Employee\Form::class);
+        Livewire::component('human_resource::employee.suspend', \Dainsys\HumanResource\Http\Livewire\Employee\Suspend::class);
+        Livewire::component('human_resource::employee.terminate', \Dainsys\HumanResource\Http\Livewire\Employee\Terminate::class);
+        Livewire::component('human_resource::employee.reactivate', \Dainsys\HumanResource\Http\Livewire\Employee\Reactivate::class);
 
         Livewire::component('human_resource::information.table', \Dainsys\HumanResource\Http\Livewire\Information\Table::class);
         Livewire::component('human_resource::information.index', \Dainsys\HumanResource\Http\Livewire\Information\Index::class);

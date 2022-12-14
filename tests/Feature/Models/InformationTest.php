@@ -2,8 +2,13 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Models;
 
+use Dainsys\HumanResource\Models\Afp;
+use Dainsys\HumanResource\Models\Ars;
+use Dainsys\HumanResource\Models\Bank;
+use Dainsys\HumanResource\Models\Site;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Employee;
+use Dainsys\HumanResource\Models\Supervisor;
 use Dainsys\HumanResource\Models\Information;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -46,7 +51,7 @@ class InformationTest extends TestCase
     /** @test */
     public function information_model_morph_site()
     {
-        $site = Employee::factory()->create();
+        $site = Site::factory()->create();
         $data = [
             'phone' => 'phone',
             'email' => 'email',
@@ -66,7 +71,7 @@ class InformationTest extends TestCase
     /** @test */
     public function information_model_morph_bank()
     {
-        $bank = Employee::factory()->create();
+        $bank = Bank::factory()->create();
         $data = [
             'phone' => 'phone',
             'email' => 'email',
@@ -86,7 +91,7 @@ class InformationTest extends TestCase
     /** @test */
     public function information_model_morph_ars()
     {
-        $ars = Employee::factory()->create();
+        $ars = Ars::factory()->create();
         $data = [
             'phone' => 'phone',
             'email' => 'email',
@@ -106,7 +111,7 @@ class InformationTest extends TestCase
     /** @test */
     public function information_model_morph_afp()
     {
-        $afp = Employee::factory()->create();
+        $afp = Afp::factory()->create();
         $data = [
             'phone' => 'phone',
             'email' => 'email',
@@ -121,5 +126,25 @@ class InformationTest extends TestCase
         $this->assertNotNull($afp->information);
         $this->assertInstanceOf(MorphOne::class, $afp->information());
         $this->assertInstanceOf(BelongsTo::class, (new Information())->afp());
+    }
+
+    /** @test */
+    public function information_model_morph_supervisor()
+    {
+        $supervisor = Supervisor::factory()->create();
+        $data = [
+            'phone' => 'phone',
+            'email' => 'email',
+            'photo_url' => 'photo',
+            'address' => 'address',
+            'company_id' => 'asdfasdf',
+        ];
+
+        $supervisor->information()->create($data);
+
+        $this->assertDatabaseHas(tableName('informations'), $data);
+        $this->assertNotNull($supervisor->information);
+        $this->assertInstanceOf(MorphOne::class, $supervisor->information());
+        $this->assertInstanceOf(BelongsTo::class, (new Information())->supervisor());
     }
 }

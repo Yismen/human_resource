@@ -23,18 +23,18 @@ class ArsTest extends TestCase
     }
 
     /** @test */
-    // public function arss_model_morph_one_information()
-    // {
-    //     $company = Ars::factory()->create();
+    public function arss_model_morph_one_information()
+    {
+        $ars = Ars::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $ars->information());
+    }
 
-    // /** @test */
-    // public function arss_model_morph_many_images()
-    // {
-    //     $company = Ars::factory()->create();
+    /** @test */
+    public function arss_model_has_many_employees()
+    {
+        $ars = Ars::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $ars->employees());
+    }
 }

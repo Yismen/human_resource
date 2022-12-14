@@ -3,7 +3,7 @@
 namespace Dainsys\HumanResource\Console\Commands;
 
 use Illuminate\Console\Command;
-use Dainsys\HumanResource\Models\Site;
+use Asantibanez\LivewireCharts\Console\InstallCommand as ConsoleInstallCommand;
 
 class InstallCommand extends Command
 {
@@ -38,14 +38,22 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        // $name = $this->ask('Please enter company name');
-        // $super_user_email = $this->ask('Please enter super user email address');
+        $this->call(ConsoleInstallCommand::class);
+        $this->call('vendor:publish', ['--tag' => 'human_resource:assets', '--force' => true]);
 
-        // if (Site::count() > 0) {
-        //     throw new \Exception('Only one company allowed! Visit company profile and update. ', 419);
-        // }
+        if ($this->confirm('Would you like to publish the configuration file?')) {
+            $this->call('vendor:publish', ['--tag' => 'human_resource:config']);
+        }
 
-        // Site::create(compact('name', 'super_user_email'));
+        if ($this->confirm('Would you like to publish the translation file?')) {
+            $this->call('vendor:publish', ['--tag' => 'human_resource:translations']);
+        }
+
+        if ($this->confirm('Would you like to publish the view files?')) {
+            $this->call('vendor:publish', ['--tag' => 'human_resource:views']);
+        }
+
+        $this->info('All done!');
 
         return 0;
     }

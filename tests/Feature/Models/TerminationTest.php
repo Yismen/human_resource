@@ -2,9 +2,13 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Models;
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Termination;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Dainsys\HumanResource\Events\TerminationCreated;
+use Dainsys\HumanResource\Mail\TerminationCreated as MailTerminationCreated;
 
 class TerminationTest extends TestCase
 {
@@ -13,28 +17,59 @@ class TerminationTest extends TestCase
     /** @test */
     public function terminations_model_interacts_with_db_table()
     {
+        Mail::fake();
         $data = Termination::factory()->make();
 
         Termination::create($data->toArray());
 
         $this->assertDatabaseHas(tableName('terminations'), $data->only([
-            'employee_id', 'date', 'termination_type_id', 'termination_reason_id', 'comments', 'rehireable'
+            'employee_id', 'termination_type_id', 'termination_reason_id', 'comments', 'rehireable'
         ]));
     }
 
     /** @test */
-    // public function terminations_model_morph_one_information()
-    // {
-    //     $company = Termination::factory()->create();
+    public function termination_model_fires_event_when_created()
+    {
+        Mail::fake();
+        Event::fake();
+        $termination = Termination::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
+        Event::assertDispatched(TerminationCreated::class);
+    }
 
-    // /** @test */
-    // public function terminations_model_morph_many_images()
-    // {
-    //     $company = Termination::factory()->create();
+    /** @test */
+    public function email_is_sent_when_termination_is_created()
+    {
+        Mail::fake();
+        Termination::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        Mail::assertSent(MailTerminationCreated::class);
+    }
+
+    /** @test */
+    public function terminations_model_belongs_to_employee()
+    {
+        Mail::fake();
+        $termination = Termination::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $termination->employee());
+    }
+
+    /** @test */
+    public function terminations_model_belongs_to_terminationType()
+    {
+        Mail::fake();
+        $termination = Termination::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $termination->terminationType());
+    }
+
+    /** @test */
+    public function terminations_model_belongs_to_terminationReason()
+    {
+        Mail::fake();
+        $termination = Termination::factory()->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $termination->terminationReason());
+    }
 }

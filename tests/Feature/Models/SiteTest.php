@@ -23,18 +23,18 @@ class SiteTest extends TestCase
     }
 
     /** @test */
-    // public function sites_model_morph_one_information()
-    // {
-    //     $company = Site::factory()->create();
+    public function sites_model_morph_one_information()
+    {
+        $site = Site::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $company->information());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $site->information());
+    }
 
-    // /** @test */
-    // public function sites_model_morph_many_images()
-    // {
-    //     $company = Site::factory()->create();
+    /** @test */
+    public function sites_model_has_many_employees()
+    {
+        $site = Site::factory()->create();
 
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $company->images());
-    // }
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $site->employees());
+    }
 }

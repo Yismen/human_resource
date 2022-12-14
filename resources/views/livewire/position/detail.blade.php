@@ -9,6 +9,18 @@
                     <td class="text-left">{{ $position->name ?? '' }}</td>
                 </tr>
                 <tr>
+                    <th class="text-right">{{ __('Department') }}:</th>
+                    <td class="text-left">{{ $position->department->name ?? '' }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right">{{ __('Payment Type') }}:</th>
+                    <td class="text-left">{{ $position->paymentType->name ?? '' }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right">{{ __('Salary') }}:</th>
+                    <td class="text-left">${{ $position->salary ?? '' }}</td>
+                </tr>
+                <tr>
                     <th class="text-right">{{ __('Description') }}:</th>
                     <td class="text-left">{{ $position->description ?? '' }}</td>
                 </tr>

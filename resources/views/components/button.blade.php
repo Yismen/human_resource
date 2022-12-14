@@ -4,7 +4,7 @@
 ])
 
 <button type="submit" {{ $attributes->merge([
-    'class' => "btn btn-{$color} mb-3 bg-gradient"
+    'class' => "btn btn-{$color} bg-gradient"
     ]) }}>
     {{ $slot }}
 </button>

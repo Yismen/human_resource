@@ -5,11 +5,15 @@ namespace Dainsys\HumanResource\Http\Livewire\Position;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 use Dainsys\HumanResource\Models\Position;
+use Dainsys\HumanResource\Services\DepartmentService;
+use Dainsys\HumanResource\Services\PaymentTypeService;
+use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Form extends Component
 {
     use AuthorizesRequests;
+    use WithRealTimeValidation;
 
     protected $listeners = [
         'createPosition',
@@ -21,36 +25,11 @@ class Form extends Component
 
     public $position;
 
-    protected function getRules()
-    {
-        return [
-            'position.name' => [
-                'required',
-                Rule::unique(tableName('positions'), 'name')->ignore($this->position->id ?? 0)
-            ],
-            'position.department_id' => [
-                'required',
-                Rule::exists(tableName('departments'), 'id')
-            ],
-            'position.payment_type_id' => [
-                'required',
-                Rule::exists(tableName('payment_types'), 'id')
-            ],
-            'position.salary' => [
-                'required',
-                'numeric',
-                'min:0',
-                'max:1000000',
-            ],
-            'position.description' => [
-                'nullable'
-            ]
-        ];
-    }
-
     public function render()
     {
         return view('human_resource::livewire.position.form', [
+            'departments_list' => DepartmentService::list(),
+            'payment_types_list' => PaymentTypeService::list(),
         ])
         ->layout('human_resource::layouts.app');
     }
@@ -109,5 +88,32 @@ class Form extends Component
         $this->editing = false;
 
         $this->emit('positionUpdated');
+    }
+
+    protected function getRules()
+    {
+        return [
+            'position.name' => [
+                'required',
+                Rule::unique(tableName('positions'), 'name')->ignore($this->position->id ?? 0)
+            ],
+            'position.department_id' => [
+                'required',
+                Rule::exists(tableName('departments'), 'id')
+            ],
+            'position.payment_type_id' => [
+                'required',
+                Rule::exists(tableName('payment_types'), 'id')
+            ],
+            'position.salary' => [
+                'required',
+                'numeric',
+                'min:0',
+                'max:1000000',
+            ],
+            'position.description' => [
+                'nullable'
+            ]
+        ];
     }
 }

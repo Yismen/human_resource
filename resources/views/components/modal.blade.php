@@ -3,6 +3,7 @@
 'title',
 'footer',
 'eventName',
+'titleClass' => '',
 'backdrop' => true
 ])
 <div>
@@ -15,7 +16,7 @@
             ]) }} role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ $title }}</h5>
+                    <h5 class="modal-title text-bold {{ $titleClass }}">{{ $title }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -37,7 +38,14 @@
 <script>
     document.addEventListener('{{ $eventName }}', (event) => {
         let element = $('#' + '{{ $modalName }}');
+
         element.modal('show');
+
+        element.on('shown.bs.modal', function (event) {
+            let firstInput = $(element).find('input[type!=hidden]:first').first();
+            
+            firstInput.focus();
+        });
     })
     document.addEventListener('closeAllModals', (event) => {
         let element = $('#' + '{{ $modalName }}');

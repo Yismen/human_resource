@@ -2,12 +2,12 @@
 
 namespace Dainsys\HumanResource\Models;
 
-use Dainsys\HumanResource\Models\Traits\HasImages;
-use Dainsys\HumanResource\Models\Traits\HasInformation;
+use Dainsys\HumanResource\Models\Traits\HasManyEmployees;
 use Dainsys\HumanResource\Database\Factories\CitizenshipFactory;
 
 class Citizenship extends AbstractModel
 {
+    use HasManyEmployees;
 
     protected $fillable = ['name', 'description'];
 

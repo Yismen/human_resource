@@ -8,11 +8,15 @@ use Dainsys\HumanResource\Models\Employee;
 use Dainsys\HumanResource\Models\Termination;
 use Dainsys\HumanResource\Models\TerminationType;
 use Dainsys\HumanResource\Models\TerminationReason;
+use Dainsys\HumanResource\Traits\WithRealTimeValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Dainsys\HumanResource\Services\TerminationTypeService;
+use Dainsys\HumanResource\Services\TerminationReasonService;
 
 class Form extends Component
 {
     use AuthorizesRequests;
+    use WithRealTimeValidation;
 
     protected $listeners = [
         'createTermination',
@@ -24,38 +28,11 @@ class Form extends Component
 
     public $termination;
 
-    protected function getRules()
-    {
-        return [
-            'termination.employee_id' => [
-                'required',
-                Rule::exists(Employee::class, 'id')
-            ],
-            'termination.date' => [
-                'required',
-                'date',
-            ],
-            'termination.termination_type_id' => [
-                'required',
-                Rule::exists(TerminationType::class, 'id'),
-            ],
-            'termination.termination_reason_id' => [
-                'required',
-                Rule::exists(TerminationReason::class, 'id')
-            ],
-            'termination.rehireable' => [
-                'required',
-                'boolean'
-            ],
-            'termination.comments' => [
-                'nullable',
-            ],
-        ];
-    }
-
     public function render()
     {
         return view('human_resource::livewire.termination.form', [
+            'termination_types' => TerminationTypeService::list(),
+            'termination_reasons' => TerminationReasonService::list(),
         ])
         ->layout('human_resource::layouts.app');
     }
@@ -114,5 +91,34 @@ class Form extends Component
         $this->editing = false;
 
         $this->emit('terminationUpdated');
+    }
+
+    protected function getRules()
+    {
+        return [
+            'termination.employee_id' => [
+                'required',
+                Rule::exists(Employee::class, 'id')
+            ],
+            'termination.date' => [
+                'required',
+                'date',
+            ],
+            'termination.termination_type_id' => [
+                'required',
+                Rule::exists(TerminationType::class, 'id'),
+            ],
+            'termination.termination_reason_id' => [
+                'required',
+                Rule::exists(TerminationReason::class, 'id')
+            ],
+            'termination.rehireable' => [
+                'required',
+                'boolean'
+            ],
+            'termination.comments' => [
+                'nullable',
+            ],
+        ];
     }
 }

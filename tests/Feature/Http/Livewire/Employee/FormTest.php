@@ -3,6 +3,8 @@
 namespace Dainsys\HumanResource\Feature\Http\Livewire\Employee;
 
 use Livewire\Livewire;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,7 +17,7 @@ class FormTest extends TestCase
     /** @test */
     public function employee_form_requires_authorization_to_create()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
         $component = Livewire::test(Form::class)
             ->emit('createEmployee', $employee->id);
 
@@ -25,7 +27,7 @@ class FormTest extends TestCase
     /** @test */
     public function employee_form_requires_authorization_to_update()
     {
-        $employee = Employee::factory()->create();
+        $employee = Employee::factory()->createQuietly();
         $component = Livewire::test(Form::class)
             ->emit('updateEmployee', $employee->id);
 
@@ -59,6 +61,7 @@ class FormTest extends TestCase
     /** @test */
     public function employee_index_component_create_new_record()
     {
+        Event::fake();
         $this->withAuthorizedUser();
         $data = Employee::factory()->make()->toArray();
         $component = Livewire::test(Form::class)
@@ -69,14 +72,14 @@ class FormTest extends TestCase
         $component->assertDispatchedBrowserEvent('closeAllModals');
         $component->assertEmitted('employeeUpdated');
 
-        $this->assertDatabaseHas(tableName('employees'), $data);
+        $this->assertDatabaseHas(tableName('employees'), Arr::except($data, ['full_name']));
     }
 
     /** @test */
     public function employee_index_component_update_record()
     {
         $this->withAuthorizedUser();
-        $employee = Employee::factory()->create(['first_name' => 'New Employee']);
+        $employee = Employee::factory()->createQuietly(['first_name' => 'New Employee']);
         $component = Livewire::test(Form::class)
             ->set('employee', $employee)
             ->set('employee.first_name', 'Updated Employee');

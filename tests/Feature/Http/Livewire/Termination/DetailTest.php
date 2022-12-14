@@ -3,8 +3,8 @@
 namespace Dainsys\HumanResource\Feature\Http\Livewire\Termination;
 
 use Livewire\Livewire;
-use Dainsys\HumanResource\Models\Termination;
 use Dainsys\HumanResource\Tests\TestCase;
+use Dainsys\HumanResource\Models\Termination;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dainsys\HumanResource\Http\Livewire\Termination\Detail;
 
@@ -15,7 +15,7 @@ class DetailTest extends TestCase
     /** @test */
     public function termination_detail_requires_authorization()
     {
-        $termination = Termination::factory()->create();
+        $termination = Termination::factory()->createQuietly();
         $component = Livewire::test(Detail::class)
             ->emit('showTermination', $termination->id);
 
