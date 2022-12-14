@@ -27,11 +27,13 @@ abstract class AbstractHCService implements HCContract
         $this->value = $value;
 
         return Cache::rememberForever(
-            'hc_count_by_' . $this->name . '_' . $this->value,
+            $this->cacheKey('hc_count_by_'),
             function () {
-                return $builder = self::builder()
+                $builder = self::builder()
                     ->withCount(['employees' => fn ($q) => $q->notInactive()])
                     ->get();
+
+                return $builder;
             }
         );
     }
@@ -41,18 +43,20 @@ abstract class AbstractHCService implements HCContract
         $this->value = $value;
 
         return Cache::rememberForever(
-            'hc_list_by_' . $this->name . '_' . $this->value,
+            $this->cacheKey('hc_list_by_'),
             function () {
-                return $builder = self::builder()
+                $builder = self::builder()
                     ->with(['employees' => fn ($q) => $q->notInactive()])
                     ->get();
+
+                return $builder;
             }
         );
     }
 
-    public function query(): Builder
+    public function constrain($callback): self
     {
-        return  self::builder();
+        return $this;
     }
 
     protected function builder(): Builder
@@ -71,5 +75,10 @@ abstract class AbstractHCService implements HCContract
             ->whereHas('employees', function ($query) {
                 $query->notInactive();
             });
+    }
+
+    protected function cacheKey(string $type): string
+    {
+        return "{$type}_{$this->name}_{$this->value}";
     }
 }
