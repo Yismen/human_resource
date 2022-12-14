@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Http\Livewire;
 
 use Livewire\Component;
+use Illuminate\Support\Collection;
 use Dainsys\HumanResource\Services\HC\ByKids;
 use Dainsys\HumanResource\Services\HC\BySite;
 use Dainsys\HumanResource\Services\HC\ByGender;
@@ -61,7 +62,7 @@ class Dashboard extends Component
         ->layout('human_resource::layouts.app');
     }
 
-    protected function getAttrition()
+    protected function getAttrition(): Collection
     {
         $attrition = [];
 
