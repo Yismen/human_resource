@@ -6,30 +6,31 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Dainsys\HumanResource\Models\Employee;
 use Illuminate\Database\Eloquent\Collection;
+use Dainsys\HumanResource\Services\Traits\HasFilters;
 
 abstract class AbstractEmployeesService implements HCContract
 {
+    use HasFilters;
+
     protected $value;
+
+    protected Builder $query;
 
     protected string $field;
 
-    protected string $name;
+    protected array $filters = [];
 
     public function __construct()
     {
-        $class = get_class($this);
-
-        $this->name = str($class)->replace('\\', ' ')->snake();
         $this->field = $this->field();
+        $this->query = $this->builder();
     }
 
     abstract protected function field(): string;
 
     public function count($value = null): Collection
     {
-        $this->value = $value;
-
-        return $this->builder()
+        return $this->parseFilters($this->filters, $this->query)
             ->addSelect(DB::raw("{$this->field} as name"))
             ->groupBy($this->field)
             ->selectRaw('count(*) as employees_count')
@@ -40,7 +41,7 @@ abstract class AbstractEmployeesService implements HCContract
     {
         $this->value = $value;
 
-        return $this->builder()
+        return $this->parseFilters($this->filters, $this->query)
             ->orderBy('full_name')
             ->get()
             ->groupBy($this->field);

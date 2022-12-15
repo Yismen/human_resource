@@ -6,30 +6,29 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Dainsys\HumanResource\Services\Traits\HasFilters;
 
 abstract class AbstractHCService implements HCContract
 {
-    protected $value;
+    use HasFilters;
 
-    protected string $name;
+    protected Builder $query;
+
+    protected array $filters = [];
 
     public function __construct()
     {
-        $class = get_class($this->model());
-
-        $this->name = str($class)->replace('\\', ' ')->snake();
+        $this->query = $this->builder();
     }
 
     abstract protected function model(): Model;
 
-    public function count($value = null): Collection
+    public function count(): Collection
     {
-        $this->value = $value;
-
         return Cache::rememberForever(
             $this->cacheKey('hc_count_by_'),
             function () {
-                $builder = self::builder()
+                $builder = $this->parseFilters($this->filters, $this->query)
                     ->withCount(['employees' => fn ($q) => $q->notInactive()])
                     ->get();
 
@@ -38,14 +37,12 @@ abstract class AbstractHCService implements HCContract
         );
     }
 
-    public function list($value = null): Collection
+    public function list(): Collection
     {
-        $this->value = $value;
-
         return Cache::rememberForever(
             $this->cacheKey('hc_list_by_'),
             function () {
-                $builder = self::builder()
+                $builder = $this->parseFilters($this->filters, $this->query)
                     ->with(['employees' => fn ($q) => $q->notInactive()])
                     ->get();
 
@@ -65,13 +62,6 @@ abstract class AbstractHCService implements HCContract
             ->groupBy('name')
             ->orderBy('name')
             ->select(['name', 'id'])
-            ->when($this->value, function ($query) {
-                $query->when(
-                    is_numeric($this->value),
-                    fn ($q) => $q->where('id', (int)$this->value),
-                    fn ($q) => $q->where('name', 'like', $this->value)
-                );
-            })
             ->whereHas('employees', function ($query) {
                 $query->notInactive();
             });
@@ -79,6 +69,12 @@ abstract class AbstractHCService implements HCContract
 
     protected function cacheKey(string $type): string
     {
-        return "{$type}_{$this->name}_{$this->value}";
+        $class = get_class($this->model());
+
+        $name = str($class)->replace('\\', ' ')->snake();
+
+        $filters = join('-', $this->filters);
+
+        return "{$type}_{$name}_{$filters}";
     }
 }

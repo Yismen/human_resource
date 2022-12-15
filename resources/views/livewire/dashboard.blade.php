@@ -1,5 +1,5 @@
 <div>
-    <h3>Human Resource Dashboard </h3>
+    <h3>Human Resource {{ __('Dashboard') }} </h3>
 
     <div class="row" style="padding: 1rem 1rem;
     border: 1px solid #bdbdbd;
@@ -15,10 +15,52 @@
         background-color: white;
         padding: 0.25rem 2rem;
         border-radius: 5px;
-        box-shadow: -4px 8px 4px #cdcdcd;">Filters</h5>
+        box-shadow: -4px 8px 4px #cdcdcd;">{{ __('Filters') }}</h5>
 
-        <x-human_resource::inputs.select type="primary" field="site" :options="$sites_list">Site:
+        <x-human_resource::inputs.select type="primary" field="site" :options="$sites_list">{{ __('Site') }}:
         </x-human_resource::inputs.select>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="info-box text-success text-bold">
+                <span class="info-box-icon"><i class="far fa-flag"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{ __('Current Employees') }}</span>
+                    <span class="info-box-number">{{ $current_count }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="info-box text-warning text-bold">
+                <span class="info-box-icon"><i class="far fa-pause-circle"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{ __('Suspended') }}</span>
+                    <span class="info-box-number">{{ $suspended }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="info-box text-info">
+                <span class="info-box-icon"><i class="far fa-clock"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{ __('MTD Attrition Rate') }}</span>
+                    <span class="info-box-number">{{ ceil($attrition_mtd * 100) }}%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="info-box text-danger">
+                <span class="info-box-icon"><i class="far fa-list-alt"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{ __('Issues') }}</span>
+                    <span class="info-box-number">{{ array_sum($issues) }}</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -139,7 +181,7 @@
         </div>
 
         <div class="col-sm-3">
-            <h4>Todays Birthdays</h4>
+            <h4>{{ __('Todays Birthdays') }}</h4>
             @unless ($birthdays->count() > 0)
             <div class="alert alert-warning" role="alert">
                 <strong>No birthdays!</strong> None of your peers have birthdays today!
@@ -163,48 +205,39 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <h4 class="text-red">Issues</h4>
+                    <h4 class="text-red">{{ __('Issues') }}</h4>
                     <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between">
+                        <a href="#"
+                            class="list-group-item list-group-item-action d-flex justify-content-between text-dark">
                             Missing Information
-                            <span class="badge bg-gradient-danger badge-pill">{{ $issues['missing_information_count']
+                            <span
+                                class="badge bg-gradient-{{ $issues['missing_information_count'] > 0 ? 'danger' : 'gray' }} badge-pill">{{
+                                $issues['missing_information_count']
                                 }}</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between">
+                        <a href="#"
+                            class="list-group-item list-group-item-action d-flex justify-content-between text-dark">
                             Missing Supervisor
-                            <span class="badge bg-gradient-danger badge-pill">{{ $issues['missing_supervisor_count']
+                            <span
+                                class="badge bg-gradient-{{ $issues['missing_supervisor_count'] > 0 ? 'danger' : 'gray' }} badge-pill">{{
+                                $issues['missing_supervisor_count']
                                 }}</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between">
+                        <a href="#"
+                            class="list-group-item list-group-item-action d-flex justify-content-between text-dark">
                             Missing AFP
-                            <span class="badge bg-gradient-danger badge-pill">{{ $issues['missing_afp_count'] }}</span>
+                            <span
+                                class="badge bg-gradient-{{ $issues['missing_afp_count'] > 0 ? 'danger' : 'gray' }} badge-pill">{{
+                                $issues['missing_afp_count'] }}</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between">
+                        <a href="#"
+                            class="list-group-item list-group-item-action d-flex justify-content-between text-dark">
                             Missing ARS
-                            <span class="badge bg-gradient-danger badge-pill">{{ $issues['missing_ars_count'] }}</span>
+                            <span
+                                class="badge bg-gradient-{{ $issues['missing_ars_count'] > 0 ? 'danger' : 'gray' }} badge-pill">{{
+                                $issues['missing_ars_count'] }}</span>
                         </a>
                     </div>
-
-                    {{-- <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            List item
-                            <span class="badge bg-gradient-danger badge-pill">{{ $issues['missing_information_count']
-                                }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center disabled">
-                            Disabled item
-                            <span class="badge bg-gradient-danger badge-pill">{{ $issues['missing_supervisor_count']
-                                }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center disabled">
-                            Disabled item
-                            <span class="badge bg-gradient-danger badge-pill">{{ $issues['missing_afp_count'] }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center disabled">
-                            Disabled item
-                            <span class="badge bg-gradient-danger badge-pill">{{ $issues['missing_ars_count'] }}</span>
-                        </li>
-                    </ul> --}}
                 </div>
             </div>
         </div>
