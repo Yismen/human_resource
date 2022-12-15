@@ -16,18 +16,19 @@ class AttritionService
 
     protected array $data = [];
     protected Carbon $date_from;
-
     protected Carbon $date_to;
+    protected array $filters;
 
-    public function __construct(Carbon $date_from = null, Carbon $date_to = null)
+    public function __construct(Carbon $date_from = null, Carbon $date_to = null, array $filters)
     {
         $this->date_from = $date_from ?: now();
         $this->date_to = $date_to ?: now();
+        $this->filters = $filters;
 
-        $this->actives_at_period_start = new ActivesStartService($date_from, $date_to);
-        $this->actives_at_period_end = new ActivesEndService($this->date_from, $this->date_to);
-        $this->gains = new HiredService($this->date_from, $this->date_to);
-        $this->terminations = new TerminatedService($this->date_from, $this->date_to);
+        $this->actives_at_period_start = new ActivesStartService($this->date_from, $this->date_to, $this->filters);
+        $this->actives_at_period_end = new ActivesEndService($this->date_from, $this->date_to, $this->filters);
+        $this->gains = new HiredService($this->date_from, $this->date_to, $this->filters);
+        $this->terminations = new TerminatedService($this->date_from, $this->date_to, $this->filters);
     }
 
     public function getData()

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface HCContract
 {
-    public function count($value = null): Collection;
+    public function count(): Collection;
 
-    public function list($value = null): Collection;
+    public function list(): Collection;
 }

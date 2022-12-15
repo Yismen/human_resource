@@ -63,6 +63,11 @@ class Employee extends AbstractModel
         $this->updateQuietly(['full_name' => $name]);
     }
 
+    public function getTenureAttribute()
+    {
+        return $this->hired_at->diffInDays(now());
+    }
+
     public function scopeCurrent($query)
     {
         $query->where('status', EmployeeStatus::CURRENT);
