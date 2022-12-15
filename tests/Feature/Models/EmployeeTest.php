@@ -80,7 +80,7 @@ class EmployeeTest extends TestCase
         Mail::fake();
         Employee::factory()->create();
 
-        Mail::assertSent(MailEmployeeCreated::class);
+        Mail::assertQueued(MailEmployeeCreated::class);
     }
 
     /** @test */

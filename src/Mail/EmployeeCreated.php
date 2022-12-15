@@ -7,8 +7,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Dainsys\HumanResource\Models\Employee;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmployeeCreated extends Mailable
+class EmployeeCreated extends Mailable implements ShouldQueue
 {
     use Queueable;
     use SerializesModels;

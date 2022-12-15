@@ -35,7 +35,7 @@ class EmployeesSuspendedTest extends TestCase
 
         $this->artisan(EmployeesSuspended::class);
 
-        Mail::assertSent(\Dainsys\HumanResource\Mail\EmployeesSuspended::class);
+        Mail::assertQueued(\Dainsys\HumanResource\Mail\EmployeesSuspended::class);
     }
 
     /** @test */
@@ -46,6 +46,6 @@ class EmployeesSuspendedTest extends TestCase
 
         $this->artisan(EmployeesSuspended::class);
 
-        Mail::assertNotSent(\Dainsys\HumanResource\Mail\EmployeesSuspended::class);
+        Mail::assertNotQueued(\Dainsys\HumanResource\Mail\EmployeesSuspended::class);
     }
 }

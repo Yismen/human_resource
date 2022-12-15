@@ -2,7 +2,6 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Console\Commands;
 
-use Dainsys\HumanResource\Models\Site;
 use Dainsys\HumanResource\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dainsys\HumanResource\Console\Commands\InstallCommand;
@@ -18,6 +17,7 @@ class InstallCommandTest extends TestCase
             ->expectsConfirmation('Would you like to publish the configuration file?', 'no')
             ->expectsConfirmation('Would you like to publish the translation file?', 'no')
             ->expectsConfirmation('Would you like to publish the view files?', 'no')
+            ->expectsConfirmation('Would you like to run the migrations now?', 'no')
             ->assertSuccessful();
     }
 }

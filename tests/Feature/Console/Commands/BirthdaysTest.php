@@ -27,7 +27,7 @@ class BirthdaysTest extends TestCase
 
         $this->artisan(Birthdays::class, ['today']);
 
-        Mail::assertSent(MailBirthdays::class);
+        Mail::assertQueued(MailBirthdays::class);
     }
 
     /** @test */
@@ -38,6 +38,6 @@ class BirthdaysTest extends TestCase
 
         $this->artisan(Birthdays::class, ['today']);
 
-        Mail::assertNotSent(MailBirthdays::class);
+        Mail::assertNotQueued(MailBirthdays::class);
     }
 }

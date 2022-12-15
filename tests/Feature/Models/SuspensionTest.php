@@ -43,7 +43,7 @@ class SuspensionTest extends TestCase
         Mail::fake();
         Suspension::factory()->create();
 
-        Mail::assertSent(MailSuspensionUpdated::class);
+        Mail::assertQueued(MailSuspensionUpdated::class);
     }
 
     /** @test */

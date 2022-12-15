@@ -6,8 +6,9 @@ use Dainsys\Report\Report;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmployeesSuspended extends Mailable
+class EmployeesSuspended extends Mailable implements ShouldQueue
 {
     use Queueable;
     use SerializesModels;

@@ -7,8 +7,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Birthdays extends Mailable
+class Birthdays extends Mailable implements ShouldQueue
 {
     use Queueable;
     use SerializesModels;
