@@ -1,6 +1,6 @@
 {
     "name": "dainsys/human_resource",
-    "description": "Human Resource package for Dainsys",
+    "description": "A full stack package to add human_resource functionality to Laravel applications.",
     "type": "library",
     "license": "MIT",
     "authors": [

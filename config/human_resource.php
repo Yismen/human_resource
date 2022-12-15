@@ -4,7 +4,7 @@
  * emails separate by comma (,) or pipe(|).
  */
 return [
-    'super_users' => env('HUMAN_RESOURCE_SUPER_USERS', 'yismen.jorge@gmail.com'),
+    'super_users' => env('HUMAN_RESOURCE_SUPER_USERS', 'some@email.com,another@email.com'),
     /**
     * Here you can specify a list of middleware to apply to
     * all routes. use "," or "|" to separate the list.
