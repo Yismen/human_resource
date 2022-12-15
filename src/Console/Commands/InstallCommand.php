@@ -53,6 +53,10 @@ class InstallCommand extends Command
             $this->call('vendor:publish', ['--tag' => 'human_resource:views']);
         }
 
+        if ($this->confirm('Would you like to run the migrations now?')) {
+            $this->call('migrate');
+        }
+
         $this->info('All done!');
 
         return 0;
