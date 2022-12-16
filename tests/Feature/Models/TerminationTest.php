@@ -43,7 +43,7 @@ class TerminationTest extends TestCase
         Mail::fake();
         Termination::factory()->create();
 
-        Mail::assertSent(MailTerminationCreated::class);
+        Mail::assertQueued(MailTerminationCreated::class);
     }
 
     /** @test */
