@@ -47,5 +47,8 @@
                 "Dainsys\\HumanResource\\HumanResourceServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     }
 }
