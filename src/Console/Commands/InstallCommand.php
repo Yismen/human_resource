@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Console\Commands;
 
 use Illuminate\Console\Command;
+use Dainsys\Report\Console\Commands\InstallCommand as CommandsInstallCommand;
 use Asantibanez\LivewireCharts\Console\InstallCommand as ConsoleInstallCommand;
 
 class InstallCommand extends Command
@@ -38,8 +39,16 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->call(ConsoleInstallCommand::class);
+        if (app()->runningInConsole() && app()->isLocal()) {
+            $this->call(ConsoleInstallCommand::class);
+            $this->call(CommandsInstallCommand::class);
+        }
+
         $this->call('vendor:publish', ['--tag' => 'human_resource:assets', '--force' => true]);
+
+        if ($this->confirm('Would you like to run the migrations now?')) {
+            $this->call('migrate');
+        }
 
         if ($this->confirm('Would you like to publish the configuration file?')) {
             $this->call('vendor:publish', ['--tag' => 'human_resource:config']);
@@ -51,10 +60,6 @@ class InstallCommand extends Command
 
         if ($this->confirm('Would you like to publish the view files?')) {
             $this->call('vendor:publish', ['--tag' => 'human_resource:views']);
-        }
-
-        if ($this->confirm('Would you like to run the migrations now?')) {
-            $this->call('migrate');
         }
 
         $this->info('All done!');

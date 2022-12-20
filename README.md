@@ -27,7 +27,9 @@
     1. optionally, you can add the following line to your `composer` file, under the `scripts` and `post-update-cmd` key, to publish the assets every time you update your composer dependencies: `@php artisan vendor:publish --tag=human_resource:assets --force --ansi`.
  3. Run the migrations: `php artisan migrate`.
     1. If you may want to customize the migrations before this step, first publish them: `@php artisan vendor:publish --force --tag=human_resource:migrations`.
- 4. In your `.env` file, add the following line with list of users who should have super_admin access: `HUMAN_RESOURCE_SUPER_USERS= some@email.com,another@email.com`
+ 4. This app requires super admin users. You can register them with any of the following steps:
+    1. In the `register` method of your `AppServiceProvider` add the following line: `\Dainsys\HumanResource\HumanResource::registerSuperUsers(["super@user1.com", "super@user2.com"]);`.
+    2. In your `.env` file, add the following line with list of users who should have super_admin access: `HUMAN_RESOURCE_SUPER_USERS= some@email.com,another@email.com`
  5. Optionally,:
     1. ou may want to publish and tweek the config file: `@php artisan vendor:publish --force --tag=human_resource:config`.
     2. This package has its own views, designed with livewire and CoreUi. However, if you may want to change them then you can publish them with `@php artisan vendor:publish --force --tag=human_resource:views`. 

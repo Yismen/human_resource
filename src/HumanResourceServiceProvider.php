@@ -3,7 +3,7 @@
 namespace Dainsys\HumanResource;
 
 use Livewire\Livewire;
-use Dainsys\Report\Report;
+use Dainsys\Mailing\Mailing;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Event;
@@ -37,32 +37,20 @@ class HumanResourceServiceProvider extends AuthServiceProvider
 
     public function boot()
     {
+        $current_super_users = preg_split('/[,]+/', config('human_resource.super_users'), -1, PREG_SPLIT_NO_EMPTY);
+
+        Mailing::registerSuperUsers($current_super_users);
         Model::preventLazyLoading(true);
         Paginator::useBootstrap();
+        Mailing::bind(__DIR__ . './Mail');
 
         $this->registerPolicies();
-        $this->registerEvents();
+        $this->bootEvents();
         $this->bootPublishableAssets();
         $this->bootLoads();
         $this->bootLivewireComponents();
-
-        if ($this->app->runningInConsole() && !app()->isProduction()) {
-            $this->commands([
-                \Dainsys\HumanResource\Console\Commands\InstallCommand::class,
-                \Dainsys\HumanResource\Console\Commands\UpdateEmployeeSuspensions::class,
-                \Dainsys\HumanResource\Console\Commands\EmployeesSuspended::class,
-                \Dainsys\HumanResource\Console\Commands\Birthdays::class,
-            ]);
-        }
-
         $this->registerSchedulledCommands();
-
-        Gate::define('interact-with-admin', function (\Illuminate\Foundation\Auth\User $user) {
-            return resolve(AuthorizedUsersContract::class)
-            ->has($user->email);
-        });
-
-        Report::bind(__DIR__ . './Mail');
+        $this->bootGateways();
     }
 
     public function register()
@@ -106,6 +94,15 @@ class HumanResourceServiceProvider extends AuthServiceProvider
 
     protected function registerSchedulledCommands()
     {
+        if ($this->app->runningInConsole() && !app()->isProduction()) {
+            $this->commands([
+                \Dainsys\HumanResource\Console\Commands\InstallCommand::class,
+                \Dainsys\HumanResource\Console\Commands\UpdateEmployeeSuspensions::class,
+                \Dainsys\HumanResource\Console\Commands\EmployeesSuspended::class,
+                \Dainsys\HumanResource\Console\Commands\Birthdays::class,
+            ]);
+        }
+
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
             $schedule->command(UpdateEmployeeSuspensions::class)->dailyAt('03:00');
             $schedule->command(EmployeesSuspended::class)->dailyAt('03:05');
@@ -116,7 +113,7 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         });
     }
 
-    protected function registerEvents()
+    protected function bootEvents()
     {
         Event::listen(EmployeeSaved::class, UpdateFullName::class);
         Event::listen(EmployeeCreated::class, SendEmployeeCreatedEmail::class);
@@ -227,5 +224,13 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         Livewire::component('human_resource::termination.index', \Dainsys\HumanResource\Http\Livewire\Termination\Index::class);
         Livewire::component('human_resource::termination.detail', \Dainsys\HumanResource\Http\Livewire\Termination\Detail::class);
         Livewire::component('human_resource::termination.form', \Dainsys\HumanResource\Http\Livewire\Termination\Form::class);
+    }
+
+    protected function bootGateways()
+    {
+        Gate::define('interact-with-human-resource-admin', function (\Illuminate\Foundation\Auth\User $user) {
+            return resolve(AuthorizedUsersContract::class)
+            ->has($user->email);
+        });
     }
 }

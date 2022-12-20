@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Feature\Http\Livewire\Suspension;
 
 use Livewire\Livewire;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Suspension;
@@ -77,6 +78,7 @@ class FormTest extends TestCase
     /** @test */
     public function suspension_index_component_update_record()
     {
+        Mail::fake();
         $this->withAuthorizedUser();
         $suspension = Suspension::factory()->createQuietly();
         $component = Livewire::test(Form::class)
