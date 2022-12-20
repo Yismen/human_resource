@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4eadfe843f75fc7200664f4d228b21f",
+    "content-hash": "84eac7fbc52dd56353aaf245ec71afaf",
     "packages": [
         {
             "name": "asantibanez/livewire-charts",
@@ -276,17 +276,17 @@
             "time": "2021-06-12T01:05:33+00:00"
         },
         {
-            "name": "dainsys/report",
-            "version": "v1.0.2",
+            "name": "dainsys/mailing",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Yismen/report.git",
-                "reference": "496534c1a7461369f0b1c608d03c5dca18deeefb"
+                "url": "https://github.com/Yismen/mailing.git",
+                "reference": "74e1301cb83211f0293590f2ed6b76f46c9ec505"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yismen/report/zipball/496534c1a7461369f0b1c608d03c5dca18deeefb",
-                "reference": "496534c1a7461369f0b1c608d03c5dca18deeefb",
+                "url": "https://api.github.com/repos/Yismen/mailing/zipball/74e1301cb83211f0293590f2ed6b76f46c9ec505",
+                "reference": "74e1301cb83211f0293590f2ed6b76f46c9ec505",
                 "shasum": ""
             },
             "require": {
@@ -305,7 +305,7 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Dainsys\\Report\\ReportServiceProvider"
+                        "Dainsys\\Mailing\\MailingServiceProvider"
                     ]
                 }
             },
@@ -314,9 +314,9 @@
                     "helpers/functions.php"
                 ],
                 "psr-4": {
-                    "Dainsys\\Report\\": "src/",
-                    "Dainsys\\Report\\Database\\Seeders\\": "database/seeders/",
-                    "Dainsys\\Report\\Database\\Factories\\": "database/factories/"
+                    "Dainsys\\Mailing\\": "src/",
+                    "Dainsys\\Mailing\\Database\\Seeders\\": "database/seeders/",
+                    "Dainsys\\Mailing\\Database\\Factories\\": "database/factories/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -329,12 +329,12 @@
                     "email": "yismen.jorge@gmail.com"
                 }
             ],
-            "description": "Report and recipients management package for Dainsys. This package allows you to Associate recipients to your mailable files.",
+            "description": "Mailing and recipients management package for Dainsys. This package allows you to Associate recipients to your mailable files.",
             "support": {
-                "issues": "https://github.com/Yismen/report/issues",
-                "source": "https://github.com/Yismen/report/tree/v1.0.2"
+                "issues": "https://github.com/Yismen/mailing/issues",
+                "source": "https://github.com/Yismen/mailing/tree/v1.2.1"
             },
-            "time": "2022-12-01T16:19:19+00:00"
+            "time": "2022-12-20T13:50:29+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -840,12 +840,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "e1afe088b4ca613fb96dc57e6d8dbcb8cc2c6b49"
+                "reference": "d3ff07dbb343b7aaaef2cc623cc32516d8551a68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/e1afe088b4ca613fb96dc57e6d8dbcb8cc2c6b49",
-                "reference": "e1afe088b4ca613fb96dc57e6d8dbcb8cc2c6b49",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/d3ff07dbb343b7aaaef2cc623cc32516d8551a68",
+                "reference": "d3ff07dbb343b7aaaef2cc623cc32516d8551a68",
                 "shasum": ""
             },
             "require": {
@@ -1005,7 +1005,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-12-08T15:28:55+00:00"
+            "time": "2022-12-19T10:24:20+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -3369,12 +3369,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "8e9b9c8dfb33af6057c94e1b44846bee700dc5ef"
+                "reference": "9bd719e53bce492742bf34948d8ff86bda81dfc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/8e9b9c8dfb33af6057c94e1b44846bee700dc5ef",
-                "reference": "8e9b9c8dfb33af6057c94e1b44846bee700dc5ef",
+                "url": "https://api.github.com/repos/symfony/console/zipball/9bd719e53bce492742bf34948d8ff86bda81dfc3",
+                "reference": "9bd719e53bce492742bf34948d8ff86bda81dfc3",
                 "shasum": ""
             },
             "require": {
@@ -3460,7 +3460,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-25T14:09:27+00:00"
+            "time": "2022-12-17T11:46:23+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -5060,12 +5060,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "5c9b129efe9abce9470e384bf65d8a7e262eee69"
+                "reference": "4ce2df9a469c19ba45ca6aca04fec1c358a6e791"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/5c9b129efe9abce9470e384bf65d8a7e262eee69",
-                "reference": "5c9b129efe9abce9470e384bf65d8a7e262eee69",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/4ce2df9a469c19ba45ca6aca04fec1c358a6e791",
+                "reference": "4ce2df9a469c19ba45ca6aca04fec1c358a6e791",
                 "shasum": ""
             },
             "require": {
@@ -5080,7 +5080,7 @@
                 "symfony/yaml": "<4.4"
             },
             "require-dev": {
-                "doctrine/annotations": "^1.12",
+                "doctrine/annotations": "^1.12|^2",
                 "psr/log": "^1|^2|^3",
                 "symfony/config": "^5.3|^6.0",
                 "symfony/dependency-injection": "^4.4|^5.0|^6.0",
@@ -5142,7 +5142,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-13T14:10:41+00:00"
+            "time": "2022-12-20T11:10:57+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -6831,12 +6831,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "3f893e19712bb0c8bc86665d1562e9fd509c4ef0"
+                "reference": "2853234bfb7fd80a81a64f4ef8f982f8452b7e61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/3f893e19712bb0c8bc86665d1562e9fd509c4ef0",
-                "reference": "3f893e19712bb0c8bc86665d1562e9fd509c4ef0",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2853234bfb7fd80a81a64f4ef8f982f8452b7e61",
+                "reference": "2853234bfb7fd80a81a64f4ef8f982f8452b7e61",
                 "shasum": ""
             },
             "require": {
@@ -6892,7 +6892,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.21"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2"
             },
             "funding": [
                 {
@@ -6900,7 +6900,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-14T13:26:54+00:00"
+            "time": "2022-12-20T11:32:13+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -7149,12 +7149,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "89e76638465010c6f1a7e0da2a0e5e57dbf89946"
+                "reference": "5c8e892924570f77511d09a63457d31f0c85b774"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/89e76638465010c6f1a7e0da2a0e5e57dbf89946",
-                "reference": "89e76638465010c6f1a7e0da2a0e5e57dbf89946",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5c8e892924570f77511d09a63457d31f0c85b774",
+                "reference": "5c8e892924570f77511d09a63457d31f0c85b774",
                 "shasum": ""
             },
             "require": {
@@ -7243,7 +7243,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-13T06:21:16+00:00"
+            "time": "2022-12-20T11:32:43+00:00"
         },
         {
             "name": "pimple/pimple",
