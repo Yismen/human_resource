@@ -3,6 +3,7 @@
 namespace Dainsys\HumanResource\Tests;
 
 use Illuminate\Support\Facades\Auth;
+use Dainsys\HumanResource\HumanResource;
 use Dainsys\HumanResource\Tests\Models\User;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
@@ -31,7 +32,7 @@ class TestCase extends OrchestraTestCase
             \Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider::class,
             \Cviebrock\EloquentSluggable\ServiceProvider::class,
             \Flasher\Laravel\FlasherServiceProvider::class,
-            \Dainsys\Report\ReportServiceProvider::class,
+            \Dainsys\Mailing\MailingServiceProvider::class,
             \Dainsys\HumanResource\HumanResourceServiceProvider::class,
         ];
     }
@@ -55,6 +56,8 @@ class TestCase extends OrchestraTestCase
 
     protected function withAuthorizedUser()
     {
+        HumanResource::registerSuperUsers(['yismen.jorge@gmail.com']);
+
         $user = User::factory()->create([
             'email' => 'yismen.jorge@gmail.com',
             'name' => 'Yismen Jorge'

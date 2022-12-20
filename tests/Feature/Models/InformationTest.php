@@ -2,6 +2,7 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Models;
 
+use Illuminate\Support\Facades\Mail;
 use Dainsys\HumanResource\Models\Afp;
 use Dainsys\HumanResource\Models\Ars;
 use Dainsys\HumanResource\Models\Bank;
@@ -31,6 +32,7 @@ class InformationTest extends TestCase
     /** @test */
     public function information_model_morph_employee()
     {
+        Mail::fake();
         $employee = Employee::factory()->create();
         $data = [
             'phone' => 'phone',
