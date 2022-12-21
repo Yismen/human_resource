@@ -3,7 +3,7 @@
 namespace Dainsys\HumanResource\Console\Commands;
 
 use Illuminate\Console\Command;
-use Dainsys\Report\Console\Commands\InstallCommand as CommandsInstallCommand;
+use Dainsys\Mailing\Console\Commands\InstallCommand as CommandsInstallCommand;
 use Asantibanez\LivewireCharts\Console\InstallCommand as ConsoleInstallCommand;
 
 class InstallCommand extends Command

@@ -184,23 +184,23 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-circle nav-icon"></i>
                     <p>
-                        {{ __('Reports Links') }}
+                        {{ __('Mailings Links') }}
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview" style="display: none;">
-                    @can('viewAny', \Dainsys\Report\Models\Mailable::class)
+                    @can('viewAny', \Dainsys\Mailing\Models\Mailable::class)
                     <li class="nav-item">
-                        <a href="{{ route('report.admin.mailables.index') }}" target="__new" class="nav-link">
+                        <a href="{{ route('mailing.admin.mailables.index') }}" target="__new" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>{{ __('Mailables') }}</p>
                         </a>
                     </li>
                     @endcan
 
-                    @can('viewAny', \Dainsys\Report\Models\Recipient::class)
+                    @can('viewAny', \Dainsys\Mailing\Models\Recipient::class)
                     <li class="nav-item">
-                        <a href="{{ route('report.admin.recipients.index') }}" target="__new" class="nav-link">
+                        <a href="{{ route('mailing.admin.recipients.index') }}" target="__new" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>{{ __('Recipients') }}</p>
                         </a>

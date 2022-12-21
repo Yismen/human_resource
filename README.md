@@ -36,6 +36,6 @@
     3. Package views extend it's own layout app. However, you can change this by adding the key `INVOICE_LAYOUT_VIEW` to your `.env` file. Or, change it directly in the `human_resource` config file, under the `layout` key.
 ##### Configure your application
 1. Visit route `/hr/admin` to view the dashboard and visit various app links to prepare your sistem.
-2. This package extends the `dainsys/reports` package to report events and scheduled taks, so please complete the followint two steps:
-   1. Visit the `/report/admin/recipients` end point and add the different recipients of you application.
-   2. Visit the `/report/admin/mailables` to add all of your mailables and assign them with your recipients.
+2. This package extends the `dainsys/mailing` package to report events and scheduled taks, so please complete the followint two steps:
+   1. Visit the `/mailing/admin/recipients` end point and add the different recipients of you application.
+   2. Visit the `/mailing/admin/mailables` to add all of your mailables and assign them with your recipients.
