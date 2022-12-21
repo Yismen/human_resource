@@ -2,7 +2,7 @@
 
 namespace Dainsys\HumanResource\Mail;
 
-use Dainsys\Report\Report;
+use Dainsys\Mailing\Mailing;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
@@ -28,7 +28,7 @@ class Birthdays extends Mailable implements ShouldQueue
     {
         return $this
             ->subject("Birthdays {$this->type}")
-            ->to(Report::recipients($this))
+            ->to(Mailing::recipients($this))
             ->markdown('human_resource::mail.birthdays');
     }
 }

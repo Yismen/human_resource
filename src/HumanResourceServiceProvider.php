@@ -40,9 +40,10 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         $current_super_users = preg_split('/[,]+/', config('human_resource.super_users'), -1, PREG_SPLIT_NO_EMPTY);
 
         Mailing::registerSuperUsers($current_super_users);
+        Mailing::bind(__DIR__ . './Mail');
+
         Model::preventLazyLoading(true);
         Paginator::useBootstrap();
-        Mailing::bind(__DIR__ . './Mail');
 
         $this->registerPolicies();
         $this->bootEvents();

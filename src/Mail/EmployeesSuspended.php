@@ -2,7 +2,7 @@
 
 namespace Dainsys\HumanResource\Mail;
 
-use Dainsys\Report\Report;
+use Dainsys\Mailing\Mailing;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -23,7 +23,7 @@ class EmployeesSuspended extends Mailable implements ShouldQueue
     public function build()
     {
         return $this
-            ->to(Report::recipients($this))
+            ->to(Mailing::recipients($this))
             ->markdown('human_resource::mail.employees-suspended');
     }
 }

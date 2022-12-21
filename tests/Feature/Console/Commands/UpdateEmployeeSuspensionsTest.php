@@ -2,9 +2,6 @@
 
 namespace Dainsys\HumanResource\Tests\Feature\Console\Commands;
 
-use Dainsys\Report\Models\Mailable;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Event;
 use Dainsys\HumanResource\Tests\TestCase;
 use Dainsys\HumanResource\Models\Employee;
 use Dainsys\HumanResource\Models\Suspension;
@@ -26,7 +23,6 @@ class UpdateEmployeeSuspensionsTest extends TestCase
     /** @test */
     public function current_employees_are_suspended()
     {
-
         $current = Employee::factory()->createQuietly();
         Suspension::factory()->createQuietly([
             'employee_id' => $current->id,

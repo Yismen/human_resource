@@ -45,6 +45,8 @@ class Dashboard extends Component
         BirthdaysService $birthdays,
         IssuesService $issues
     ) {
+        $this->authorize('interact-with-human-resource-admin');
+
         return view('human_resource::livewire.dashboard', [
             'by_site' => $bySite->filters(['id' => $this->site])->count(),
             'by_project' => $byProject->filters(['employees.site.id' => $this->site])->count(),
