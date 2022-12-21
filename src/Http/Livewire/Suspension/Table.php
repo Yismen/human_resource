@@ -8,6 +8,7 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use Dainsys\HumanResource\Services\EmployeeService;
 use Dainsys\HumanResource\Services\SuspensionTypeService;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Dainsys\HumanResource\Http\Livewire\AbstractDataTableComponent;
 
 class Table extends AbstractDataTableComponent
@@ -42,6 +43,10 @@ class Table extends AbstractDataTableComponent
                 ->format(fn ($value, $row) => $row->duration),
             Column::make('Type', 'suspension_type_id')
                 ->format(fn ($value, $row) => $row->suspensionType->name),
+            BooleanColumn::make('IsActive', 'id')
+            ->setCallback(function (string $value, $row) {
+                return $row->is_active;
+            }),
             Column::make('Employee', 'employee_id')
                 ->format(fn ($value, $row) => $row->employee->full_name),
             Column::make('Actions', 'id')
