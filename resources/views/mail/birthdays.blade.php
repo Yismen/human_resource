@@ -13,7 +13,7 @@ $birthday['age'] }} |
 @endcomponent
 
 {{-- @component('mail::button', ['url' => ''])
-{{ __('Profile') }}
+{{ str(__('human_resource::messages.profile'))->headline() }}
 @endcomponent --}}
 
 Thanks,<br>

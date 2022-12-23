@@ -1,8 +1,8 @@
 <div>
     @php
 
-    $title = $editing ? join(" ", [ __('Edit'), __('Suspension'), $suspension->name]) : join(" ", [__('Create'),
-    __('New'), __('Suspension') ])
+    $title = $editing ? join(" ", [ str(__('human_resource::messages.edit'))->headline(), str(__('human_resource::messages.suspension'))->headline(), $suspension->name]) : join(" ", [str(__('human_resource::messages.create'))->headline(),
+    str(__('human_resource::messages.new'))->headline(), str(__('human_resource::messages.suspension'))->headline() ])
     @endphp
 
     <x-human_resource::modal modal-name="SuspensionForm" title="{{ $title }}"
@@ -13,14 +13,14 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <x-human_resource::inputs.select field="suspension.employee_id" :options="$employees">{{
-                            __('Employee') }}:
+                            str(__('human_resource::messages.employee'))->headline() }}:
                         </x-human_resource::inputs.select>
                     </div>
                     <div class="col-sm-6">
                         <x-human_resource::inputs.select field="suspension.suspension_type_id"
                             :options="$suspension_types">
                             {{
-                            __('Type') }}:
+                            str(__('human_resource::messages.type'))->headline() }}:
                         </x-human_resource::inputs.select>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                 </div>
 
                 <x-human_resource::inputs.text-area field="suspension.comments" :required="false">{{
-                    __('Comments') }}:
+                    str(__('human_resource::messages.comments'))->headline() }}:
                 </x-human_resource::inputs.text-area>
             </div>
 

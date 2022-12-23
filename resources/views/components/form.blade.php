@@ -14,11 +14,11 @@
 
         @if ($editing)
         <x-human_resource::button type="submit" color="warning" class="btn-sm">
-            {{ __('Update') }}
+            {{ str(__('human_resource::messages.update'))->headline() }}
         </x-human_resource::button>
         @else
         <x-human_resource::button type="submit" color="primary" class="btn-sm">
-            {{ __('Create') }}
+            {{ str(__('human_resource::messages.create'))->headline() }}
         </x-human_resource::button>
         @endif
     </div>

@@ -10,17 +10,17 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <x-human_resource::inputs.with-labels field="termination.date" type="date">{{
-                                __('Date') }}:
+                                str(__('human_resource::messages.date'))->headline() }}:
                             </x-human_resource::inputs.with-labels>
                         </div>
                         <div class="col-sm-4">
                             <x-human_resource::inputs.select field="termination.termination_type_id" :options="$termination_types">{{
-                                __('Type') }}:
+                                str(__('human_resource::messages.type'))->headline() }}:
                             </x-human_resource::inputs.select>
                         </div>
                         <div class="col-sm-4">
                             <x-human_resource::inputs.select field="termination.termination_reason_id" :options="$termination_reasons">{{
-                                __('Reason') }}:
+                                str(__('human_resource::messages.reason'))->headline() }}:
                             </x-human_resource::inputs.select>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <x-human_resource::inputs.switch field="termination.rehireable" class="{{ $termination->rehireable ? 'text-success' : 'text-danger' }}">{{
-                                __('Rehireable') }}:
+                                str(__('human_resource::messages.rehireable'))->headline() }}:
                             </x-human_resource::inputs.switch>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <x-human_resource::inputs.text-area field="termination.comments">{{
-                                __('Comments') }}:
+                                str(__('human_resource::messages.comments'))->headline() }}:
                             </x-human_resource::inputs.text-area>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
         </div>
     @else
         <button class="btn btn-danger btn-sm" wire:click='prepare()'>
-            {{ __('Inactivate') }}
+            {{ str(__('human_resource::messages.inactivate'))->headline() }}
         </button>
     @endif
 </div>
