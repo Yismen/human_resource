@@ -10,7 +10,7 @@ This employee works for program {{ $suspension->employee->project->name }} in si
 }} as a {{ $suspension->employee->position->name }}
 
 {{-- @component('mail::button', ['url' => ''])
-{{ __('Profile') }}
+{{ str(__('human_resource::messages.profile'))->headline() }}
 @endcomponent --}}
 
 Thanks,<br>

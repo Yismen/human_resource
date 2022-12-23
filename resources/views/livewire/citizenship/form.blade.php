@@ -1,8 +1,8 @@
 <div>
     @php
 
-    $title = $editing ? join(" ", [ __('Edit'), __('Citizenship'), $citizenship->name]) : join(" ", [__('Create'),
-    __('New'), __('Citizenship') ])
+    $title = $editing ? join(" ", [ str(__('human_resource::messages.edit'))->headline(), str(__('human_resource::messages.citizenship'))->headline(), $citizenship->name]) : join(" ", [str(__('human_resource::messages.create'))->headline(),
+    str(__('human_resource::messages.new'))->headline(), str(__('human_resource::messages.citizenship'))->headline() ])
     @endphp
 
     <x-human_resource::modal modal-name="CitizenshipForm" title="{{ $title }}"
@@ -10,11 +10,11 @@
 
         <x-human_resource::form :editing="$editing">
             <div class="p-3">
-                <x-human_resource::inputs.with-labels field="citizenship.name">{{ __('Name') }}:
+                <x-human_resource::inputs.with-labels field="citizenship.name">{{ str(__('human_resource::messages.name'))->headline() }}:
                 </x-human_resource::inputs.with-labels>
 
                 <x-human_resource::inputs.text-area field="citizenship.description" :required="false">{{
-                    __('Description') }}:
+                    str(__('human_resource::messages.description'))->headline() }}:
                 </x-human_resource::inputs.text-area>
             </div>
         </x-human_resource::form>

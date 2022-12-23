@@ -1,8 +1,8 @@
 <div>
     @php
 
-    $title = $editing ? join(" ", [ __('Edit'), __('Information'), $information->name]) : join(" ", [__('Create'),
-    __('New'), __('Information') ])
+    $title = $editing ? join(" ", [ str(__('human_resource::messages.edit'))->headline(), str(__('human_resource::messages.information'))->headline(), $information->name]) : join(" ", [str(__('human_resource::messages.create'))->headline(),
+    str(__('human_resource::messages.new'))->headline(), str(__('human_resource::messages.information'))->headline() ])
     @endphp
 
     <x-human_resource::modal modal-name="InformationForm" title="{{ $title }}"
@@ -14,7 +14,7 @@
                     <div class="col-sm-8">
                         <x-human_resource::inputs.with-labels field="photo" type="file" :required="false"
                             class="filedrop">
-                            {{ __('Image') }}:
+                            {{ str(__('human_resource::messages.image'))->headline() }}:
                         </x-human_resource::inputs.with-labels>
                     </div>
                     <div class="col-sm-4">
@@ -29,16 +29,16 @@
                 </div>
 
                 <x-human_resource::inputs.with-labels field="information.phone">
-                    {{ __('Phone') }}:
+                    {{ str(__('human_resource::messages.phone'))->headline() }}:
                 </x-human_resource::inputs.with-labels>
                 <x-human_resource::inputs.with-labels field="information.email" :required="false">
-                    {{ __('Email') }}:
+                    {{ str(__('human_resource::messages.email'))->headline() }}:
                 </x-human_resource::inputs.with-labels>
                 <x-human_resource::inputs.with-labels field="information.company_id" :required="false">
-                    {{ __('ID') }}:
+                    {{ str(__('human_resource::messages.i_d'))->headline() }}:
                 </x-human_resource::inputs.with-labels>
                 <x-human_resource::inputs.text-area rows="2" field="information.address" :required="false">{{
-                    __('Address') }}:
+                    str(__('human_resource::messages.address'))->headline() }}:
                 </x-human_resource::inputs.text-area>
             </div>
         </x-human_resource::form>

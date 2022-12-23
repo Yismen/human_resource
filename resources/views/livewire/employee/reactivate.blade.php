@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <x-human_resource::inputs.with-labels field="reactivation.hired_at" type="date">{{
-                                __('Date') }}:
+                                str(__('human_resource::messages.date'))->headline() }}:
                             </x-human_resource::inputs.with-labels>
                         </div>
                 </div>
@@ -18,7 +18,7 @@
         </div>
     @else
         <button class="btn btn-success btn-sm" wire:click='prepare()'>
-            {{ __('Reactivate') }}
+            {{ str(__('human_resource::messages.reactivate'))->headline() }}
         </button>
     @endif
 </div>

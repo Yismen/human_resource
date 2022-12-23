@@ -6,7 +6,7 @@ person
 was assigned to site {{ $employee->site->name }} and was hired for project {{ $employee->project->name }}.
 
 {{-- @component('mail::button', ['url' => ''])
-{{ __('Profile') }}
+{{ str(__('human_resource::messages.profile'))->headline() }}
 @endcomponent --}}
 
 Thanks,<br>

@@ -83,6 +83,10 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         $this->publishes([
             __DIR__ . '/../public' => public_path('vendor/dainsys/human_resource'),
         ], 'human_resource:assets');
+
+        $this->publishes([
+            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/human_resource'),
+        ], 'human_resource:translations');
     }
 
     protected function bootLoads()
@@ -91,6 +95,7 @@ class HumanResourceServiceProvider extends AuthServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'human_resource');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'human_resource');
     }
 
     protected function registerSchedulledCommands()

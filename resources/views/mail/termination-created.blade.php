@@ -6,7 +6,7 @@ $termination->terminationType->name }}, with termination date {{ $termination->d
 reason is {{ $termination->terminationReason->name }}.
 
 {{-- @component('mail::button', ['url' => ''])
-{{ __('Profile') }}
+{{ str(__('human_resource::messages.profile'))->headline() }}
 @endcomponent --}}
 
 Thanks,<br>

@@ -1,8 +1,8 @@
 <div>
     @php
 
-    $title = $editing ? join(" ", [ __('Edit'), __('Termination'), $termination->name]) : join(" ", [__('Create'),
-    __('New'), __('Termination') ])
+    $title = $editing ? join(" ", [ str(__('human_resource::messages.edit'))->headline(), str(__('human_resource::messages.termination'))->headline(), $termination->name]) : join(" ", [str(__('human_resource::messages.create'))->headline(),
+    str(__('human_resource::messages.new'))->headline(), str(__('human_resource::messages.termination'))->headline() ])
     @endphp
 
     <x-human_resource::modal modal-name="TerminationForm" title="{{ $title }}"
@@ -14,19 +14,19 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <x-human_resource::inputs.with-labels field="termination.date" type="date">{{
-                            __('Date') }}:
+                            str(__('human_resource::messages.date'))->headline() }}:
                         </x-human_resource::inputs.with-labels>
                     </div>
                     <div class="col-sm-4">
                         <x-human_resource::inputs.select field="termination.termination_type_id"
                             :options="$termination_types">{{
-                            __('Type') }}:
+                            str(__('human_resource::messages.type'))->headline() }}:
                         </x-human_resource::inputs.select>
                     </div>
                     <div class="col-sm-4">
                         <x-human_resource::inputs.select field="termination.termination_reason_id"
                             :options="$termination_reasons">{{
-                            __('Reason') }}:
+                            str(__('human_resource::messages.reason'))->headline() }}:
                         </x-human_resource::inputs.select>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     <div class="col-sm-4">
                         <x-human_resource::inputs.switch field="termination.rehireable"
                             class="{{ optional($termination)->rehireable ? 'text-success' : 'text-danger' }}">{{
-                            __('Rehireable') }}:
+                            str(__('human_resource::messages.rehireable'))->headline() }}:
                         </x-human_resource::inputs.switch>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <x-human_resource::inputs.text-area field="termination.comments">{{
-                            __('Comments') }}:
+                            str(__('human_resource::messages.comments'))->headline() }}:
                         </x-human_resource::inputs.text-area>
                     </div>
                 </div>

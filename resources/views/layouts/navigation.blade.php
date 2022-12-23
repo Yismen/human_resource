@@ -7,7 +7,7 @@
                 <a href="{{ route('human_resource.admin.dashboard.index') }}" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
-                        {{ __('Dashboard') }}
+                        {{ str(__('human_resource::messages.dashboard'))->headline() }}
                     </p>
                 </a>
             </li>
@@ -16,7 +16,7 @@
                 <a href="{{ route('human_resource.about') }}" class="nav-link">
                     <i class="nav-icon far fa-address-card"></i>
                     <p>
-                        {{ __('About') }}
+                        {{ str(__('human_resource::messages.about'))->headline() }}
                     </p>
                 </a>
             </li>
@@ -34,7 +34,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.citizenships.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Citizenships') }}</p>
+                            <p>{{ str(__('human_resource::messages.citizenships'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -43,7 +43,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.departments.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Departments') }}</p>
+                            <p>{{ str(__('human_resource::messages.departments'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -62,7 +62,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.positions.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Positions') }}</p>
+                            <p>{{ str(__('human_resource::messages.positions'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -71,7 +71,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.projects.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Projects') }}</p>
+                            <p>{{ str(__('human_resource::messages.projects'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -80,7 +80,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.sites.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Sites') }}</p>
+                            <p>{{ str(__('human_resource::messages.sites'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -89,7 +89,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.employees.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Employees') }}</p>
+                            <p>{{ str(__('human_resource::messages.employees'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -118,7 +118,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.terminations.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Termination') }}</p>
+                            <p>{{ str(__('human_resource::messages.termination'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -137,7 +137,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.suspensions.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Suspension') }}</p>
+                            <p>{{ str(__('human_resource::messages.suspension'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -146,7 +146,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.supervisors.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Supervisors') }}</p>
+                            <p>{{ str(__('human_resource::messages.supervisors'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -155,7 +155,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.afps.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Afps') }}</p>
+                            <p>{{ str(__('human_resource::messages.afps'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -164,7 +164,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.arss.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Arss') }}</p>
+                            <p>{{ str(__('human_resource::messages.arss'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -173,7 +173,7 @@
                     <li class="nav-item">
                         <a href="{{ route('human_resource.admin.banks.index') }}" target="_top" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Banks') }}</p>
+                            <p>{{ str(__('human_resource::messages.banks'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -193,7 +193,7 @@
                     <li class="nav-item">
                         <a href="{{ route('mailing.admin.mailables.index') }}" target="__new" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Mailables') }}</p>
+                            <p>{{ str(__('human_resource::messages.mailables'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan
@@ -202,7 +202,7 @@
                     <li class="nav-item">
                         <a href="{{ route('mailing.admin.recipients.index') }}" target="__new" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('Recipients') }}</p>
+                            <p>{{ str(__('human_resource::messages.recipients'))->headline() }}</p>
                         </a>
                     </li>
                     @endcan

@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <x-human_resource::inputs.select field="suspension.suspension_type_id" :options="$suspension_types">{{
-                                __('Type') }}:
+                                str(__('human_resource::messages.type'))->headline() }}:
                             </x-human_resource::inputs.select>
                         </div>
                         <div class="col-sm-4">
@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <x-human_resource::inputs.text-area field="suspension.comments">{{
-                                __('Comments') }}:
+                                str(__('human_resource::messages.comments'))->headline() }}:
                             </x-human_resource::inputs.text-area>
                         </div>
                     </div>
